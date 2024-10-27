@@ -522,7 +522,7 @@ If this is true we can do the following:
 
 \subsection*{Key Properties of Estimators}
 \subsubsection*{Unbiased}
-if its expected value equals to the true parameter value.
+If its expected value equals to the true parameter value.
 
 $$
 \mathbb{E}[\hat{\theta}] = \theta
@@ -549,9 +549,9 @@ Consistent does not imply unbiased (and vice-versa).
 
 \begin{itemize}
     \item $\hat{\theta}_n = X_1$: unbiased but not consistent.
-    \item $\hat{\theta}_n = \frac{1}{n - 2} sum_{i = 1}^n X_i$: consistent but not unbiased.
-    \item $\hat{\theta}_n = \frac{1}{n} sum_{i = 1}^n X_i$: consistent and unbiased.
-    \item $\hat{\theta}_n = \frac{1}{n} sum_{i = 1}^n (X_i - 5)$: not consistent and not unbiased.
+    \item $\hat{\theta}_n = \frac{1}{n - 2} \sum_{i = 1}^n X_i$: consistent but not unbiased.
+    \item $\hat{\theta}_n = \frac{1}{n} \sum_{i = 1}^n X_i$: consistent and unbiased.
+    \item $\hat{\theta}_n = \frac{1}{n} \sum_{i = 1}^n (X_i - 5)$: not consistent and not unbiased.
     \item OLS estimator: only consistent and unbiased if $\mathbb{E}[u|x] = 0$ (among other regularities).
 \end{itemize} 
 
@@ -569,40 +569,55 @@ Having the minimum variance among a class of estimators.
 
 FWL states that in a regression model with outcome $y$ and multiple regressors $X_1$ and $X_2$ (each a matrix of covariates).
 
+Our regression model is:
+
+$$
+y = X_1 \beta_1 + X_2 \beta_2 + u
+$$
+
+We are interested in using data $(\{ y_i, X_{1, i}, X_{2, i} \})$ to estimate $\beta_1$.
+
+We can obtain the coefficients of $X_1$ by:
+
 \begin{enumerate}
-    \item regressing $X_1$ on $X_2$.
-    \item regressing $y$ on $X_2$, and thesection
-    \item running a regression with the residuals of the two previous regressions.
+    \item regressing $X_1$ on $X_2$: obtain $M_{X_2} X_1$
+    \item regressing $y$ on $X_2$: obtain $M_{X_2} y$
+    \item running a regression with the residuals of the two previous regressions: $M_{X_2} y = \beta_1 M_{X_2} X_1$
 \end{enumerate}
 
-The first two steps is often referred to as residualizing or partialing out the effect of $X_2$.
+Items (1) and (2) are often called residualizing or partialing out the effect of $X_2$.
+
+This is an often-used result because, among other reasons, it helps by taking advantage of dimensionality reduction.
+
+We call $M_X$ the residual matrix or annihilator matrix that projects the orthogonal complement of $X$:
+
+$$
+M_X = I - X (X'X)^{-1} X
+$$
 
 \subsubsection*{Formal statement}
 
-Our regression model:
-
-$$
-y = X_1 \beta_1 + X_2 \beta_1 + u
-$$
-
-PEGAR EXPLICACAO NO PPT DO TA
 
 \subsection*{Identification}
-Refers to the ability to learn the true value of a parameter from the data. Intuitvely, it answers: if we had infinite data, could we calculate the value of this parameter uniquely?
+Refers to the ability to learn the true value of a parameter from the data. Intuitively, it answers: if we had infinite data, could we calculate the value of this parameter uniquely?
 
 Without identification, parameter estimates are meaninless because the data cannot uniquely reveal the true parameter value.
+
+\subsubsection{Point Identification}
+A parameter is point identified if there is exactly one value of $\theta$ that is consistent with the observed data.
 
 Partial identification is becoming a more important topic.
 
 \section{Lecture 4}
 
-Confidence interval: if I do sampling a infinity amount of times, I expect that the sample populational estimate will be inside the CI 95\% of the time.
+\subsection{Confidence Interval}
+If I do sampling a infinity amount of times, I expect that the sample populational estimate will be inside the CI $X$\% of the time, where $X$ is the confidence level of my CI.
 
-Standard errors: estimates of standard deviations.
+\subsection{Parameter Variance}
 
-The treatment effect can have variance, but it will be difference from the $\hat{\beta}$ variance. The variance of $\hat{\beta}$ is how good my estimate is. The variance of the treatment effect is how much the treatment effect changes.
+The treatment effect will have variance that will be probably difference from the $\hat{\beta}$ variance. The variance of $\hat{\beta}$ is how good my estimate is. The variance of the treatment effect is how much the treatment effect changes.
 
-The treatment effect might have a super weird distribution. On the other hand, the estimate of the average treatment might be fairly precise. This can also be the opposite.
+The treatment effect might have a super weird distribution. On the other hand, the estimate of the average treatment might be fairly precise. The opposite can also happen.
 
 \subsection{Changes in Estimate}
 
@@ -614,19 +629,19 @@ We can view $\hat{\beta}$ as a function that maps rows and columns into a vector
 
 We can think about $\hat{\beta}$ as a $f(w)$ and the $X$ and $Y$ as $w$.
 
-Think about the derivative for $\hat{\beta}$:
+With this perception, we could even take the derivative of $\hat{\beta}$:
 
 $$
 \frac{\partial \hat{\beta}}{\partial X, Y}
 $$
 
-Nonetheless, $X, Y$ are too many numbers. We should not take a derivative for that many numbers...
+Nonetheless, $X, Y$ are too many numbers. Taking a derivative with respect to so many numbers would be impractical and inconclusive.
 
 Therefore, we think of $X, Y$ as a dataset and we should do the derivative with respect to the dataset.
 
-We can think that this dataset maps to a $\hat{\beta}$. Any other dataset maps to another $\hat{\beta}$.
+A particular dataset maps to a $\hat{\beta}$. Any other dataset maps to another $\hat{\beta}$.
 
-We have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. It works in the same way as $f(w) = w^2$, which will always produce $4$ when $w = 2$.
+In conclusion, we have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. In a dummy way, it works in the same way as $f(w) = w^2$, which will always produce $4$ when $w = 2$.
 
 The difference here is that I want to check a frequency histogram of $\hat{\beta}$ in the output $\mathbb{R}^p$. I expect a normal distribution as a map from multiple datasets to $\hat{\beta}$.
 
@@ -640,7 +655,7 @@ $$
 \alpha(F_n) = \frac{1}{n} \sum_{i=1}^{n} X_i = \bar{X}, \quad \text{where} \\\ \alpha \\\ \text{is a function}
 $$
 
-What if I had $F_{n-1}$: same dataset, but without one row.
+What if I had $F_{n-1}$: same dataset, but without one row?
 
 
 $$
@@ -664,29 +679,31 @@ $$
 \frac{\partial \alpha(F_{\infty})}{\partial i} = X_i - \mu
 $$
 
-This is the same thing as:
+Which can also be written as:
 
 $$
 \sqrt{n}(\bar{X} - \mu) = \frac{1}{n}
 $$
 
-\section{Lecture 6}
-Lets call the $\alpha$ the sample mean:
+\section{Lecture 5}
+Following the example of the previous lecture, we call $\alpha$ the sample mean:
 
 $$
 \alpha(F) = \int X \,dF = \mathbb{E}[X]
 $$
+
+How can we do the derivative of $\alpha(F)$?
 
 The methods to do the derivative is:
 \begin{itemize}
     \item Small change in the dataset (maybe change or add one observation)
     \item Change the distribution:
     \begin{itemize}
-        \item $F_\varepsilon = (1 - \varepsilon) F + \varepsilon G$: we can use an idea drawing from the right distribution $(1 - \varepsilon)$ of the times and from a corrupted distribution every $varepsilon$ times. We want to check that to know how much my parameter changes:
+        \item $F_\varepsilon = (1 - \varepsilon) F + \varepsilon G$: we can use the idea of drawing from the right distribution $(1 - \varepsilon)$ of the times and from a corrupted distribution every $\varepsilon$ times. We want to check that to know how much my parameter changes:
         
         \begin{align*}
             \alpha(F_\varepsilon) - \alpha(F)
-            &= \int X \,dF_varepsilon - \int X  \,dF \\
+            &= \int X \,dF_\varepsilon - \int X  \,dF \\
             &= (1 - \varepsilon) \int X \,dF + \varepsilon \int X \,dG - \int X  \,dF \\
             &= \varepsilon \alpha(G) - \varepsilon \alpha(F)
             &= \varepsilon
@@ -704,7 +721,23 @@ The methods to do the derivative is:
     \end{align*}
 \end{itemize}
 
-Central Limit Theorem:
+\subsection{What is an influence function?}
+
+In statistics, an influence function is a tool used in robust statistics to measure the sensitivity of a statistical estimator to small changes or contaminations in the data. If assesses how an infinitesimal amount of contamination at any point in the data space affects the estimator, providing insights into the robustness of the estimator against outliers.
+
+In a formal distribution:
+
+$$
+\text{IF}(x, T, F) = \lim_{\varepsilon \to 0} \dfrac{T(F_\varepsilon) - T(F)}{\varepsilon}
+$$
+
+Where $F_\varepsilon = (1 - \varepsilon) F + \varepsilon G$
+
+\subsection{Central Limit Theorem}
+
+Asymptotic Normality: according to central limit theorem, under certain conditions, the sum or average of large number of independent random variables will be approximately normally distributed.
+
+Example:
 
 $$
 \sqrt{n} (\bar{x} - \mu) = \frac{1}{\sqrt{n}} \sum (x_i - \mu)
@@ -718,29 +751,49 @@ The central limit theorem always work with a:
     \item $w$ with variance bigger than 0 and smaller than $\infty$.
 \end{itemize}
 
+For an estimator $T$, the influence function $\text{IF}(x, T, F)$ measures the effect of a small contamination at point $x$ on $T$.
+
+The variance of this function over the distribution  $F$ gives the asymptotic variance of $T$:
+
+$$
+\sigma^2 = \int [IF(x; T, F)]^2 \, dF(x)
+$$
+
+Asymptotic variance is the variance of an estimator's sampling distribution as the sample size approaches infinity. It quantifies the estimator's variability in large samples and is used to describe its limiting normal distribution for inference.
+
+For asymptotic variance we can apply CLT:
+
+\[
+\sqrt{n}(T_n - T(F)) \xrightarrow{d} N(0, \sigma^2)
+\]
+
+\subsection{Influence Function for OLS}
+
 Now, lets look at the solution of the OLS. What is the influence function of the OLS estimator?
+
+The solution for $\hat{\beta}$
 
 $$
 \hat{\beta} = (X'X)^{-1} (X'Y)
 $$
 
-Our goal right now is that the $\hat{\beta}$ is assyntotically normal (follow the CLT).
+Our goal right now is to write $\hat{\beta}$ as assyntotically normal (follow the CLT):
 
 $$
 \sqrt{n}(\hat{\beta} - \beta) = \dfrac{1}{\sqrt{n}} \sum_{i=1}^{n} \phi (X_i, Y_i)
 $$
 
-That must be a function $\phi (X_i, Y_i)$ that has mean 0 and finite variance that allows me to do that.
+That must be a function $\phi (X_i, Y_i)$ that has mean 0 and finite variance that allows for us to be able to that.
 
 My way to prove assyntotically normality is to write it in this format.
 
-We are not get exactly, but we can get close enough that the difference is $o_1$. This is the same idea as we have in computer science, meaning that:
+We cannot get there exactly, but we can get close enough in a way that the difference is $o_1$. This is the same idea as we have in computer science, meaning that:
 
 $$
 a_n = O(b_n)
 $$
 
-Which means that:
+Which translates to:
 
 $$
 \lim_{n \to \infty} \frac{a_n}{b_n} < \infty
@@ -756,7 +809,7 @@ $$
 \lim_{n \to \infty} \frac{a_n}{b_n} = 0
 $$
 
-When using little $o$ in stats, we often mean that such a thing hold with high probability, which is written as $o_p$.
+When using little $o$ in statistics, we often mean that such a thing hold with high probability, which is written as $o_p$.
 
 Another example:
 

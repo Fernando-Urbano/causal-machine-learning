@@ -1,0 +1,178 @@
+---
+title: "q4b"
+output: html_document
+date: "2024-11-05"
+---
+
+4.i
+```{r}
+library(tidyverse)
+library(readxl)
+
+nsw_psid <- read.csv("data/nsw_PSID.csv", sep = ",") %>% 
+  as_tibble()
+nsw_psid
+```
+
+```{r}
+nsw_psid %>% 
+  group_by(treat) %>% 
+  summarise(avg = mean(income.after)) %>% 
+  spread(treat, avg) %>% 
+  purrr::set_names(c("control", "treatment")) %>% 
+  mutate(att = treatment - control)
+```
+
+# 4.j
+```{r}
+covariate_levels <- c(
+  "avg_income_after",
+  "std_income_after",
+  "pct_black",
+  "pct_married",
+  "pct_hispanic",
+  "pct_hsdegree",
+  "avg_education",
+  "std_education",
+  "avg_age",
+  "std_age",
+  "avg_income_before1",
+  "std_income_before1",
+  "avg_income_before2",
+  "std_income_before2",
+  "n"
+)
+
+nsw_psid %>% 
+  group_by(treat) %>% 
+  summarise(
+    avg_income_after = mean(income.after),
+    std_income_after = sd(income.after),
+    pct_black = mean(black),
+    pct_married = mean(married),
+    pct_hispanic = mean(hispanic),
+    pct_hsdegree = mean(hsdegree),
+    avg_education = mean(education),
+    std_education = sd(education),
+    avg_age = mean(age, na.rm = TRUE),
+    std_age = sd(age, na.rm = TRUE),
+    n = n(),
+    avg_income_before2 = mean(income.before2),
+    std_income_before2 = sd(income.before2),
+    avg_income_before1 = mean(income.before1),
+    std_income_before1 = sd(income.before1),
+  ) %>% 
+  gather(id, value, -treat) %>% 
+  spread(treat, value) %>% 
+  mutate(id = factor(id, levels = covariate_levels)) %>% 
+  arrange(id)
+```
+# 4.k
+```{r}
+nsw_psid_interaction_treat <- nsw_psid %>% 
+  mutate(
+    income_before1_treat = income.before1 * treat,
+    income_before2_treat = income.before2 * treat,
+    black_treat = black * treat,
+    age_treat = age * treat,
+    married_treat = married * treat,
+    hispanic_treat = hispanic * treat,
+    education_treat = education * treat,
+    hsdegree_treat = hsdegree * treat
+  )
+
+lm(
+  income.after ~ ., data = nsw_psid_interaction_treat
+) %>% 
+  summary()
+```
+
+```{r}
+regression_model <- lm(
+  income.after ~ treat + age + education
+  + black + hispanic + married + hsdegree
+  + income.before1 + income.before2,
+  data = nsw_psid
+)
+
+regression_model %>% summary()
+```
+```{r}
+regression_model <- lm(
+  income.after ~ treat
+  + age
+  + education
+  + hispanic + married
+  + income.before1 + income.before2
+  + income.before2 * treat,
+  data = nsw_psid
+)
+
+regression_model %>% summary()
+```
+
+```{r}
+nsw_psid_interaction_treat <- nsw_psid %>% 
+  mutate(
+    income_before1_treat = income.before1 * treat,
+    income_before2_treat = income.before2 * treat,
+    black_treat = black * treat,
+    age_treat = age * treat,
+    married_treat = married * treat,
+    hispanic_treat = hispanic * treat,
+    education_treat = education * treat,
+    hsdegree_treat = hsdegree * treat
+  )
+
+backward_elimination_models <- c()
+
+while (nsw_psid_interaction_treat %>% ncol() >= 4) {
+  nsw_psid_interaction_treat_model_summary <- lm(
+    income.after ~ ., data = nsw_psid_interaction_treat
+  ) %>% 
+    summary()
+  
+  print(nsw_psid_interaction_treat_model_summary)
+  
+  backward_elimination_models <- c(
+    backward_elimination_models,
+    nsw_psid_interaction_treat_model_summary
+  )
+  
+  nsw_psid_interaction_treat_biggest_p_value <- nsw_psid_interaction_treat_model_summary$coefficients %>%
+    data.frame() %>% 
+    purrr::set_names("estimate", "std", "t_value", "p_value") %>% 
+    rownames_to_column(var = "covariate") %>% 
+    arrange(desc(p_value)) %>% 
+    filter(covariate != "treat" & covariate != "(Intercept)") %>% 
+    head(1) %>% 
+    .$covariate
+  
+  nsw_psid_interaction_treat <- nsw_psid_interaction_treat %>% 
+    select(-!!nsw_psid_interaction_treat_biggest_p_value)
+}
+```
+```{r}
+# Data preparation for DiD
+# Reshape the data from wide to long format to have a time variable
+nsw_long <- nsw_psid %>%
+  # Select relevant variables
+  select(treat, age, education, black, hispanic, married, hsdegree, income.before1, income.after) %>%
+  # Rename income.after to income.after1 for consistency if needed
+  rename(income.after1 = income.after) %>%
+  # Gather income variables into long format
+  pivot_longer(cols = c(income.before1, income.after1),
+               names_to = "time_period",
+               values_to = "income") %>%
+  # Create a time indicator: 0 for before, 1 for after
+  mutate(time = ifelse(time_period == "income.before1", 0, 1))
+
+# View the transformed data
+head(nsw_long)
+
+# Run the DiD regression
+did_model <- lm(income ~ treat * time, data = nsw_long)
+
+# Summarize the regression results
+summary(did_model)
+```

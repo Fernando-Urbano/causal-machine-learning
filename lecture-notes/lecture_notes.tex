@@ -641,7 +641,7 @@ Therefore, we think of $X, Y$ as a dataset and we should do the derivative with 
 
 A particular dataset maps to a $\hat{\beta}$. Any other dataset maps to another $\hat{\beta}$.
 
-In conclusion, we have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. In a dummy way, it works in the same way as $f(w) = w^2$, which will always produce $4$ when $w = 2$.
+In conclusion, we have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about it as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. In a dummy way, it works in the same way as $f(w) = w^2$, which will always produce $4$ when $w = 2$.
 
 The difference here is that I want to check a frequency histogram of $\hat{\beta}$ in the output $\mathbb{R}^p$. I expect a normal distribution as a map from multiple datasets to $\hat{\beta}$.
 
@@ -649,10 +649,10 @@ The difference here is that I want to check a frequency histogram of $\hat{\beta
 
 The previous idea is also valid for more simple parameteres, like $\hat{\mu}$.
 
-We can represent the dataset by its empirical distribution function.
+We can represent the dataset by its empirical distribution function. For instance, when estimating the mean, which in this case we refer as $\alpha$:
 
 $$
-\alpha(F_n) = \frac{1}{n} \sum_{i=1}^{n} X_i = \bar{X}, \quad \text{where} \\\ \alpha \\\ \text{is a function}
+\alpha(F_n) = \frac{1}{n} \sum_{i=1}^{n} X_i = \bar{X}
 $$
 
 What if I had $F_{n-1}$: same dataset, but without one row?
@@ -740,10 +740,10 @@ Asymptotic Normality: according to central limit theorem, under certain conditio
 Example:
 
 $$
-\sqrt{n} (\bar{x} - \mu) = \frac{1}{\sqrt{n}} \sum (x_i - \mu)
+\sqrt{n} (\hat{\alpha} - \alpha) = \frac{1}{\sqrt{n}} \sum (x_i - \mu) \to N(0, \rho^2)
 $$
 
-Where $(x_i - \mu)$ can be viewed as $(\alpha (G) - \alpha (F))$
+Where $(\hat{\alpha} - \alpha)$ can be viewed as $(\alpha (G) - \alpha (F))$
 
 The central limit theorem always work with a:
 \begin{itemize}
@@ -771,7 +771,7 @@ For asymptotic variance we can apply CLT:
 
 Now, lets look at the solution of the OLS. What is the influence function of the OLS estimator?
 
-The solution for $\hat{\beta}$
+The solution for $\hat{\beta}$:
 
 $$
 \hat{\beta} = (X'X)^{-1} (X'Y)
@@ -783,9 +783,7 @@ $$
 \sqrt{n}(\hat{\beta} - \beta) = \dfrac{1}{\sqrt{n}} \sum_{i=1}^{n} \phi (X_i, Y_i)
 $$
 
-That must be a function $\phi (X_i, Y_i)$ that has mean 0 and finite variance that allows for us to be able to that.
-
-My way to prove assyntotically normality is to write it in this format.
+That must be a function $\phi (X_i, Y_i)$ that has mean 0 and finite variance that allows for us to be able to that. In this way, we can prove assyntotically normality.
 
 We cannot get there exactly, but we can get close enough in a way that the difference is $o_1$. This is the same idea as we have in computer science, meaning that:
 
@@ -793,7 +791,7 @@ $$
 a_n = O(b_n)
 $$
 
-Which translates to:
+refers to:
 
 $$
 \lim_{n \to \infty} \frac{a_n}{b_n} < \infty
@@ -811,9 +809,8 @@ $$
 
 When using little $o$ in statistics, we often mean that such a thing hold with high probability, which is written as $o_p$.
 
-Another example:
+In an example, given:
 
-Given:
 $$
 X_i \sim N(\mu, v)
 $$
@@ -822,27 +819,46 @@ $$
 \bar{X} - \mu = o_p(1)
 $$
 
-Going back to the original problem:
+Going back to the original problem, we should aim to write:
 
 $$
 \sqrt{n}(\hat{\beta} - \beta) = \dfrac{1}{\sqrt{n}} \sum_{i=1}^{n} \phi (X_i, Y_i) + o_p(1)
 $$
 
-For it to hold, $o_p(1)$ must go to 0. It must be smaller than $\frac{1}{\sqrt{n}}$. Otherwise it will not work as $n \to \infty$.
+For it to hold, $o_p(1)$ must go to 0. It must be smaller than $\frac{1}{\sqrt{n}}$. Otherwise we wont have the desired property as $n \to \infty$.
 
 Therefore:
 
 \begin{align*}
     \hat{\beta} - \beta
     &= (X'X)^{-1} (X'Y) - \beta \\
-    &= (X'X)^{-1} \left[ X' (Y - X\beta) \right] \quad \text{(divide by $n$)} \\
+    &= (X'X)^{-1} \left[ X' (Y - X\beta) \right] \\
+    &= (X'X)^{-1} \left[ X' \varepsilon \right] \\
+    &\quad \text{(divide by $n$ to express the averages)} \\
     &= \left( \frac{1}{n} \sum x_i x_i' \right)^{-1} \left( \frac{1}{n} \sum x_i \varepsilon_i \right) \\
     &= \frac{1}{n} \sum \left( \frac{1}{n} \sum x_j  x_i' \right)^{-1} x_i \varepsilon_i \\
+    &= \frac{1}{n} \sum {\bar{M}}^{-1} x_i \varepsilon_i \\
     &= \frac{1}{n} \sum {M}^{-1} x_i \varepsilon_i + \frac{1}{n} \sum ({\bar{M}}^{-1} - {M}^{-1}) x_i \varepsilon_i \\
-    &= \frac{1}{n} \sum_i (M^{-1} x_i \varepsilon_i) + o_p(\frac{1}{\sqrt{n}})
+    &= \frac{1}{n} \sum_i (M^{-1} x_i \varepsilon_i) + o_p \left(\frac{1}{\sqrt{n}} \right)
 \end{align*}
 
-We can write it as $o_p(\frac{1}{\sqrt{n}}$ because $\sqrt{n} ({\bar{M}}^{-1} - {M}^{-1}) \frac{1}{n} \sum (x_i \varepsilon_i)$:
+$x_i$ represents observation $i$. Thus, the matrix $X'X$ can be written as:
+
+$$
+X'X = \sum_{i=1}^n x_i x_i'
+$$
+
+After, we use the fact the inverse of the sample average is common across all terms and we are able to express it inside the sum.
+
+$$
+\bar{M}^{-1} = \left( \frac{1}{n} \sum x_j x_j ' \right)^{-1} 
+$$
+
+Furthermore, \(\bar{M} \xrightarrow{p} M\), thus $\bar{M}^{-1} - M^{-1} = o_p(1)$.
+
+$M$ is the probability limit of $\bar{M}$ as the sample size n approaches infinity.
+
+We can write it as $o_p\left( \frac{1}{\sqrt{n}} \right)$ because $\sqrt{n} ({\bar{M}}^{-1} - {M}^{-1}) \frac{1}{n} \sum (x_i \varepsilon_i)$:
 
 \begin{align*}
     ({\bar{M}}^{-1} - {M}^{-1}) = \frac{1}{n} \sum x_i x_i') - \mathbb{E}[x x]^{-1} \to 0
@@ -854,12 +870,12 @@ $$
 
 (it just needed to be smaller than $\infty$, given that the other term is 0)
 
-In simpler terms: get the estimator and to be centered around the true parameter and make it look like something that makes sense.
+In simpler terms: get the estimator and to be centered around the true parameter in a way that "makes sense" and it provides assyntotically normality.
 
 As we can see that for this to hold, ${M}^{-1}$ must exist. Therefore, the identification assumptions for OLS must exist.
 
 \subsection{Derive ATE in a non Randomized Experiment}
-Two step process:
+Two step estimation:
 \begin{itemize}
     \item estimate $\alpha(x)$ and $\beta(x)$
     \item Use these to estimate $\tau$
@@ -871,27 +887,97 @@ $$
 \text{CATE} = \beta(x) = \tau(x) = x'\beta_1 - x'\beta_0
 $$
 
-We need to estimate the estimators and then get the average of these estimators.
+We use the CATE to get the ATE. Meaning that we get the average of the CATE. The solution is harder because you have (i) uncertainty estimating CATE, and (ii) uncertainty averaging CATE.
 
-It becomes harder because the mean is done with estimated parameters.
+The issue with observational data is that there is selection bias:
+
+$$
+\mathbb{E}[Y(0) | T=1] \neq \mathbb{E}[Y(0) | T=0]
+$$
+
+Now, we are assuming that $X$ captures why people select, meaning:
+
+$$
+\mathbb{E}[Y(0) | T=1, X = x] = \mathbb{E}[Y(0) | X = x]
+$$
+
+The intuition behind it is that we have "RCT" (or equivalent of RCT) for each $X = x$.
 
 The steps are:
 \begin{itemize}
-    \item Run a regression in treatment and control groups separaately, then project everywhere (or run a saturated model).
+    \item Run a regression in treatment and control groups separately, then project everywhere (or run a saturated model).
     \item Then:
     $$
     \hat{\tau} = \hat{\mathbb{E}[Y(1)]} - \hat{\mathbb{E}[Y(0)]} = \frac{1}{n} \sum_{i=1}^{n} x_i \hat{\beta}_1 - \sum_{i=1}^{n} x_i \hat{\beta}_0
     $$
 \end{itemize}
 
+Rewriting the previous bullet points. One should estimate the regression for the treated group:
+
+$$
+Y_i = \alpha_1 + X_i \beta_1 + \varepsilon_{1, i} \quad \text{for} T_i = 1
+$$
+
+And a separated regression for the control group:
+
+$$
+Y_i = \alpha_0 + X_i \beta_0 + \varepsilon_{0, i} \quad \text{for} T_i = 0
+$$
+
+The idea of projecting everywhere means that you should predict the outcome for every unit of the sample using the treated and control regressions.
+
+Meaning that, regardless if the observation being treated or not, you run the regression for treated and non-treated.
+
+$$
+\hat{Y}_i(1) = X_i \hat{\beta}_1, \quad \hat{Y}_i(0) = X_i \hat{\beta}_0
+$$
+
+From here, the individual estimated treatment effect is:
+
+$$
+\hat{\tau}_i = \hat{Y}_i(1) - \hat{Y}_i(0) = X_i (\hat{\beta}_1 - \hat{\beta}_0)
+$$
+
+The average treatment effect is by definition the average of the individual treatement effects:
+
+$$
+\hat{\tau} = \frac{1}{n} \sum_{i = 1}^{n} \hat{\tau}_i = \frac{1}{n} \sum_{i = 1}^{n} X_i (\hat{\beta}_1 - \hat{\beta}_0)
+$$
+
+Alternatively, running a saturated regression means that you run a regression that considers all data:
+
+$$
+Y_i = \alpha + T_i (\alpha_1 + X_i \beta_1) + (1 - T_i)(\alpha_0 + X_i \beta_0) + \varepsilon_i
+$$
+
+This can be simplied to (NOT ENTIRELY SURE ABOUT THAT PART):
+
+$$
+Y_i = \alpha + \beta X_i + \tau T_i + (T_i \times X_i) \phi + \varepsilon_i
+$$
+
+Again, we are making assumptions to make sure that such a method provides the ATE. That is the Conditional Independence Assumption (CIA), which means that, after conditioning on $X$, the potential outcomes are independent of treatment assignments.
+
+In it strong version:
+
+$$
+Y(1), Y(0) \perp T | X
+$$
+
+In its weak version:
+
+$$
+\mathbb{E}[Y(t) | T, X] = \mathbb{E}[Y(t)| X]
+$$
+
 In our $\hat{\tau}$ is now a composition of two functions. We want to figure out how the map that generates $\hat{\tau}$ changes with changes in dataset.
 
 We have "double changes" in this estimation: data changes and coefficients changes.
 
-If we had known the influence function in advance, figuring out the distribution would be easier.
+If we had known the influence function in advance, figuring out the distribution is be easier.
 
 \subsubsection{Formally as Maps}
-$\hat{\beta}_1$ and $\beta_1$ are a function of DGP.
+$\hat{\beta}_1$ and $\beta_1$ are a function of DGP (data generating process).
 
 We want to prove that the first part is consistent. For the treatment group:
 
@@ -911,14 +997,14 @@ Therefore:
 
 \begin{align*}
 \hat{\mu}_1
-&= (\frac{1}{n} \sum_{i=1}^{n} x_i) \hat{\beta}_1 \to_p \mathbb{E}[X] \beta_1 = \mu_1
+&= \left(\frac{1}{n} \sum_{i=1}^{n} x_i\right) \hat{\beta}_1 \to_p \mathbb{E}[X] \beta_1 = \mu_1
 \end{align*}
 
 Now, considering that this part is done, we can do the CLT for $\tau$:
 
 \begin{align*}
     \sqrt{n} (\hat{\tau} - \tau)
-    &= \sqrt{n} (\frac{1}{n} \sum_i x_i - \mathbb{E}[X]) \hat{\beta}_1 \quad \text{(does not work - goes to $\infty$)} \\
+    &= \sqrt{n} \left(\frac{1}{n} \sum_i x_i - \mathbb{E}[X]\right) \hat{\beta}_1 \quad \text{(does not work - goes to $\infty$)} \\
     &= \left( \frac{1}{n} \right) \sqrt{n} (\hat{\beta}_1 - \beta_1) + \sqrt{n} \left( \frac{1}{n} \sum x_i \right) \beta_1 \quad \text{(also does not work - goes to $\infty$)}
 \end{align*}
 
@@ -929,8 +1015,8 @@ How to solve that?
 Start with the regression for the treated group:
 
 \begin{align*}
-    \sqrt{n} & (\hat{\mathbb{E}[Y(1)])} - \mathbb{E}[Y(1)]
-    = \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \phi (x_i, y_i, t_i) + o_p(1) \\
+    \sqrt{n} & (\hat{\mathbb{E}[Y(1)]} - \mathbb{E}[Y(1)])
+    = \frac{1}{\sqrt{n}} \sum_{i=1}^{n} \phi (x_i, y_i, t_i) + o_p(1) \quad \text{(our goal)}\\
     &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} (x_i \hat{\beta}_1 - \mathbb{E}[x \beta_1])  \quad \text{($\beta_1$ is only for the treated group)} \\
     &= \frac{1}{\sqrt{n}} \sum_{i=1}^{n} (x_i \beta_1 - \mathbb{E}[x \beta_1])
     + \frac{1}{\sqrt{n}} \sum_{i=1}^{n} (x_i \hat{\beta}_1 - x \beta_1) 
@@ -946,9 +1032,7 @@ Start with the regression for the treated group:
 
 In this case, we see that second term contains $o_p(1)$.
 
-CONFERIR $\mathbb{E}[X] \times o_p(1)$: tem $o_p(1)$?
-
-Now, lets talk about the mean of the treated $Y$: $\mu_1$
+\subsection{Mean of Treated Group $Y$: $\mu_1$}
 
 We defined that the conditional mean of $Y$ is a linear function:
 
@@ -1002,8 +1086,396 @@ Therefore, we have 3 steps for what we call now $\theta_A$ ($A$ because is the f
 
 Due to the two step estimation, we have $V_1 + V_2$, which is a problematic estimate. Thus, we will use method $B$, which will make the first part more difficult, but facilitate the estimation of the variance.
 
+\section{Lecture 7}
+\subsection{Doubly Robust Estimation}
+
+Doubly Robust Esimation: the estimator is consistent if only one of the steps is consistent. Therefore, it is consistent even if one of the functions is incorrect.
+
+$$
+\mathbb{E}[Y(1)] =
+\mathbb{E}\left[\mathbb{E}[Y(1) | X] + \frac{\tau (Y - \mu_1(x))}{p(x)}\right]
+$$
+
+Here we have the propensity score $p(x)$: and we did not plug in a extreme $p(x)$ (meaning not 0 and $\infty$), the $\mathbb{E}[Y(1)]$ is consistent because the second term tends towards to 0.
+
+The same happen if we misspecified $\mu_1(x)$ and specify correctly $p(x)$: we still expect the estimator to be consistent.
+
+In a linear estimator, we have:
+
+$$
+\mathbb{E}[Y(1) | X] = \mu_1(x) = \frac{1}{n} \sum_{i=1}^n x_i \hat{\beta}
+$$
+
+$$
+\frac{t_i}{p(x_i)} \left[ y_i - \hat{\mu}_1 (x_i) \right] = \hat{M}_1^{-1} \hat{\varepsilon}_i
+$$
+
+\subsubsection{General Case}
+Show the two step estimation for a general case.
+
+\subsection{Nonparametric and ML}
+In this class, ML is a substitute for Nonparametric regression.
+
+We are going to try to learn those functions with more flexible specifications. We are also going to try to learn the specification from the data.
+
+We now have the same data, but different assumptions. We will now assume other stuff about the function and that the estimators are well behaved in a certain way.
+
+We can start using simple nonparametric inference and infer the same for modern ML methods.
+
+We can show that Deep Learning are piecewise linear regressions.
+
+\subsubsection{Crash Course in Nonparametric}
+
+When we use nonparametric estimation, we are often assume "smoothness", which we define that the function has some number of well behaved derivatives.
+
+If $x_1 \approx x_2$ (are close enough to each other), we assume $f(x_1) \approx f(x_2)$.
+
+\subsubsection{Taylor}
+
+Taylor approximation tells an approximation for $f(x)$ in any $x$ based on the derivatives and an initial point $x_0$.
+
+$$
+f(x) = f(x_0) + f'(x_0)(x - x_0) + \frac{1}{2} f''(x_0)(x - x_0)^2 + \ldots
+$$
+
+The first approximation is:
+
+\begin{align*}
+    f(x) &\approx f(x_0) + f'(x_0)(x - x_0) \\
+    &\approx \left[f(x_0) + f'(x_0)(x_0)\right] + f'(x_0)x \\
+    &\approx \alpha + \beta x
+\end{align*}
+
+In which polinomial should I stop?
+
+The bigger polinomial, the bigger the variance, the smaller my bias.
+
+\begin{align*}
+    \hat{f}(x) &= | f(x) - \bar{f}(x) | + | \bar{f}(x) - \hat{f}(x) |  \\
+    &= \text{Bias} + \text{Variance}
+\end{align*}
+
+For a very large gap between $x$ and $x_0$, a linear function can only approximate so much. For a large gap, you can expect the approximation to be poor, given that the linear function can only approximate so much. We define this as bias.
+
+Instead of using a linear approximation for the entire dataset, we can also cut the dataset in parts and estimate the line for each part of $X$. This will limit my bias, given that now we have the gap between $x$ and $x_0$ "half" of the size (or at least smaller).
+
+$$
+\mathbb{F}_{\text{2L}}
+\begin{cases*}
+    (a_1 + b_1 X) \mathbb{I} \{x < M_d\} \\
+    (a_2 + b_2 X) \mathbb{I} \{x \geq M_d\}
+\end{cases*}
+$$
+
+My variance, on the other hand, increased.
+
+The variance:
+
+$$
+\mathbb{F}_{\text{L}} = \left( \frac{k}{1} \right)^2 + \frac{1}{n}
+$$
+
+$$
+\mathbb{F}_{\text{2L}} = \left( \frac{k}{2} \right)^2 + \frac{2}{n}
+$$
+
+The variance tells you how much your estimate changes when the data changes.
+
+The bias tells me how far my selected model is distant from the data generating process. On the other hand, the variance tells me how much the estimation of my data given the model is distant from the data generating process. This implies that, by estimating the parameters many times, how big is the probability that I am "quite far" from the actual value.
+
+\section{Lecture 8}
+\subsection{Piecewise Regression}
+
+Divide the regression in different parts (bins) and have the polinomial of size $p$.
+
+$$
+\mathbb{F}_n = \left\{ \sum_{j=1}^{J} \mathbb{I} \{ x \in b_j \} (p(x)' \beta_j), \quad b \in \mathbb{R}^{ph} \right\}
+$$
+
+As either $p$ or $j$ converge to infinity, we can approximate perfectly any function.
+
+Now, let's say we are working in a specific bin: now we are able to localize.
+
+If I sum close enough everything becomes a line.
+
+$$
+f(x) = f(x_0) - f'(x_0) x_0 + f'(x_0) x = \beta_i + \beta_i^2
+$$
+
+As long as the $f''(x)$ is finite. Meaning:
+
+$$
+\sup_x | f''(x) | < C
+$$
+
+How far apart can $x$ and $x_0$ be? They cannot be more far apart than the size of the bin.
+
+So far, we have been saying that the bins are the all the same size. We could also:
+
+\begin{itemize}
+    \item Have the same number of observations in each bin.
+    \item Look at the data and check for more obvious pattern: nonetheless, most time you won't be able to do that.
+\end{itemize}
+
+The smoothness that you use has to always be smaller to the smoothness that exists.
+
+If you are fitting local quadratic, we have to assume $J^{-3}$.
+
+If you try to set 5-degree polinomial but the function is only twice derivable. This would be a problem and you would only be able to approximate to the 2nd degree.
+
+\begin{align*}
+    \hat{f}(x) - f(x) &= \hat{f}(x) - \bar{f}(x) + \bar{f}(x) - f(x) \\
+    &= p(x) (B' B)^{-1} (B' Y) - p(x) \bar{\beta} + O(J^{-p-1}) \\
+    &= p(x) (B' B)^{-1} (B' [Y-G]) + p(x)' (B' B)^{-1} B' [G - B \bar{\beta}] \\
+    &\quad + O(J^{-p-1})
+\end{align*}
+
+We are able to say that, in the limit (I THINK), this is equal to zero:
+
+$$
+p(x)' (B' B)^{-1} B' [G - B \bar{\beta}] 
+$$
+
+Looking specifically at:
+
+\begin{align*}
+    \hat{f}(x) - f(x) &= p(x) (B' B)^{-1} (B' [Y-G]) + O(J^{-p-1}) \\
+    &= p(x)' (B'B)^{-1} (B' [Y - G])
+\end{align*}
+
+Where we know that:
+
+$$
+(B'B) = \frac{1}{n_j} \sum_{i=1}^{n} p(x_i)p(x_i) \mathbb{I} \{ x_i \in b_j \}
+$$
+
+This tells us that $j$ must goes slower to infinity than $n$, otherwise some bins will be empty:
+
+$$
+n_j \approx \frac{n}{J} \to \infty
+$$
+
+This function follows the central limit theorem:
+
+$$
+\sqrt{\frac{n}{J}} (\hat{f}(x) - f(x)) = \sqrt{\frac{n}{J}} p(x) (B' B)^{-1} (B' [Y-G]) + \sqrt{\frac{n}{J}} O(J^{-p-1})
+$$
+
+Knowing that $J$ is going to infinity, but not too fast, we expect that:
+
+$$
+\sqrt{\frac{n}{J}} (\hat{f}(x) - f(x)) = N(0, V) + \sqrt{\frac{n}{J}} O(J^{-p-1})
+$$
+
+Where:
+
+$$
+G = \left[
+\begin{matrix*}
+    \mathbb{E}[Y | X_1] \\
+    \mathbb{E}[Y | X_2] \\
+    \vdots \\
+    \mathbb{E}[Y | X_n] \\
+\end{matrix*}
+\right]
+=
+\left[
+    \begin{matrix*}
+        f(x_1) \\
+        f(x_2) \\
+        \vdots \\
+        f(x_n) \\
+    \end{matrix*}
+\right]
+$$
+
+$\bar{\beta}$ is the best slope for that bin.
+
+\subsubsection{Conclusion}
+We want to set in a way that the benefit of making $J$ larger (smaller bias) is equal to the detriment of making it larger (bigger variance).
+
+We are optimizing $\gamma$ and $J$.
+
+For inference, we would have a different optimal $J$ than for point estimate. The problem now is that we have a weird term when dealing with inference:
+
+$$
+\sqrt{\frac{n}{J}} J^{-p-1}
+$$
+
+The trade-off between point estimate and inference is not clear\dots
+
+The best estimator is not equal to the best t-statistics.
+
+The linear regression OLS does not have this bias-variance trade-off.
+
+\section{Lecture 9}
+
+The convergence rate of these more complicated models is slower.
+
+We still have that:
+
+$$
+\sqrt{\frac{n}{J}} \left( \hat{f}(x) - f(x) \right) \to N(0, \Omega)
+$$
+
+Thus, we can have the the CI.
+
+If we understand the distribution of $f(x)$, we can understand the CI for any $x$.
+
+\begin{enumerate}
+    \item We do not know the variance:
+    $$
+    \sqrt{n} \left( \hat{\beta} - \beta \right) \to N(0, V)
+    $$
+    This would allow us to get the CI once we have the variance.
+    \item Estimate the variance:
+    $$
+    \hat{V} \to V
+    $$
+    \item Estimate with the sample variance:
+    $$
+    N (0, \hat{V})
+    $$
+\end{enumerate}
+
+The strong approximation does the same, but in a uniform way in $x$:
+
+$$
+\sup_x \left|
+    \mathbb{P} \left[
+        \frac{\sqrt{\frac{n}{J}} (\hat{f}(x) - f(x))}{V(x)^{\frac{1}{2}}}
+        < z
+    \right]
+    - \mathbb{P} \left[
+        N(x) < z
+    \right]
+\right| \to 0
+$$
+
+With that, we are able to check the CATE.
+
+We do some coding:
+\begin{itemize}
+    \item We use the \texttt{binsreg} to do polinomial bin regression.
+    \item \texttt{cb} gives a legitimate band: you have to take the confidence interval of bins when the number of bins goes to infinity. This is different from just connecting some random confidence intervals.
+    \item How can we test if the $f(x)$ is linear? We can check if we can fit a line within the region of the 95\% confidence interval. We can test whatever kind of function we want.
+    \item We can think of a "lower function" as the lower bound and the "upper function" as the upper bound.
+    \item We can decide to define the number of bins and the polinomial degree. Furthermore, we can also make that the function fitted in each of the bins is connected to the function in the bins next to it.
+    \item In real life, we do not expect the CI of the function to be super smooth. We expect spikes.
+\end{itemize}
+
+When can the CI not contain the point estimate?
+
+The $J$ optimal for defining the function is not the same as the optimal $J$ to define the confidence interval.
+
+$$
+|| \hat{f} - f || = \frac{J}{n} + J^{-2(p+1)}
+$$
+
+In our example (to show a bad result), we used a bin with polinomial degree 0 and the function polinomial degree for the function.
+
+If you want to make inference in piecewise constant, you should use linear. If you make inference in piecewise linear, you should use quadratic. The overall rule, is that the inference should be done with a bigger polinomial degree.
+
+\subsection{Trees}
+Regression trees are piecewise constant, but we pick the pieces based on the data.
+
+We split the data by some optimal way of spliting: grid-search.
+
+The grid-search optimizes one split at a time. We look at the split in the data that maximizes the $R^2$.
 
 
+\section*{Discussion 4}
+\subsection{Hypothesis Testing}
+
+For some unknown parameter $\mu$ which is a function of data generating distribution $P$, we are concerned with testing the bull hypothesis that $\mu$ falls within some set $S$.
+
+$$
+H_0: \mu(P) \in S
+$$
+
+$$
+H_a: \mu(P) \notin S
+$$
+
+\begin{itemize}
+    \item Type I Error: rejecting $H_0$ when it is true.
+    \item Type II Error: not rejecting $H_0$ when it is false.
+\end{itemize}
+
+COPIAR RESTANTE DO SLIDE.
+
+\subsection*{Influence Functions}
+
+Measure the sensitivity of an estimate to infinitesimal perturbations in the data distribution.
+
+$$
+F_{\varepsilon} = (1 - \varepsilon) F + \varepsilon \delta_{x_i}
+$$
+
+The influence function $IF(x_i, T, F)$ at point $x_i$ is defined as:
+
+$$
+IF(x_i, T, F) = \lim_{\varepsilon \to 0} \frac{T(F_\varepsilon) - T(F)}{\varepsilon}
+$$
+
+\section{Lecture 10}
+
+\subsection{Trees}
+
+\begin{itemize}
+    \item Trees are easy to do and interpret.
+    \item They fit nonlinearities and selection automatically.
+    \item Because trees are always piecewise flat.
+    \item The binary variables are easy to check.
+\end{itemize}
+
+Trees are generally not used, but they are nice as a building block.
+
+How to stop a tree? There are several ways:
+\begin{itemize}
+    \item A minimum number of observations per leaf.
+    \item A maximum depth.
+    \item Prune than tree: grow it really deep and than decide which pieces to cut off.
+\end{itemize}
+
+\subsection{Random Forest}
+Forests do this over and over and average the result.
+
+We use samples with replacement. we select a portion of the observations and also a portion of the features (not select every feature). For within each sample, an observation can come more than once.
+
+The average result is:
+
+$$
+\hat{f}(x)_{\text{RF}} = \frac{1}{n_T} \sum_{t=1}^{T} \hat{f}_t(x)
+$$
+
+Where $T$ is the number of trees and the $\hat{f}(x)_{\text{RF}}$ is the estimate function of the data.
+
+What is happening when I take an average? More specifically, what is the average for a particular $X = x$?
+
+We take the average of the estimates for that particular point. For any point, we are just averaging.
+
+Nonetheless, for the entire $\hat{f}(x)_{\text{RF}}$ we will see that some points are more important than others because they appear more. Furthermore, in bins that have more poits, the weight of a single bin is less important.
+
+Therefore, in the end, the $\hat{f}(x)_{\text{RF}}$ will be a weighted average of the points.
+
+$$
+\hat{f}(x)_{\text{RF}} = \frac{1}{n} \sum_{i = 1}^{T} w_i Y_i
+$$
+
+The function of weights is more discountinous in situations where we have less trees and less discountinous when we have more trees.
+
+A single tree with sampling would have the most discountinous weights.
+
+Remember that we are looking for local expectation:
+
+$$
+\mathbb{E}[Y | X]
+$$
+
+In the end, random forest requires us to check many possibilities of hyperparameters, making the result dependent on choices.
+
+\subsection{Deep Neural Networks}
 
 
 

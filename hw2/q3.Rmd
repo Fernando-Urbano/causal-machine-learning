@@ -1,0 +1,449 @@
+---
+title: "q3"
+output: html_document
+date: "2024-11-01"
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+
+price_experiment <- read.csv("data/priceExperiment.csv", sep=",") %>% 
+  as_tibble() 
+```
+
+# 3.a
+```{r}
+lm(buy ~ price, price_experiment) %>% summary()
+```
+# 3.b
+```{r}
+price_experiment_with_dummy <- price_experiment %>% 
+  mutate(price_dummy = ifelse(price == 249, 1, 0))
+
+lm(buy ~ price_dummy, price_experiment_with_dummy) %>% summary()
+```
+# 3.c
+```{r}
+price_experiment_with_revenue <- price_experiment_with_dummy %>% 
+  mutate(revenue = buy * price)
+
+lm(revenue ~ price_dummy, price_experiment_with_revenue) %>% summary()
+```
+
+```{r}
+price_experiment_with_revenue %>% 
+  group_by(price_dummy) %>% 
+  summarise(revenue = mean(revenue)) %>% 
+  spread(price_dummy, revenue) %>% 
+  purrr::set_names("price_0", "price_1") %>% 
+  mutate(diff_prices = price_1 - price_0)
+```
+
+# 3.d
+```{r}
+library(estimatr)
+
+# For Part (b)
+model_buy_robust <- lm_robust(buy ~ price_dummy, data = price_experiment_with_dummy, se_type = "HC1")
+summary(model_buy_robust)
+```
+```{r}
+# For Part (c)
+model_revenue_robust <- lm_robust(revenue ~ price_dummy, data = price_experiment_with_revenue, se_type = "HC1")
+summary(model_revenue_robust)
+```
+
+# 3.f
+
+```{r}
+price_experiment_with_revenue_and_customer <- price_experiment_with_revenue %>% 
+  mutate(customerSize = as.factor(customerSize))
+
+model_revenue_customer <- lm(
+  revenue ~ price_dummy * customerSize,
+  data = price_experiment_with_revenue_and_customer
+)
+
+model_revenue_customer %>% summary()
+```
+```{r}
+cate_parameters <- model_revenue_customer %>% summary() %>% 
+  .$coefficients %>% 
+  data.frame() %>% 
+  select(Estimate) %>% 
+  rownames_to_column('param') %>% 
+  mutate(param = ifelse(param == '(Intercept)', 'intercept', param)) %>% 
+  column_to_rownames("param") %>% 
+  rename(estimate = Estimate)
+
+cate_parameters
+```
+
+```{r}
+cate_s0 <- cate_parameters['price_dummy', 'estimate']
+cate_s1 <- (
+  cate_parameters['price_dummy', 'estimate']
+  + cate_parameters['price_dummy:customerSize1', 'estimate']
+)
+cate_s2 <- (
+  cate_parameters['price_dummy', 'estimate']
+  + cate_parameters['price_dummy:customerSize2', 'estimate']
+)
+print(
+  paste0("CATE S0: ", cate_s0, "; CATE S1: ", cate_s1, "; CATE S2: ", cate_s2)
+)
+```
+
+```{r}
+mean_revenue_by_group <- price_experiment_with_revenue_and_customer %>%
+  group_by(customerSize, price_dummy) %>%
+  summarise(mean_revenue = mean(revenue), .groups = 'drop')
+
+difference_in_means <- mean_revenue_by_group %>%
+  pivot_wider(names_from = price_dummy, values_from = mean_revenue, names_prefix = "price_") %>%
+  mutate(cate = price_1 - price_0)
+
+print(difference_in_means)
+```
+
+# 3.h
+```{r}
+total_revenue_current <- sum(price_experiment_with_revenue_and_customer$revenue)
+total_customers <- nrow(price_experiment_with_revenue_and_customer)
+avg_revenue_current <- total_revenue_current / total_customers
+
+purchase_probs <- price_experiment_with_revenue_and_customer %>%
+  group_by(customerSize, price) %>%
+  summarise(purchase_rate = mean(buy), .groups = 'drop')
+
+proposed_prices <- data.frame(
+  customerSize = c(0, 1, 2),
+  proposed_price = c(99, 249, 249)
+) %>% 
+  mutate(customerSize = as.factor(customerSize))
+
+purchase_probs <- purchase_probs %>%
+  left_join(proposed_prices, by = "customerSize")
+
+purchase_probs_at_proposed <- purchase_probs %>%
+  filter(price == proposed_price) %>%
+  select(customerSize, proposed_price, purchase_rate)
+
+expected_revenue_proposed <- purchase_probs_at_proposed %>%
+  mutate(expected_revenue_per_customer = purchase_rate * proposed_price)
+
+customer_counts <- price_experiment_with_revenue_and_customer %>%
+  group_by(customerSize) %>%
+  summarise(count = n(), .groups = 'drop')
+
+expected_revenue_proposed <- expected_revenue_proposed %>%
+  left_join(customer_counts, by = "customerSize")
+
+expected_revenue_proposed <- expected_revenue_proposed %>%
+  mutate(total_expected_revenue = expected_revenue_per_customer * count)
+
+total_expected_revenue_proposed <- sum(expected_revenue_proposed$total_expected_revenue)
+
+observed_revenue_by_customer_size <- price_experiment_with_revenue_and_customer %>%
+  group_by(customerSize) %>%
+  summarise(avg_revenue_per_customer = mean(revenue), .groups = 'drop')
+
+observed_revenue_by_customer_size <- observed_revenue_by_customer_size %>%
+  left_join(customer_counts, by = "customerSize")
+
+observed_revenue_by_customer_size <- observed_revenue_by_customer_size %>%
+  mutate(total_revenue = avg_revenue_per_customer * count)
+
+total_revenue_current_strategy <- sum(observed_revenue_by_customer_size$total_revenue)
+
+print(paste("Total revenue under current strategy: $", round(total_revenue_current_strategy, 2)))
+
+print(paste("Total expected revenue under proposed strategy: $", round(total_expected_revenue_proposed, 2)))
+
+revenue_improvement <- total_expected_revenue_proposed - total_revenue_current_strategy
+print(paste("Revenue improvement: $", round(revenue_improvement, 2)))
+
+percentage_improvement <- (revenue_improvement / total_revenue_current_strategy) * 100
+print(paste("Percentage improvement: ", round(percentage_improvement, 2), "%", sep = ""))
+```
+
+# 3.h for Sample
+```{r}
+price_experiment_with_revenue_and_customer %>% 
+  left_join(expected_revenue_proposed %>% select(-total_expected_revenue, -count), by = c("customerSize")) %>% 
+  mutate(sample_expected_revenue_per_customer = ifelse(proposed_price == price, revenue, expected_revenue_per_customer)) %>% 
+  select(-purchase_rate) %>% 
+  group_by(customerSize) %>% 
+  summarise(sample_expected_revenue = sum(sample_expected_revenue_per_customer))
+```
+
+# 3.i
+```{r}
+probability_of_treatment_per_customer_size <- price_experiment_with_revenue_and_customer %>% 
+  group_by(customerSize) %>% 
+  summarise(price_dummy = mean(price_dummy))
+
+probability_of_treatment_per_customer_size
+```
+
+```{r}
+customer_counts <- price_experiment_with_revenue_and_customer %>%
+  group_by(customerSize) %>%
+  summarise(count = n(), .groups = 'drop')
+
+total_customers <- sum(customer_counts$count)
+
+customer_counts <- customer_counts %>%
+  mutate(proportion = count / total_customers)
+
+cate_pct <- customer_counts %>% 
+  left_join(difference_in_means) %>% 
+  select(customerSize, proportion, cate) %>% 
+  mutate(cate_pct = cate * proportion)
+
+cate_pct
+```
+
+```{r}
+cate_pct %>% summarise(cate_pct = sum(cate_pct))
+```
+```{r}
+cate_pct %>% 
+  left_join(probability_of_treatment_per_customer_size) %>% 
+  rename(prob_treatment = price_dummy) %>% 
+  mutate(general_prob_treatment = ifelse(price_experiment$price == 249, 1, 0) %>% mean()) %>% 
+  mutate(ratio_prob_treatment = general_prob_treatment / prob_treatment) %>% 
+  mutate(cate_pct_adj = cate_pct * ratio_prob_treatment) %>% 
+  summarise(cate_pct_adj = sum(cate_pct_adj))
+```
+
+# 3.i New Trial
+```{r}
+# get the mean of every single group in control and multiply by their respective control pct -> sum this value
+# get the mean of every single group in treatment and multiply by their respective treatment pct -> sum this value
+# take the difference betweent the values
+mean_treat <- price_experiment_with_revenue_and_customer %>%
+  filter(price_dummy == 1) %>% 
+  group_by(customerSize) %>%
+  summarise(
+    count = n(),
+    revenue = mean(revenue)
+  ) %>% 
+  ungroup() %>% 
+  mutate(pct_count = count / sum(count)) %>% 
+  summarise(mean_treat = sum(revenue * pct_count)) %>% 
+  .$mean_treat
+
+mean_control <- price_experiment_with_revenue_and_customer %>%
+  filter(price_dummy == 0) %>% 
+  group_by(customerSize) %>%
+  summarise(
+    count = n(),
+    revenue = mean(revenue)
+  ) %>% 
+  ungroup() %>% 
+  mutate(pct_count = count / sum(count)) %>% 
+  summarise(mean_control = sum(revenue * pct_count)) %>% 
+  .$mean_control
+
+mean_treat - mean_control
+```
+# 3.i Regression
+```{r}
+pct_treat <- price_experiment_with_revenue_and_customer %>%
+  filter(price_dummy == 1) %>% 
+  group_by(customerSize) %>%
+  summarise(
+    count = n(),
+    revenue = mean(revenue)
+  ) %>% 
+  ungroup() %>% 
+  mutate(pct_count = count / sum(count)) %>% 
+  select(customerSize, pct_count) %>% 
+  column_to_rownames('customerSize')
+
+"""
+# A tibble: 3 × 2
+  customerSize pct_count
+  <fct>            <dbl>
+1 0                0.794
+2 1                0.100
+3 2                0.105
+"""
+
+pct_control <- price_experiment_with_revenue_and_customer %>%
+  filter(price_dummy == 0) %>% 
+  group_by(customerSize) %>%
+  summarise(
+    count = n(),
+    revenue = mean(revenue)
+  ) %>% 
+  ungroup() %>% 
+  mutate(pct_count = count / sum(count)) %>% 
+  select(customerSize, pct_count) %>% 
+  column_to_rownames('customerSize')
+
+"""
+# A tibble: 3 × 2
+  customerSize pct_count
+  <fct>            <dbl>
+1 0               0.811 
+2 1               0.0830
+3 2               0.106
+"""
+
+b0 <- cate_parameters['intercept', 'estimate'] # 25.8393
+b1 <- cate_parameters['price_dummy', 'estimate'] # -0.1273475
+b2 <- cate_parameters['customerSize1', 'estimate'] # -8.019304
+b3 <- cate_parameters['customerSize2', 'estimate'] # -10.37055
+b4 <- cate_parameters['price_dummy:customerSize1', 'estimate'] # 16.65218
+b5 <- cate_parameters['price_dummy:customerSize2', 'estimate'] # 27.51925
+
+(
+  b1 * pct_treat %>% nth(1) + b0 * (pct_treat %>% nth(1) - pct_control %>% nth(1))
+  + (b1 + b4) * pct_treat %>% nth(2) + (b0 + b2) * (pct_treat %>% nth(2) - pct_control %>% nth(2))
+  + (b1 + b5) * pct_treat %>% nth(3) + (b0 + b3) * (pct_treat %>% nth(3) - pct_control %>% nth(3))
+)
+```
+
+# 3.f old
+```{r}
+price_effect_small_firms <- lm(
+  revenue ~ price_dummy,
+  price_experiment_with_revenue %>% 
+     filter(customerSize == 0)
+)
+
+price_effect_small_firms %>% summary()
+```
+```{r}
+price_effect_medium_firms <- lm(
+  revenue ~ price_dummy,
+  price_experiment_with_revenue %>% 
+     filter(customerSize == 1)
+)
+
+price_effect_medium_firms %>% summary()
+```
+
+```{r}
+price_effect_large_firms <- lm(
+  revenue ~ price_dummy,
+  price_experiment_with_revenue %>% 
+     filter(customerSize == 2)
+)
+
+price_effect_large_firms %>% summary()
+```
+
+
+# 3.h old
+```{r}
+best_exp_revenue_small_firms <- price_effect_small_firms$coefficients[1] + max(price_effect_small_firms$coefficients[2], 0)
+best_exp_revenue_medium_firms <- price_effect_medium_firms$coefficients[1] + max(price_effect_medium_firms$coefficients[2], 0)
+best_exp_revenue_large_firms <-price_effect_large_firms$coefficients[1] + max(price_effect_large_firms$coefficients[2], 0)
+
+expected_revenue_optimal_solution <- tibble(
+  best_exp_revenue_small_firms,
+  best_exp_revenue_medium_firms,
+  best_exp_revenue_large_firms
+) %>% 
+  t() %>% 
+  data.frame() %>% 
+  rownames_to_column() %>% 
+  tibble() %>% 
+  purrr::set_names(c("firm_size", "best_strategy")) %>% 
+  mutate(firm_size = c("small", "medium", "large")) %>% 
+  mutate(customerSize = c(0, 1, 2)) %>% 
+  inner_join(
+    price_experiment_with_revenue %>% 
+      group_by(customerSize) %>% 
+      count(),
+    by = "customerSize"
+  ) %>% 
+  select(-customerSize) %>% 
+  mutate(expected_revenue = best_strategy * n)
+
+expected_revenue_optimal_solution
+
+```
+
+```{r}
+expected_optimal_revenue <- expected_revenue_optimal_solution %>% 
+  summarise(expected_revenue = sum(expected_revenue)) %>% 
+  purrr::set_names("optimal_revenue")
+
+expected_optimal_revenue
+```
+```{r}
+current_vs_optimal_revenue <- price_experiment_with_revenue %>% 
+  summarise(revenue = sum(revenue)) %>% 
+  purrr::set_names("current_revenue") %>% 
+  cbind(expected_optimal_revenue) %>% 
+  mutate(difference_in_revenue = optimal_revenue - current_revenue) %>% 
+  mutate(pct_difference_in_revenue = difference_in_revenue / current_revenue)
+
+current_vs_optimal_revenue
+```
+
+```{r}
+expected_revenue_by_firm <- price_experiment_with_revenue %>% 
+  group_by(customerSize, price) %>% 
+  summarise(pct_buy = mean(buy)) %>% 
+  mutate(revenue_by_firm = pct_buy * price) %>% 
+  inner_join(
+    price_experiment_with_revenue %>% 
+      group_by(customerSize) %>% 
+      count(),
+    by = "customerSize"
+  ) %>% 
+  mutate(potential_revenue = n * revenue_by_firm)
+
+```
+```{r}
+expected_revenue_by_firm %>% 
+  group_by(customerSize) %>% 
+  summarise(potential_revenue = max(potential_revenue))
+```
+
+```{r}
+expected_revenue_by_firm %>% 
+  group_by(customerSize) %>% 
+  summarise(potential_revenue = max(potential_revenue)) %>% 
+  ungroup() %>% 
+  summarise(potential_revenue = sum(potential_revenue))
+```
+
+# 3.i old
+```{r}
+calc_ate <- function(cates, probabilities) {
+  ate <- 0
+  for (i in 1:length(cates)) {
+    ate <- ate + cates[i] * probabilities[i]
+  }
+  return(ate)
+}
+
+price_experiment_with_revenue %>% 
+  group_by(customerSize) %>% 
+  count() %>% 
+  ungroup() %>% 
+  mutate(n = n / sum(n)) %>% 
+  .$n
+
+calc_ate(
+  cates = c(
+    price_effect_small_firms$coefficients[2],
+    price_effect_medium_firms$coefficients[2],
+    price_effect_large_firms$coefficients[2]
+  ),
+  probabilities = price_experiment_with_revenue %>% 
+    group_by(customerSize) %>% 
+    count() %>% 
+    ungroup() %>% 
+    mutate(n = n / sum(n)) %>% 
+    .$n
+)
+  
+```

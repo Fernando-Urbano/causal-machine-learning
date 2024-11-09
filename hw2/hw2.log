@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  24 OCT 2024 15:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  8 NOV 2024 20:15
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -233,7 +233,22 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box58
 ) (./hw2.aux
 
-LaTeX Warning: Label `q4h' multiply defined.
+LaTeX Warning: Label `tab:earnings_distribution' multiply defined.
+
+
+LaTeX Warning: Label `tab:earnings_distribution' multiply defined.
+
+
+LaTeX Warning: Label `tab:earnings_distribution' multiply defined.
+
+
+LaTeX Warning: Label `fig:your_image_label' multiply defined.
+
+
+LaTeX Warning: Label `tab:earnings_distribution' multiply defined.
+
+
+LaTeX Warning: Label `tab:earnings_distribution' multiply defined.
 
 )
 \openout1 = `hw2.aux'.
@@ -316,32 +331,48 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 90.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2] [3] [4] [5]
-Overfull \hbox (126.94652pt too wide) detected at line 387
-\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 ([]) = \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 ([]) \OMS/cmsy/m/n/10 ^^B \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 ([]) = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 95 \OMS/cmsy/m/n/10 ^^B \OT1/cmr/m/n/10 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 95 = 0\OML/cmm/m/it/10 :\OT1/cmr/m/n/10 9025\OML/cmm/m/it/10 :
- []
-
-[6] [7] [8] [9] [10]
-Overfull \hbox (14.32999pt too wide) detected at line 711
-\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 dx:
- []
-
-[11]
-Overfull \hbox (63.59016pt too wide) detected at line 727
-\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) = [] \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 dx:
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12]
+Overfull \hbox (29.5243pt too wide) detected at line 769
+\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y[] \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 y[]; Y[] \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 y[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t; p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ] = [] \U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y[] \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 y[]; Y[] \OMS/cmsy/m/n/10 ^^T \OML/cmm/m/it/10 y[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t; X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ]\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t; p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ] \OML/cmm/m/it/10 dx:
  []
 
 
-Overfull \hbox (75.34021pt too wide) detected at line 753
-\OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 t \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) [] \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[]; Y[] \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 y[] \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 P\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = \OML/cmm/m/it/10 x \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 ) = \OML/cmm/m/it/10 e\OT1/cmr/m/n/10 ) \OML/cmm/m/it/10 dx:
+Overfull \hbox (29.5243pt too wide) detected at line 789
+[]
  []
 
-[12] [13] [14] [15] [16] [17] [18] [19] [20] [21]
-Overfull \hbox (60.70575pt too wide) detected at line 1282
-\OML/cmm/m/it/10 ^^\ \OT1/cmr/m/n/10 = \U/msb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 ^^\\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 X\OT1/cmr/m/n/10 )] = \U/msb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (1) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (0) \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 0]\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 0] + \U/msb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (1) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (0) \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 1]\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 1] + \U/msb/m/n/10 E\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (1) \OMS/cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 Y\OT1/cmr/m/n/10 (0) \OMS/cmsy/m/n/10 j \OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 2]\U/msb/m/n/10 P\OT1/cmr/m/n/10 [\OML/cmm/m/it/10 X \OT1/cmr/m/n/10 = 2]\OML/cmm/m/it/10 :
+[13] [14] [15] [16] [17] [18] [19] [20] [21] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2024/02/21 1.10 listings language file
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
+File: lstlang2.sty 2024/02/21 1.10 listings language file
+) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang3.sty
+File: lstlang3.sty 2024/02/21 1.10 listings language file
+) [22] [23] [24] [25] [26] [27] [28] [29] [30] [31]
+Overfull \hbox (30.83315pt too wide) detected at line 1722
+[]
  []
 
-[22] [23] [24] [25] (./hw2.aux)
+[32] [33] [34] [35] [36] [37] [38] [39] [40] [41]
+<distribution_of_income_after_training_for_treatment_and_control.png, id=155, 505.6491pt x 361.1091pt>
+File: distribution_of_income_after_training_for_treatment_and_control.png Graphic file (type png)
+<use distribution_of_income_after_training_for_treatment_and_control.png>
+Package pdftex.def Info: distribution_of_income_after_training_for_treatment_and_control.png  used on input line 2245.
+(pdftex.def)             Requested size: 433.62pt x 309.6827pt.
+ [42] [43 <./distribution_of_income_after_training_for_treatment_and_control.png>] [44] [45]
+Overfull \hbox (5.5995pt too wide) in paragraph at lines 2417--2418
+[]\OT1/cmr/m/n/10 Estimated ATT (\TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 1,794.34): On av-er-age, par-tic-i-pants who re-ceived job train-ing earned \TS1/cmr/m/n/10 $\OT1/cmr/m/n/10 1,794.34
+ []
+
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 2428.
+(/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+) [46] [47] [48] [49]
+<wealth_increase_by_policy_targeting.png, id=185, 505.89pt x 361.35pt>
+File: wealth_increase_by_policy_targeting.png Graphic file (type png)
+<use wealth_increase_by_policy_targeting.png>
+Package pdftex.def Info: wealth_increase_by_policy_targeting.png  used on input line 2622.
+(pdftex.def)             Requested size: 433.62pt x 309.7349pt.
+ [50 <./wealth_increase_by_policy_targeting.png>] [51] [52] [53] [54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64] [65] (./hw2.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -352,18 +383,18 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5972 strings out of 474116
- 89417 string characters out of 5743682
- 1939187 words of memory out of 5000000
- 28266 multiletter control sequences out of 15000+600000
- 566781 words of font info for 70 fonts, out of 8000000 for 9000
+ 7157 strings out of 474116
+ 102853 string characters out of 5743682
+ 2469187 words of memory out of 5000000
+ 29434 multiletter control sequences out of 15000+600000
+ 568264 words of font info for 75 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,12n,65p,739b,296s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on hw2.pdf (25 pages, 309672 bytes).
+ 57i,12n,65p,739b,1936s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfbx1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sftt0800.pfb>
+Output written on hw2.pdf (65 pages, 627226 bytes).
 PDF statistics:
- 192 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
+ 341 PDF objects out of 1000 (max. 8388607)
+ 219 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

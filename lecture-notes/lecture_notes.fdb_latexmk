@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1730991287.96549 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/lecture-notes/lecture_notes.tex" "lecture_notes.pdf" "lecture_notes" 1730991288.49603 0
-  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/lecture-notes/lecture_notes.tex" 1730991287.23369 50910 401604650d515aa4d0a0918ad59d0563 ""
+["pdflatex"] 1731423557.75582 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/lecture-notes/lecture_notes.tex" "lecture_notes.pdf" "lecture_notes" 1731423558.27087 0
+  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/lecture-notes/lecture_notes.tex" 1731423557.40871 52782 1ab5649688ca1827677a55624a9c619e ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -80,8 +80,8 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726838998.69877 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726838976 8221424 454b2c53fe337be275f410895c638726 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "lecture_notes.aux" 1730991288.43826 6074 7c0ffcde6bef3c6016fa17c32ba402fe "pdflatex"
-  "lecture_notes.tex" 1730991287.23369 50910 401604650d515aa4d0a0918ad59d0563 ""
+  "lecture_notes.aux" 1731423558.21341 6289 0236278b0bd7cb0a2acc4e6718d2ab11 "pdflatex"
+  "lecture_notes.tex" 1731423557.40871 52782 1ab5649688ca1827677a55624a9c619e ""
   (generated)
   "lecture_notes.aux"
   "lecture_notes.log"

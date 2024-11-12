@@ -1477,7 +1477,62 @@ In the end, random forest requires us to check many possibilities of hyperparame
 
 \subsection{Deep Neural Networks}
 
+Did not write anything
 
+\section{Lecture 11}
+
+We reviewed:
+\begin{itemize}
+    \item Neural Networks.
+    \item Activation functions, specially ReLU.
+    \item Conceptuall NN are just fitting very complicated piecewise functions.
+    \item At the very end node, we should not take an activation function (unless we actually need one - for instance, logistic regression would use LOGIT transformation and counting problems would use Poasson).
+\end{itemize}
+
+The results from NN:
+
+$$
+\left| \hat{f}_{\text{DNN}} - f(x) \right| = O_p (FINISH WRITING FROM THE SLIDE)
+$$
+
+The result is quite similar to the results of OLS.
+
+The result is mainly a function of the number of parameters.
+
+The magic of machine learning methods is that they are able to approximate and find out stuff about the data without you specifically telling it.
+
+Machine Learning by itself figures out a low dimensional space to make predictions.
+
+How does a computer takes derivatives?
+\begin{enumerate}
+    \item Numerical derivatives: just evaluate the function in $x$ and $x + h$.
+    \item Symbolic derivatives: given a set of rules, we make the derivatives (similar to what we do).
+    \item Automatic derivative: the computer without knowning derivatives, does the derivative with the data. Thus, I am not going to know the derivative, but I will approximate the derivative.
+\end{enumerate}
+
+\subsection{Automatic derivative}
+
+Given a complicated function:
+
+$$
+f(x) = \log(x) \exp \left(x^{\left( -\cos(x)^2 \right)} \right)
+$$
+
+That means that we have:
+
+\begin{itemize}
+    \item $\log(x) \to b$
+    \item $\cos(x) \to -x^2 \to x^x \to \exp(x) \to a$
+    \item $a \times b \to f(x)$
+\end{itemize}
+
+Here, we start by taking the derivative from the end to the start.
+
+Meaning the derivative from $f(x) \to a$ and $f(x) \to b$, from $a \to \exp(x)$, etc\dots
+
+For that, we need tensors.
+
+REVIEW TENSORS
 
 \end{document}
 

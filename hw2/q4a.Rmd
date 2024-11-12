@@ -13,6 +13,59 @@ nsw_rct <- read.csv("data/nsw_RCT.csv", sep = ",") %>%
 nsw_rct
 ```
 
+
+```{r}
+# Load necessary library
+library(dplyr)
+
+# Read the data
+nsw_rct <- read.csv("data/nsw_RCT.csv", sep = ",") %>% 
+  as_tibble()
+
+# Calculate the sample sizes
+n1 <- sum(nsw_rct$treat == 1)  # Number of treated units
+n0 <- sum(nsw_rct$treat == 0)  # Number of control units
+
+# Calculate means and variances for 'income.after'
+mean_Y1 <- nsw_rct %>% 
+  filter(treat == 1) %>% 
+  summarise(mean = mean(income.after)) %>% 
+  pull(mean)
+
+var_Y1 <- nsw_rct %>% 
+  filter(treat == 1) %>% 
+  summarise(var = var(income.after)) %>% 
+  pull(var)
+
+mean_Y0 <- nsw_rct %>% 
+  filter(treat == 0) %>% 
+  summarise(mean = mean(income.after)) %>% 
+  pull(mean)
+
+var_Y0 <- nsw_rct %>% 
+  filter(treat == 0) %>% 
+  summarise(var = var(income.after)) %>% 
+  pull(var)
+
+# Calculate the ATT estimate
+ATT_hat <- mean_Y1 - mean_Y0
+
+# Calculate the standard error of the ATT estimate
+SE_ATT <- sqrt(var_Y1 / n1 + var_Y0 / n0)
+
+# Calculate the critical value for a 90% confidence interval
+z_alpha <- qnorm(0.95)  # For a 90% CI, alpha = 0.10, so z = qnorm(1 - alpha/2)
+
+# Calculate the 90% confidence interval
+CI_lower <- ATT_hat - z_alpha * SE_ATT
+CI_upper <- ATT_hat + z_alpha * SE_ATT
+
+# Display the results
+cat("ATT Estimate:", round(ATT_hat, 3), "\n")
+cat("Standard Error:", round(SE_ATT, 3), "\n")
+cat("90% Confidence Interval: [", round(CI_lower, 3), ",", round(CI_upper, 3), "]\n")
+```
+
 # 4.a
 ```{r}
 nsw_rct %>% 

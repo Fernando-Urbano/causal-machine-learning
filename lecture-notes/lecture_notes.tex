@@ -627,7 +627,7 @@ $$
 
 We can view $\hat{\beta}$ as a function that maps rows and columns into a vector in $\mathbb{R}^p$.
 
-We can think about $\hat{\beta}$ as a $f(w)$ and the $X$ and $Y$ as $w$.
+We can think about $\hat{\beta}$ as a $f(\textbf{w})$ and the $X$ and $Y$ as $\textbf{w}$.
 
 With this perception, we could even take the derivative of $\hat{\beta}$:
 
@@ -641,7 +641,7 @@ Therefore, we think of $X, Y$ as a dataset and we should do the derivative with 
 
 A particular dataset maps to a $\hat{\beta}$. Any other dataset maps to another $\hat{\beta}$.
 
-In conclusion, we have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about it as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. In a dummy way, it works in the same way as $f(w) = w^2$, which will always produce $4$ when $w = 2$.
+In conclusion, we have a tendency to think of $\hat{\beta}$ as a estimate, but we should think about it as a function of the dataset. Given a dataset, it will always produce the same result because it is a deterministic function. In a dummy way, it works in the same way as $f(\textbf{w}) = \textbf{w}^2$, which will always produce $4$ when $\textbf{w} = 2$.
 
 The difference here is that I want to check a frequency histogram of $\hat{\beta}$ in the output $\mathbb{R}^p$. I expect a normal distribution as a map from multiple datasets to $\hat{\beta}$.
 
@@ -670,7 +670,7 @@ $$
 Therefore, the "derivative" of it:
 
 \begin{align*}
-    \frac{f(w+\Delta) - f(w)}{w+\Delta-w} = \frac{\frac{X_n}{n} - \frac{1}{n} \alpha(F_{n-1})}{\frac{1}{n}}
+    \frac{f(\textbf{w}+\Delta) - f(\textbf{w})}{\textbf{w}+\Delta-\textbf{w}} = \frac{\frac{X_n}{n} - \frac{1}{n} \alpha(F_{n-1})}{\frac{1}{n}}
 \end{align*}
 
 Now, for $F_{\infty}$:
@@ -747,8 +747,8 @@ Where $(\hat{\alpha} - \alpha)$ can be viewed as $(\alpha (G) - \alpha (F))$
 
 The central limit theorem always work with a:
 \begin{itemize}
-    \item $w$ that has expected value of 0. Example: $(\bar{x} - \mu)$.
-    \item $w$ with variance bigger than 0 and smaller than $\infty$.
+    \item $\textbf{w}$ that has expected value of 0. Example: $(\bar{x} - \mu)$.
+    \item $\textbf{w}$ with variance bigger than 0 and smaller than $\infty$.
 \end{itemize}
 
 For an estimator $T$, the influence function $\text{IF}(x, T, F)$ measures the effect of a small contamination at point $x$ on $T$.
@@ -1010,6 +1010,117 @@ Now, considering that this part is done, we can do the CLT for $\tau$:
 
 How to solve that?
 
+\section*{Influence Functions}
+
+\subsection*{Leave One Out Approach}
+
+Common method in the 1950s in which one would take away one single data-point and retrain the model to check how the prediction would change.
+
+The method was quite inneficient and computational intensive.
+
+\subsection*{Gradient Based Solution}
+
+The solution found was to use efficient gradient-based approximation: influence functions.
+
+The idea started with setting weights for each individual observation when training the model:
+
+$$
+L = \frac{1}{n} \sum_{i = 1}^n w_i \ell_i (x_i, y_i)
+$$
+
+The leave one out approach is the case in which $w_i = 0$ for a particular $i$.
+
+The influence function, on the other hand,  is a continous approximation of the method, in which the change happens in infinitesimal scale $(1 - \varepsilon$).
+
+Meaning tha we have a perturbation in one single datapoint.
+
+From the previous loss, we can arrive to the fact the the loss for a individual datapoint is actually dependent on the parameters $\theta$.
+
+$$
+L (\textbf{w}, \theta) = \frac{1}{n} \sum_{i = 1}^n w_i \ell_i (\theta)
+$$
+
+For the following steps, we define:
+
+\begin{itemize}
+    \item $g_i (\theta) = \nabla_{\theta} \ell_i (\theta)$
+    \item $h_i (\theta) = \nabla_{\theta}^2 \ell_i (\theta)$
+    \item $G (\theta, \textbf{w}) = \dfrac{1}{n} \sum_{i = 1}^n g_i (\theta) = \nabla_{\theta} L$ 
+    \item $H (\theta, \textbf{w}) = \dfrac{1}{n} \sum_{i = 1}^n h_i (\theta) = \nabla_{\theta}^2 L$
+    \item $\hat{\theta}$ is the $\text{argmin}_{\theta} \ L$
+    \item $\hat{\theta}_1$ is $\hat{\theta}$ for when $\textbf{w} = \bf{1}$.
+    \item $H_1 =  h(\hat{\theta}_1, \textbf{w} = \bf{1}$)
+\end{itemize}
+
+\subsection*{Implicit Function Theorem}
+
+Given $G = \mathbb{R}^d \times \mathbb{R}^n \to \mathbb{R}^d$ continuous and differentiable.
+
+For some fixed $\hat{\theta}_1 \in \mathbb{R}^d, \ \textbf{1} \in \mathbb{R}^d, G(\hat{\theta}_1, \textbf{1}) = \textbf{0} \in \mathbb{R}^d$, if
+
+$$
+\frac{\partial G(\hat{\theta}(w), w)}{\partial \hat{\theta}^{\top}} \mid_{\theta = \hat{\theta}_1, \textbf{w} = 1}
+$$
+
+is invertible, then $\exists$ open $U \subset \mathbb{R}^n$ and a unique function $\hat{\theta}: U \to \mathbb{R}^d$, s.t. $\hat{\theta}(\textbf{w}) = \hat{\theta}_1$ for $\forall \ \textbf{w} \in U$ and $G(\hat{\theta}(\textbf{w}, \textbf{w})) = 0$.
+
+Moreover, $\hat{\theta}$ is continuous and differentiable and:
+
+\begin{align*}
+    \frac{\partial \hat{\theta}(w)}{\partial w^{\top}} 
+    &=
+    - \left(
+        \frac{\partial G(\hat{\theta}(w), w)}{\partial \hat{\theta}^{\top}}
+    \right)^{-1}
+    \frac{\partial G(\hat{\theta}(w), w)}{\partial w^{\top}} \\ 
+    &=
+    - H(\hat{\theta}(w), w)^{-1}
+    \frac{\partial G(\hat{\theta}(w), w)}{\partial w^{\top}} \\ 
+\end{align*}
+
+Evaluating the function at $w = 1$, we get:
+
+$$
+\frac{\partial \hat{\theta}(w)}{\partial w^{\top}}
+= \frac{1}{2n} H_1^{-1} \left[
+    g_1(\hat{\theta}_1), \ldots, g_n(\hat{\theta}_1)
+\right]
+$$
+
+Thus, for an individual datapoint $i$:
+
+$$
+\frac{\partial \hat{\theta}(w)}{\partial w^{\top}}
+= \frac{1}{2n} H_1^{-1} g_i(\hat{\theta}_1)
+$$
+
+Thus, the partial of the loss function with respect to $w$ i:
+
+$$
+\frac{\partial f(\theta)}{\partial w^{\top}}
+=
+\frac{\partial f(\theta)}{\partial \hat{\theta}(w)}
+\cdot
+\frac{\partial \hat{\theta}(w)}{\partial w^{\top}}
+$$
+
+Evaluated at $w = 1$.
+
+Where $\frac{\partial f(\theta)}{\partial \hat{\theta}(w)} = g(\hat{\theta}_1)$
+
+
+Thus, for a testing sample:
+
+$$
+\frac{\partial \ell_{\text{test}}(\theta)}{\partial w^{\top}}
+=
+- \frac{1}{2n} g_{\text{test}} (\hat{\theta}_1) H_1^{-1} g_i (\hat{\theta}_1)
+$$
+
+It can be viewed as an inner product between $g_{\text{test}}$ and $g_i (\hat{\theta}_1)$ multiplied by a "kernel", which is $H_1^{-1}$.
+
+
+ 
 \section{Lecture 6}
 
 Start with the regression for the treated group:
@@ -1534,6 +1645,22 @@ For that, we need tensors.
 
 REVIEW TENSORS
 
+\section*{Discussion Section 5}
+
+REVIEW DISCUSSION
+
+\section{Lecture 12}
+
+Number of parameters in NN: there are two regimes.
+
+One regime thinks about the variance-bias tradeoff. The more parameters we have, the higher the variance.
+
+The other regime is overparamterization. 
+
+\subsection{Basis Functions}
+
+We can approximate $f(x)$ with different kind of functions. For instance, polinomials. With polinomial, we can transform our feature in more features by using polinomial, piecewise, etc... we can transform a low dimensional linear problem into a high dimensional one.
+
+
+
 \end{document}
-
-

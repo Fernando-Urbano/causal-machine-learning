@@ -1,0 +1,235 @@
+---
+title: "q1g"
+output: html_document
+date: "2024-11-14"
+---
+
+```{r}
+library(MASS)
+library(stats)
+library(tidyverse)
+```
+
+```{r}
+empirical_expectation <- function(data, x) {
+  return(length(data[data < x]) / length(data))
+}
+
+empirical_variance <- function(data, x) {
+  exp <- empirical_expectation(data, x)
+  return(exp^2 / length(data))
+}
+
+gaussian_expectation <- function(data, x) {
+  mu_hat <- mean(data)
+  std_hat <- sd(data)
+  return(pnorm(x, mean = mu_hat, sd = std_hat))
+}
+
+gaussian_variance <- function(data, x) {
+  mu_hat <- mean(data)
+  std_hat <- sd(data)
+  cf <- (x - mu_hat) / std_hat
+  gaussian_expectation <- pnorm(x, mean = mu_hat, sd = std_hat)
+  return(gaussian_expectation^2 * (1 + (cf^2 / 2)))
+}
+
+results <- tribble(
+  ~sample_size,
+  ~x,
+  ~mean,
+  ~std,
+  ~cdf,
+  ~empirical_estimation,
+  ~gaussian_estimation,
+  ~n_simulations
+)
+
+simulate <- function(x, sample_size, n_simulations, distribution) {
+  
+  partial_results <- tribble(
+    ~distribution,
+    ~sample_size,
+    ~x,
+    ~cdf,
+    ~empirical_estimation,
+    ~gaussian_estimation,
+    ~n_simulations
+  )
+  for (i in 1:n_simulations) {
+  
+    if (distribution == "normal") {
+      sample <- rnorm(sample_size, mean = 1, sd = 1)
+      cdf <- pnorm(x, mean = 1, sd = 1)
+    } else if (distribution == "exponential") {
+      sample <- rexp(sample_size, rate = 2)
+      cdf <- pexp(x, rate = 2)
+    } else if (distribution == "gamma") {
+      sample <- rgamma(sample_size, shape = 3, rate = 2)
+      cdf <- pgamma(x, shape = 3, rate = 2)
+    } else if (distribution == "beta") {
+      sample <- rbeta(sample_size, shape1 = 3, shape2 = 5)
+      cdf <- pbeta(x, shape1 = 3, shape2 = 5)
+    } else if (distribution == "log_normal") {
+      sample <- rlnorm(sample_size, meanlog = 0, sdlog = 1)
+      cdf <- plnorm(x, meanlog = 1, sdlog = 1)
+    } else if (distribution == "t_student") {
+      sample <- rt(sample_size, df = 10)
+      cdf <- pt(x, df = 10)
+    }
+    
+    empirical_expectation(sample, x)
+    gaussian_expectation(sample, x)
+    
+    partial_results <- partial_results %>% 
+      rbind(
+        tibble(
+          distribution = distribution,
+          sample_size = sample_size,
+          x = x,
+          cdf = cdf,
+          empirical_estimation = empirical_expectation(sample, x),
+          gaussian_estimation = gaussian_expectation(sample, x),
+          n_simulations = n_simulations
+        )
+      )
+  }
+  
+  return(partial_results)
+
+}
+
+summarise_simulations <- function(simulations) {
+  return(
+    simulations %>% 
+    group_by(distribution, sample_size, x, cdf, n_simulations) %>% 
+    summarise(
+      empirical_estimator_mean = mean(empirical_estimation),
+      empirical_estimator_variance = sd(empirical_estimation)^2,
+      gaussian_estimator_mean = mean(gaussian_estimation),
+      gaussian_estimator_variance = sd(gaussian_estimation)^2,
+      .groups = "keep"
+    )
+  )
+}
+
+plot_statistics <- function(simulations, distribution_name, distribution_chosen, x_chosen) {
+
+  cdf_true <- simulations %>% 
+    filter(x == x_chosen & distribution == distribution_chosen) %>% 
+    .$cdf %>% first()
+  
+  simulations %>% 
+    ungroup() %>% 
+    filter(x == x_chosen & distribution == distribution_chosen) %>% 
+    ggplot(aes(x = sample_size)) +
+    geom_ribbon((aes(
+      ymin = empirical_estimator_mean - 1.96 * empirical_estimator_variance,
+      ymax = empirical_estimator_mean + 1.96 * empirical_estimator_variance,
+      color = "Empirical Estimator CI"
+    )), alpha=0) +
+    geom_ribbon((aes(
+      ymin = gaussian_estimator_mean - 1.96 * gaussian_estimator_variance,
+      ymax = gaussian_estimator_mean + 1.96 * gaussian_estimator_variance,
+      color = "Gaussian Estimator CI"
+    )), alpha=.0) +
+    theme_minimal() +
+    theme(legend.position = 'bottom') +
+    geom_hline(aes(yintercept = cdf_true, color = "True CDF"), linetype = "dashed") +
+    scale_color_manual(values = c('blue', 'red', 'black')) +
+    labs(
+      title = distribution_name %>%
+        paste0(": Empirical and Gaussian Estimators CI for x = ", x),
+      y = "CDF",
+      x = "N Sample"
+    )
+  ggsave(paste0("q2d-plots/ci_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  
+  simulations %>% 
+    ungroup() %>% 
+    mutate(
+      empirical_bias = abs(empirical_estimator_mean - cdf),
+      gaussian_bias = abs(gaussian_estimator_mean - cdf)
+    ) %>% 
+    filter(x == x_chosen & distribution == distribution_chosen) %>% 
+    ggplot(aes(x = sample_size)) +
+    geom_line(aes(y = empirical_bias, color = "Empirical Estimator Bias")) +
+    geom_line(aes(y = gaussian_bias, color = "Gaussian Estimator Bias")) +
+    theme_minimal() +
+    theme(legend.position = 'bottom') +
+    scale_color_manual(values = c('blue', 'red', 'black')) +
+    labs(
+      title = distribution_name %>%
+        paste0(": Empirical and Gaussian Estimators Bias for x = ", x),
+      y = "Bias",
+      x = "N Sample"
+    )
+  ggsave(paste0("q2d-plots/bias_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  
+  simulations %>% 
+    ungroup() %>% 
+    filter(x == x_chosen & distribution == distribution_chosen) %>% 
+    ggplot(aes(x = sample_size)) +
+    geom_line(aes(y = empirical_estimator_variance, color = "Empirical Estimator Variance")) +
+    geom_line(aes(y = gaussian_estimator_variance, color = "Gaussian Estimator Variance")) +
+    theme_minimal() +
+    theme(legend.position = 'bottom') +
+    scale_color_manual(values = c('blue', 'red', 'black')) +
+    labs(
+      title = distribution_name %>%
+        paste0(": Empirical and Gaussian Estimators Variance for x = ", x),
+      y = "Variance",
+      x = "N Sample"
+    )
+  ggsave(paste0("q2d-plots/variance_x", x_chosen  * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  
+  simulations %>% 
+    mutate(
+      empirical_bias = abs(empirical_estimator_mean - cdf),
+      gaussian_bias = abs(gaussian_estimator_mean - cdf),
+      empirical_mse = empirical_bias^2 + empirical_estimator_variance,
+      gaussian_mse = gaussian_bias^2 + gaussian_estimator_variance,
+    ) %>% 
+    ungroup() %>% 
+    filter(x == x_chosen & distribution == distribution_chosen) %>% 
+    ggplot(aes(x = sample_size)) +
+    geom_line(aes(y = empirical_bias, color = "Empirical Estimator MSE")) +
+    geom_line(aes(y = gaussian_bias, color = "Gaussian Estimator MSE")) +
+    theme_minimal() +
+    theme(legend.position = 'bottom') +
+    scale_color_manual(values = c('blue', 'red', 'black')) +
+    labs(
+      title = distribution_name %>%
+        paste0(": Empirical and Gaussian Estimators MSE for x = ", x),
+      y = "MSE",
+      x = "N Sample"
+    )
+  ggsave(paste0("q2d-plots/mse_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+
+}
+
+
+```
+
+
+```{r}
+simulations <- tibble()
+
+for (n in seq(10, 400, 5)) {
+  for (distribution in c('normal', 'exponential', 'gamma', 'log_normal', 't_student')) {
+    for (x in c(.5, 1.5, 2.5)) {
+      
+      simulations <- simulations %>% 
+        rbind(simulate(x, n, 500, distribution) %>% summarise_simulations())
+    }
+  }
+}
+
+for (x in c(.5, 1.5, 2.5)) {
+  plot_statistics(simulations, "Exponential(2)", "exponential", x_chosen = x)
+  plot_statistics(simulations, "Normal(1, 1)", "normal", x_chosen = x)
+  plot_statistics(simulations, "Gamma(3, 2)", "gamma", x_chosen = x)
+  plot_statistics(simulations, "Log-Normal(1, 1)", "log_normal", x_chosen = x)
+  plot_statistics(simulations, "T-Student(10)", "t_student", x_chosen = x)
+}
+``` 

@@ -1,0 +1,182 @@
+---
+title: "q1g"
+output: html_document
+date: "2024-11-14"
+---
+
+```{r}
+library(MASS)
+library(stats)
+library(tidyverse)
+
+```
+
+```{r}
+simulate_data <- function(n, d, theta_0, beta0, tau_true, noise_level) {
+  x <- matrix(rnorm(n * d), nrow = n, ncol = d)
+  
+  p <- 1 / (1 + exp(-x %*% theta_0))
+  
+  t <- rbinom(n, 1, p)
+  
+  y0 <- x %*% beta0 + rnorm(n, mean = 0, sd = noise_level)
+  y1 <- y0 + tau_true
+  
+  y <- t * y1 + (1 - t) * y0
+  
+  data <- data.frame(y = y, t = t, x)
+  colnames(data)[-(1:2)] <- paste0("X", 1:d)
+  return(data)
+}
+```
+
+
+```{r setup, include=FALSE}
+# Function to simulate data
+simulate_data <- function(n, d, theta_0, beta0, tau_true, noise_level) {
+  # Generate X ~ N(0, I_d)
+  X <- matrix(rnorm(n * d), nrow = n, ncol = d)
+  
+  # Compute propensity scores
+  p <- 1 / (1 + exp(-X %*% theta_0))
+  
+  # Generate treatment assignment T ~ Bernoulli(p)
+  T <- rbinom(n, 1, p)
+  
+  # Generate potential outcomes
+  Y0 <- X %*% beta0 + rnorm(n, mean = 0, sd = noise_level)
+  Y1 <- Y0 + tau_true
+  
+  # Observed outcome
+  Y <- T * Y1 + (1 - T) * Y0
+  
+  data <- data.frame(Y = Y, T = T, X)
+  colnames(data)[-(1:2)] <- paste0("X", 1:d)
+  return(data)
+}
+
+# Function to estimate propensity score via MLE (logistic regression)
+estimate_propensity_mle <- function(data, d) {
+  formula <- as.formula(paste("T ~", paste(paste0("X", 1:d), collapse = " + ")))
+  model <- glm(formula, data = data, family = binomial(link = "logit"))
+  data$propensity_mle <- predict(model, type = "response")
+  return(data)
+}
+
+# Function to estimate propensity score via NLS
+estimate_propensity_nls <- function(data, d) {
+  # Define the logistic function
+  logistic_function <- function(theta, X) {
+    1 / (1 + exp(-X %*% theta))
+  }
+  
+  # Objective function for NLS
+  nls_objective <- function(theta, T, X) {
+    p_hat <- logistic_function(theta, X)
+    sum((T - p_hat)^2)
+  }
+  
+  # Initial guess for theta
+  theta_init <- rep(0, d)
+  
+  # Optimize theta using nonlinear least squares
+  nls_result <- optim(
+    theta_init,
+    nls_objective,
+    T = data$T,
+    X = as.matrix(data[, paste0("X", 1:d)]),
+    method = "BFGS"
+  )
+  
+  # Estimated propensity scores
+  data$propensity_nls <- logistic_function(nls_result$par, as.matrix(data[, paste0("X", 1:d)]))
+  
+  return(data)
+}
+
+# Function to compute ATT estimator
+compute_att <- function(data, method = c("mle", "nls")) {
+  method <- match.arg(method)
+  if (method == "mle") {
+    p_hat <- mean(data$T)
+    data$propensity <- data$propensity_mle
+  } else if (method == "nls") {
+    p_hat <- mean(data$T)
+    data$propensity <- data$propensity_nls
+  }
+  
+  # Compute ATT estimator
+  mu1_hat <- mean(data$T * data$Y) / p_hat
+  mu0_hat <- (1 / (1 - p_hat)) * mean(((1 - data$T) * data$propensity * data$Y) / (1 - data$propensity))
+  att_hat <- mu1_hat - mu0_hat
+  return(att_hat)
+}
+
+# Simulation parameters
+n_sim <- 100     
+sample_sizes <- c(500, 1000, 5000)
+dimensions <- c(2, 5, 10)         
+noise_levels <- c(1, 2, 5)        
+
+# True parameter values
+tau_true <- 2    # True ATT
+
+# Store results
+results <- data.frame()
+
+for (d in dimensions) {
+  theta_0 <- rep(0.5, d)  # True theta_0
+  beta0 <- rep(1, d)      # Coefficients for Y0
+  
+  for (n in sample_sizes) {
+    for (noise_level in noise_levels) {
+      att_mle_estimates <- numeric(n_sim)
+      att_nls_estimates <- numeric(n_sim)
+      
+      for (sim in 1:n_sim) {
+        # Simulate data
+        data <- simulate_data(n, d, theta_0, beta0, tau_true, noise_level)
+        
+        # Estimate propensity scores
+        data <- estimate_propensity_mle(data, d)
+        data <- estimate_propensity_nls(data, d)
+        
+        # Compute ATT estimators
+        att_mle <- compute_att(data, method = "mle")
+        att_nls <- compute_att(data, method = "nls")
+        
+        # Store estimates
+        att_mle_estimates[sim] <- att_mle
+        att_nls_estimates[sim] <- att_nls
+      }
+      
+      # Compute biases and variances
+      bias_mle <- mean(att_mle_estimates - tau_true)
+      bias_nls <- mean(att_nls_estimates - tau_true)
+      var_mle <- var(att_mle_estimates)
+      var_nls <- var(att_nls_estimates)
+      mse_mle <- mean((att_mle_estimates - tau_true)^2)
+      mse_nls <- mean((att_nls_estimates - tau_true)^2)
+      
+      # Store results
+      results <- rbind(results, data.frame(
+        Dimension = d,
+        SampleSize = n,
+        NoiseLevel = noise_level,
+        Bias_MLE = bias_mle,
+        Bias_NLS = bias_nls,
+        Variance_MLE = var_mle,
+        Variance_NLS = var_nls,
+        MSE_MLE = mse_mle,
+        MSE_NLS = mse_nls
+      ))
+      
+      # Print progress
+      cat("Completed: Dimension =", d, "Sample Size =", n, "Noise Level =", noise_level, "\n")
+    }
+  }
+}
+
+# Display results
+print(results)
+```

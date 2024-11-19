@@ -1,0 +1,164 @@
+---
+title: "q1g"
+output: html_document
+date: "2024-11-14"
+---
+
+```{r}
+library(MASS)
+library(stats)
+library(tidyverse)
+library(binsreg)
+```
+
+```{r}
+banerji_raw <- read_csv("Banerji-Berry-Shotland_2017_AEJ.csv")
+banerji_raw
+```
+
+```{r}
+discrete_features <- banerji_raw %>% 
+  select(-treatment) %>% 
+  gather(id, value) %>% 
+  group_by(id, value) %>% 
+  summarise(count = n(), .groups = 'keep') %>% 
+  ungroup() %>% 
+  group_by(id) %>% 
+  summarise(n_diff_values = n(), .groups = 'keep') %>% 
+  ungroup() %>% 
+  arrange(n_diff_values) %>% 
+  filter(n_diff_values <= 2) %>% 
+  .$id
+```
+
+
+```{r}
+banerji_data <- banerji_raw %>% 
+  arrange(treatment) %>% 
+  mutate(treatment = factor(treatment, levels = unique(.$treatment))) %>% 
+  mutate(
+    t2 = ifelse(treatment == 2, 1, 0),
+    t3 = ifelse(treatment == 3, 1, 0),
+    t4 = ifelse(treatment == 4, 1, 0),
+  ) %>% 
+  select(-treatment)
+
+features <- banerji_data %>% colnames()
+features <- features[!features %in% c("treatment", "caser_total_norm")]
+continous_features <- features[!features %in% discrete_features]
+
+banerji_demeaned_data <- banerji_data %>% 
+  mutate(across(features, ~ (. - mean(.)), .names = "{.col}"))
+
+banerji_interaction_with_treatment_data <- banerji_demeaned_data %>% 
+  mutate(across(features, ~ . * t2, .names = "{.col}:t2")) %>% 
+  mutate(across(features, ~ . * t3, .names = "{.col}:t3")) %>% 
+  mutate(across(features, ~ . * t4, .names = "{.col}:t4"))
+
+banerji_interaction_with_discrete_features_data <- banerji_demeaned_data %>% 
+  mutate(across(discrete_features, ~ . * age, .names = "{.col}:age")) %>% 
+  mutate(across(discrete_features, ~ . * bl_caser_total_norm, .names = "{.col}:bl_caser_total_norm")) %>% 
+  mutate(across(discrete_features, ~ . * number_of_kids, .names = "{.col}:number_of_kids"))
+```
+
+# 3.F
+```{r}
+banerji_data
+
+continous_features
+
+binsreg(
+  y = banerji_data$caser_total_norm,
+  x = banerji_data$age,
+  w = banerji_data %>% 
+    select(starts_with("t")),
+  ci = TRUE
+)
+ggsave("q3f-plots/best_binsreg_age.png")
+
+
+binsreg(
+  y = banerji_data$caser_total_norm,
+  x = banerji_data$bl_caser_total_norm,
+  ci = TRUE
+)
+ggsave("q3f-plots/best_binsreg_bl_caser_total_norm.png")
+
+
+binsreg(
+  y = banerji_data$caser_total_norm,
+  x = banerji_data$number_of_kids,
+  ci = TRUE
+)
+ggsave("q3f-plots/best_binsreg_number_of_kids.png")
+```
+
+```{r}
+binsreg_plot <- function(
+    y, x,
+    bins = 2, deg = 0, smoothness = 0, type = "p",
+    title, xlabel, ylabel
+) {
+  bs <- binsreg(
+    y, x,
+    dots = c(deg, smoothness),
+    binspos = "es",
+    nbins = bins,
+    line = c(deg, smoothness),
+    masspoints = "off",
+    linegrid = max(floor(length(y) / bins), 20),
+    dotsgridmean = FALSE
+  )
+  
+  bins_line <- bs$data.plot$`Group Full Sample`$data.line
+  
+  ggplot() +
+    geom_point(aes(x = x, y = y), shape = ifelse(type == "p", 16, NA)) +
+    geom_line(data = bins_line, aes(x = x, y = fit), color = "red", size = 1.2) +
+    geom_line(aes(x = sort(x), y = y[order(x)]), color = "blue", linetype = "dashed") +
+    theme_minimal() +
+    labs(
+      title = title,
+      x = xlabel,
+      y = ylabel
+    )
+}
+
+ordered_data <- banerji_data %>% 
+  arrange(number_of_kids)
+
+for (variable in continous_features) {
+  for (degree in c(0, 1, 2)) {
+    binsreg_plot(
+      y = ordered_data$caser_total_norm,
+      x = ordered_data %>%
+        select(variable) %>%
+        purrr::set_names("variable") %>%
+        .$variable,
+      bins = 5, deg = degree, type="p",
+      title = paste0("Bins Reg B5 D", degree, " - ", variable),
+      xlabel = variable,
+      ylabel = "caser_total_norm"
+    )
+    ggsave("q3f-plots/binsreg_" %>% paste0(
+      variable, "_b5_d", degree, ".png"
+    ))
+  }
+  for (n_bins in c(10, 15)) {
+    binsreg_plot(
+      y = ordered_data$caser_total_norm,
+      x = ordered_data %>%
+        select(variable) %>%
+        purrr::set_names("variable") %>%
+        .$variable,
+      bins = n_bins, deg = 0, type="p",
+      title = paste0("Bins Reg B", n_bins, " D", degree, " - ", variable),
+      xlabel = variable,
+      ylabel = "caser_total_norm"
+    )
+    ggsave("q3f-plots/binsreg_" %>% paste0(
+      variable, "_b", n_bins, "_d0.png"
+    ))
+  }
+}
+```

@@ -64,18 +64,30 @@ simulate <- function(x, sample_size, n_simulations, distribution) {
     } else if (distribution == "exponential") {
       sample <- rexp(sample_size, rate = 2)
       cdf <- pexp(x, rate = 2)
-    } else if (distribution == "gamma") {
+    } else if (distribution == "gamma_3_2") {
       sample <- rgamma(sample_size, shape = 3, rate = 2)
       cdf <- pgamma(x, shape = 3, rate = 2)
+    } else if (distribution == "gamma_1_1") {
+      sample <- rgamma(sample_size, shape = 1, rate = 1)
+      cdf <- pgamma(x, shape = 1, rate = 1)
     } else if (distribution == "beta") {
       sample <- rbeta(sample_size, shape1 = 3, shape2 = 5)
       cdf <- pbeta(x, shape1 = 3, shape2 = 5)
-    } else if (distribution == "log_normal") {
-      sample <- rlnorm(sample_size, meanlog = 0, sdlog = 1)
+    } else if (distribution == "log_normal_1_1") {
+      sample <- rlnorm(sample_size, meanlog = 1, sdlog = 1)
       cdf <- plnorm(x, meanlog = 1, sdlog = 1)
-    } else if (distribution == "t_student") {
+    } else if (distribution == "log_normal_1_2") {
+      sample <- rlnorm(sample_size, meanlog = 1, sdlog = 2)
+      cdf <- plnorm(x, meanlog = 1, sdlog = 2)
+    } else if (distribution == "t_student_10") {
       sample <- rt(sample_size, df = 10)
       cdf <- pt(x, df = 10)
+    } else if (distribution == "t_student_70") {
+      sample <- rt(sample_size, df = 70)
+      cdf <- pt(x, df = 70)
+    } else if (distribution == "t_student_150") {
+      sample <- rt(sample_size, df = 150)
+      cdf <- pt(x, df = 150)
     }
     
     empirical_expectation(sample, x)
@@ -143,7 +155,7 @@ plot_statistics <- function(simulations, distribution_name, distribution_chosen,
       y = "CDF",
       x = "N Sample"
     )
-  ggsave(paste0("q2d-plots/ci_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  ggsave(paste0("q2d-plots/ci_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 6, height = 4)
   
   simulations %>% 
     ungroup() %>% 
@@ -164,7 +176,7 @@ plot_statistics <- function(simulations, distribution_name, distribution_chosen,
       y = "Bias",
       x = "N Sample"
     )
-  ggsave(paste0("q2d-plots/bias_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  ggsave(paste0("q2d-plots/bias_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 6, height = 4)
   
   simulations %>% 
     ungroup() %>% 
@@ -181,7 +193,7 @@ plot_statistics <- function(simulations, distribution_name, distribution_chosen,
       y = "Variance",
       x = "N Sample"
     )
-  ggsave(paste0("q2d-plots/variance_x", x_chosen  * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  ggsave(paste0("q2d-plots/variance_x", x_chosen  * 10, "_", distribution_chosen, ".png"), width = 6, height = 4)
   
   simulations %>% 
     mutate(
@@ -204,7 +216,7 @@ plot_statistics <- function(simulations, distribution_name, distribution_chosen,
       y = "MSE",
       x = "N Sample"
     )
-  ggsave(paste0("q2d-plots/mse_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 8, height = 5)
+  ggsave(paste0("q2d-plots/mse_x", x_chosen * 10, "_", distribution_chosen, ".png"), width = 6, height = 4)
 
 }
 
@@ -216,7 +228,10 @@ plot_statistics <- function(simulations, distribution_name, distribution_chosen,
 simulations <- tibble()
 
 for (n in seq(10, 400, 5)) {
-  for (distribution in c('normal', 'exponential', 'gamma', 'log_normal', 't_student')) {
+  for (distribution in c(
+    'normal', 'exponential', 'gamma_3_2', 'log_normal_1_1', 't_student_10',
+    'log_normal_1_2', 't_student_70', 't_student_150', 'gamma_1_1'
+  )) {
     for (x in c(.5, 1.5, 2.5)) {
       
       simulations <- simulations %>% 
@@ -226,10 +241,14 @@ for (n in seq(10, 400, 5)) {
 }
 
 for (x in c(.5, 1.5, 2.5)) {
-  plot_statistics(simulations, "Exponential(2)", "exponential", x_chosen = x)
   plot_statistics(simulations, "Normal(1, 1)", "normal", x_chosen = x)
-  plot_statistics(simulations, "Gamma(3, 2)", "gamma", x_chosen = x)
-  plot_statistics(simulations, "Log-Normal(1, 1)", "log_normal", x_chosen = x)
-  plot_statistics(simulations, "T-Student(10)", "t_student", x_chosen = x)
+  plot_statistics(simulations, "Exponential(2)", "exponential", x_chosen = x)
+  plot_statistics(simulations, "Gamma(3, 2)", "gamma_3_2", x_chosen = x)
+  plot_statistics(simulations, "Log-Normal(1, 1)", "log_normal_1_1", x_chosen = x)
+  plot_statistics(simulations, "Log-Normal(1, 2)", "log_normal_1_2", x_chosen = x)
+  plot_statistics(simulations, "T-Student(10)", "t_student_10", x_chosen = x)
+  plot_statistics(simulations, "T-Student(70)", "t_student_70", x_chosen = x)
+  plot_statistics(simulations, "T-Student(150)", "t_student_150", x_chosen = x)
+  plot_statistics(simulations, "Gamma(1, 1)", "gamma_1_1", x_chosen = x)
 }
 ``` 

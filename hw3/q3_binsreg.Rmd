@@ -5,6 +5,7 @@ date: "2024-11-14"
 ---
 
 ```{r}
+rm(list=ls())
 library(MASS)
 library(stats)
 library(tidyverse)
@@ -44,8 +45,8 @@ banerji_data <- banerji_raw %>%
   select(-treatment)
 
 features <- banerji_data %>% colnames()
-features <- features[!features %in% c("treatment", "caser_total_norm")]
-continous_features <- features[!features %in% discrete_features]
+features <- features[!features %in% c("treatment", "caser_total_norm", "t2", "t3", "t4")]
+continous_features <- features[(!features %in% discrete_features) & (!features %in% c("t2", "t3", "t4"))]
 
 banerji_demeaned_data <- banerji_data %>% 
   mutate(across(features, ~ (. - mean(.)), .names = "{.col}"))
@@ -59,6 +60,48 @@ banerji_interaction_with_discrete_features_data <- banerji_demeaned_data %>%
   mutate(across(discrete_features, ~ . * age, .names = "{.col}:age")) %>% 
   mutate(across(discrete_features, ~ . * bl_caser_total_norm, .names = "{.col}:bl_caser_total_norm")) %>% 
   mutate(across(discrete_features, ~ . * number_of_kids, .names = "{.col}:number_of_kids"))
+
+features <- banerji_interaction_with_discrete_features_data %>% 
+  select(-starts_with("t")) %>% 
+  select(-caser_total_norm) %>% 
+  mutate_all(~ (. - mean(.)) / sd(.))
+```
+
+```{r}
+selected_data <- as_tibble(banerji_interaction_with_discrete_features_data)
+
+treatment_features <- selected_data %>% 
+  select(starts_with("t"))
+
+n_treatment_features <- length(treatment_features %>% colnames())
+
+other_features <- selected_data %>% 
+  select(-starts_with("t")) %>% 
+  select(-caser_total_norm) %>% 
+  mutate_all(~ (. - mean(.)) / sd(.))
+
+n_other_features <- length(other_features %>% colnames())
+
+all_features <- cbind(other_features, treatment_features) %>% 
+  as.matrix()
+
+penalty_factors <- c(rep(1, n_other_features), rep(0, n_treatment_features))
+
+cv_model <- cv.glmnet(
+  all_features, selected_data$caser_total_norm,
+  alpha = 1,
+  penalty.factor = penalty_factors
+)
+
+best_lambda <- cv_model$lambda.min
+coefficients <- coef(cv_model, s = "lambda.min")
+print(paste('Best lambda:', best_lambda))
+print(coefficients)
+
+non_zero_features <- coef(cv_model, s = "lambda.min")[-1] != 0
+lasso_control_features <- selected_data %>% 
+    select(all_features %>% colnames()) %>% 
+    .[, non_zero_features]
 ```
 
 # 3.F
@@ -70,8 +113,8 @@ continous_features
 binsreg(
   y = banerji_data$caser_total_norm,
   x = banerji_data$age,
-  w = banerji_data %>% 
-    select(starts_with("t")),
+  # w = banerji_data %>% 
+  #   select(starts_with("t")),
   ci = TRUE
 )
 ggsave("q3f-plots/best_binsreg_age.png")
@@ -80,6 +123,8 @@ ggsave("q3f-plots/best_binsreg_age.png")
 binsreg(
   y = banerji_data$caser_total_norm,
   x = banerji_data$bl_caser_total_norm,
+  # w = banerji_data %>% 
+  #   select(starts_with("t")),
   ci = TRUE
 )
 ggsave("q3f-plots/best_binsreg_bl_caser_total_norm.png")
@@ -88,9 +133,129 @@ ggsave("q3f-plots/best_binsreg_bl_caser_total_norm.png")
 binsreg(
   y = banerji_data$caser_total_norm,
   x = banerji_data$number_of_kids,
+  # w = banerji_data %>% 
+  #   select(starts_with("t")),
   ci = TRUE
 )
 ggsave("q3f-plots/best_binsreg_number_of_kids.png")
+```
+
+```{r}
+for (t_chosen in c("t1", "t2", "t3", "t4")) {
+  selected_data <- as_tibble(banerji_data)
+  
+  if (t_chosen == "t1") {
+    selected_data <- selected_data %>% 
+      filter(t2 + t3 + t4 == 0)
+  } else if (t_chosen == "t2") {
+    selected_data <- selected_data %>% 
+      filter(t2 == 1)
+  } else if (t_chosen == "t3") {
+    selected_data <- selected_data %>% 
+      filter(t3 == 1)
+  } else if (t_chosen == "t4") {
+    selected_data <- selected_data %>% 
+      filter(t4 == 1)
+  }
+
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$age,
+    # w = banerji_data %>% 
+    #   select(starts_with("t")),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_age_", t_chosen, ".png"))
+  
+  
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$bl_caser_total_norm,
+    # w = banerji_data %>% 
+    #   select(starts_with("t")),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_bl_caser_total_norm_", t_chosen, ".png"))
+  
+  
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$number_of_kids,
+    # w = banerji_data %>% 
+    #   select(starts_with("t")),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_number_of_kids_", t_chosen, ".png"))
+
+}
+```
+
+# Using Control
+```{r}
+for (t_chosen in c("t1", "t2", "t3", "t4")) {
+  selected_data <- as_tibble(banerji_data)
+  
+  if (t_chosen == "t1") {
+    selected_data <- selected_data %>% 
+      filter(t2 + t3 + t4 == 0)
+    selected_lasso_control_features <- lasso_control_features %>% 
+      filter(t2 + t3 + t4 == 0) %>% 
+      select(-t2, -t3, -t4)
+  } else if (t_chosen == "t2") {
+    selected_data <- selected_data %>% 
+      filter(t2 == 1)
+    selected_lasso_control_features <- lasso_control_features %>% 
+      filter(t2 == 1) %>% 
+      select(-t2, -t3, -t4)
+  } else if (t_chosen == "t3") {
+    selected_data <- selected_data %>% 
+      filter(t3 == 1)
+    selected_lasso_control_features <- lasso_control_features %>% 
+      filter(t3 == 1) %>% 
+      select(-t2, -t3, -t4)
+  } else if (t_chosen == "t4") {
+    selected_data <- selected_data %>% 
+      filter(t4 == 1)
+    selected_lasso_control_features <- lasso_control_features %>% 
+      filter(t4 == 1) %>% 
+      select(-t2, -t3, -t4)
+  }
+  
+  stopifnot(
+    length(selected_data$caser_total_norm) == length(selected_data$bl_caser_total_norm),
+    nrow(selected_data) == nrow(selected_lasso_control_features)
+  )
+
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$age,
+    w = selected_lasso_control_features %>% 
+      select(-contains(':age'), -age) %>% 
+      as.matrix(),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_lasso_control_age_", t_chosen, ".png"))
+  
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$bl_caser_total_norm,
+    w = selected_lasso_control_features %>% 
+      select(-contains(':bl_caser_total_norm'), -bl_caser_total_norm),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_", t_chosen, ".png"))
+  
+  
+  binsreg(
+    y = selected_data$caser_total_norm,
+    x = selected_data$number_of_kids,
+    w = selected_lasso_control_features %>% 
+      select(-contains(':number_of_kids'), -number_of_kids),
+    ci = TRUE
+  )
+  ggsave(paste0("q3f-plots/best_binsreg_lasso_control_number_of_kids_", t_chosen, ".png"))
+
+}
 ```
 
 ```{r}
@@ -115,7 +280,6 @@ binsreg_plot <- function(
   ggplot() +
     geom_point(aes(x = x, y = y), shape = ifelse(type == "p", 16, NA)) +
     geom_line(data = bins_line, aes(x = x, y = fit), color = "red", size = 1.2) +
-    geom_line(aes(x = sort(x), y = y[order(x)]), color = "blue", linetype = "dashed") +
     theme_minimal() +
     labs(
       title = title,
@@ -129,36 +293,124 @@ ordered_data <- banerji_data %>%
 
 for (variable in continous_features) {
   for (degree in c(0, 1, 2)) {
-    binsreg_plot(
-      y = ordered_data$caser_total_norm,
-      x = ordered_data %>%
-        select(variable) %>%
-        purrr::set_names("variable") %>%
-        .$variable,
-      bins = 5, deg = degree, type="p",
-      title = paste0("Bins Reg B5 D", degree, " - ", variable),
-      xlabel = variable,
-      ylabel = "caser_total_norm"
-    )
-    ggsave("q3f-plots/binsreg_" %>% paste0(
-      variable, "_b5_d", degree, ".png"
-    ))
+    for (n_bins in c(5, 10, 15, 20)) {
+      binsreg_plot(
+        y = ordered_data$caser_total_norm,
+        x = ordered_data %>%
+          select(variable) %>%
+          purrr::set_names("variable") %>%
+          .$variable,
+        bins = n_bins, deg = 0, type="p",
+        title = paste0("Bins Reg B", n_bins, " D", degree, " - ", variable),
+        xlabel = variable,
+        ylabel = "caser_total_norm"
+      )
+      ggsave("q3f-plots/binsreg_" %>% paste0(
+        variable, "_b", n_bins, "_d", degree, ".png"
+      ))
+    }
   }
-  for (n_bins in c(10, 15)) {
-    binsreg_plot(
-      y = ordered_data$caser_total_norm,
-      x = ordered_data %>%
-        select(variable) %>%
-        purrr::set_names("variable") %>%
-        .$variable,
-      bins = n_bins, deg = 0, type="p",
-      title = paste0("Bins Reg B", n_bins, " D", degree, " - ", variable),
-      xlabel = variable,
-      ylabel = "caser_total_norm"
-    )
-    ggsave("q3f-plots/binsreg_" %>% paste0(
-      variable, "_b", n_bins, "_d0.png"
-    ))
+}
+```
+
+# 3.G
+```{r}
+for (selected_continous_variable in continous_features) {
+  for (t_chosen in c("t1", "t2", "t3", "t4")) {
+    selected_data <- as_tibble(banerji_data)
+    
+    if (t_chosen == "t1") {
+      selected_data <- selected_data %>% 
+        filter(t2 + t3 + t4 == 0)
+    } else if (t_chosen == "t2") {
+      selected_data <- selected_data %>% 
+        filter(t2 == 1)
+    } else if (t_chosen == "t3") {
+      selected_data <- selected_data %>% 
+        filter(t3 == 1)
+    } else if (t_chosen == "t4") {
+      selected_data <- selected_data %>% 
+        filter(t4 == 1)
+    }
+    
+    if (selected_data %>% nrow() > 0) {
+    
+      x <- selected_data %>%
+        rename("selected_continous_variable" = selected_continous_variable) %>%
+        .$selected_continous_variable
+      y <- selected_data %>% .$caser_total_norm
+      
+      if (selected_continous_variable %in% c('age', 'number_of_kids')) {
+        nbins = 4
+      } else {
+        nbins = NULL
+      }
+      bs <- binsreg(
+        y, x, dots = c(0, 0), binspos = "es", line = c(0,0),
+        nbins = nbins,
+        masspoints = "off", ci = T, cb = T)
+      ggsave(paste0("q3g-plots/best_confidence_interval_binsreg_", selected_continous_variable, "_", t_chosen, ".png"))
+    
+    }
+  }
+}
+```
+
+```{r}
+for (selected_continous_variable in continous_features) {
+  for (t_chosen in c("t1", "t2", "t3", "t4")) {
+    selected_data <- as_tibble(banerji_data)
+    
+      if (t_chosen == "t1") {
+      selected_data <- selected_data %>% 
+        filter(t2 + t3 + t4 == 0)
+      selected_lasso_control_features <- lasso_control_features %>% 
+        filter(t2 + t3 + t4 == 0) %>% 
+        select(-t2, -t3, -t4)
+    } else if (t_chosen == "t2") {
+      selected_data <- selected_data %>% 
+        filter(t2 == 1)
+      selected_lasso_control_features <- lasso_control_features %>% 
+        filter(t2 == 1) %>% 
+        select(-t2, -t3, -t4)
+    } else if (t_chosen == "t3") {
+      selected_data <- selected_data %>% 
+        filter(t3 == 1)
+      selected_lasso_control_features <- lasso_control_features %>% 
+        filter(t3 == 1) %>% 
+        select(-t2, -t3, -t4)
+    } else if (t_chosen == "t4") {
+      selected_data <- selected_data %>% 
+        filter(t4 == 1)
+      selected_lasso_control_features <- lasso_control_features %>% 
+        filter(t4 == 1) %>% 
+        select(-t2, -t3, -t4)
+    }
+      
+    if (selected_data %>% nrow() > 0) {
+    
+      x <- selected_data %>%
+        rename("selected_continous_variable" = selected_continous_variable) %>%
+        .$selected_continous_variable
+      y <- selected_data %>% .$caser_total_norm
+      
+      if (selected_continous_variable %in% c('age', 'number_of_kids')) {
+        nbins = 4
+      } else {
+        nbins = NULL
+      }
+      bs <- binsreg(
+        y,
+        x,
+        w = selected_lasso_control_features %>% 
+          select(-contains(paste0(':', selected_continous_variable)), -selected_continous_variable) %>% 
+          as.matrix(),
+        dots = c(0, 0), binspos = "es", line = c(0,0),
+        nbins = nbins,
+        masspoints = "off", ci = T, cb = T)
+      ggsave(paste0("q3g-plots/best_confidence_interval_lasso_control_binsreg_", selected_continous_variable, "_", t_chosen, ".png"))
+      }
+    }
   }
 }
 ```

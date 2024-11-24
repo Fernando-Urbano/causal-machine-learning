@@ -1603,7 +1603,7 @@ We reviewed:
 The results from NN:
 
 $$
-\left| \hat{f}_{\text{DNN}} - f(x) \right| = O_p (FINISH WRITING FROM THE SLIDE)
+\left| \hat{f}_{\text{DNN}} - f(x) \right| = O_p (\text{FINISH WRITING FROM THE SLIDE})
 $$
 
 The result is quite similar to the results of OLS.
@@ -1660,6 +1660,150 @@ The other regime is overparamterization.
 \subsection{Basis Functions}
 
 We can approximate $f(x)$ with different kind of functions. For instance, polinomials. With polinomial, we can transform our feature in more features by using polinomial, piecewise, etc... we can transform a low dimensional linear problem into a high dimensional one.
+
+\section{Lecture 13}
+
+To test machine learning, we often divide the data in:
+\begin{itemize}
+    \item training, validation, testing
+    \item training, validation
+\end{itemize}
+
+The testing data will serve as a hold out sample: we can only use the testing sample to validate my final model.
+
+\subsection{Trees}
+Trees are fine for hypothesis generation, but not fine for hypothesis testing.
+
+\subsection{Forest}
+
+Trying to interpret the feature relationship:
+\begin{itemize}
+    \item Partial dependence plot: shows the partial dependence, meaning how the prediction change with respect to a particular feature.
+    \item Variable dependence plot: shows the importance of the features (how much is that variable is being used as a splitting variable and how much of a difference this makes). In our example, \texttt{age} is the most "important". That does not mean that being older/younger causes the target variable. So far, it is only non-causal relationships.
+\end{itemize}
+
+Statistically significance and hability to predict well are different things.
+
+Partial dependence plot can be used for NN. Variable dependence plot cannot be used in NN.
+
+\subsection{Semiparametric Inference \& Double Machine Learning}
+
+How to do statistical inference in ML?
+
+In parametric models:
+
+\begin{align*}
+    \hat{\mathbb{E}[Y(1)]} &= \frac{1}{n} \sum_i x_i' \hat{\beta}_i \\
+    &= \frac{1}{n} \sum_i x_i' \beta_i
+        + \left(\frac{1}{n} \sum_i x_i'\right) \left( \hat{\beta}_1 - \beta_1 \right)
+\end{align*}
+
+For piecewise linear regression
+
+We are assuming that it is a smooth function and we are approximating with $J$ pieces.
+
+\begin{align*}
+    \sqrt{n} \left( \hat{\mathbb{E}[Y(1)]} - \mathbb{E}[Y(1)] \right)
+    &= \frac{1}{\sqrt{n}}
+    \left(
+        \frac{1}{n} \sum_i^n p_J(x)' \hat{\gamma} - \mathbb{E}[Y(1)]
+    \right) \\
+    &= \frac{1}{\sqrt{n}}
+    \sum_i^r (\mu_i^{*}(x_i) - \mathbb{E}[Y(1)]) \\
+    &\quad + \frac{1}{\sqrt{r}}
+    \sum_i^r (p_J (x_i)' \gamma_n^{*} - \mu_i^{*}(x_i)) \\
+    &\quad + \frac{1}{\sqrt{n}}
+    \sum_i p_J (x_i)' (\hat{\gamma} - \gamma_n^{*}) 
+\end{align*}
+
+The $p_J (x_i)'$ the best estimator is this class of functions. It is the best possible piecewise polinomial. If you have infinite $J$, the approximation becomes the function.
+
+In it:
+
+\subsubsection{Bias term (second term)}
+
+$$
+\sum_i^r (p_J (x_i)' \gamma_n^{*} - \mu_i^{*}(x_i))
+$$
+
+Each if the individual $i$ is of size $J^{-(p+1)}$.
+
+If $J$ is big enough, I can ignore this term. If we do not have big enough $J$, bias will always exist. Meaning that, if your function is quadratic and we do a linear approximation, we will always have bias...
+
+\subsubsection{Variance term (third term)}
+
+$$
+\frac{1}{\sqrt{n}} \sum_i p_J (x_i)' (\hat{\gamma} - \gamma_n^{*})
+$$ 
+
+If the $J$ is bigger, the number of observations in each bin is smaller. Thus, this term is bigger and has a lower convergence rate when $J$ is bigger.
+
+Thus, in order for the bias to go to 0, we have the problem with the variance...
+
+Otherwise, there will always be an error in the:
+
+$$
+\sqrt{n} \left( \hat{\mathbb{E}[Y(1)]} - \mathbb{E}[Y(1)] \right)
+$$
+
+\section*{Discussion 6}
+
+MLE does not have any universal finite sample guarantees, but it does have some nice asymptotic properties.
+
+\section{Lecture 14}
+
+\subsection{Double Machine Learning}
+Average of Potential Outcome:
+
+$$
+\mu(F) = \mathbb{E}[Y(1)] = \mathbb{E}[\mathbb{E}[Y(1) \mid X]]
+$$
+
+We view it as:
+
+$$
+\mathbb{E}[\mathbb{E}[Y(1) \mid X]] = \Theta(F, X)
+$$
+
+It maps to a function space of $X$.
+
+$$
+\mu(F_{\varepsilon}) = \int \Theta(F_{\varepsilon}, X) f_{\varepsilon}(X) \ dX
+$$
+
+$$
+\frac{\partial \mu (F_{\varepsilon})}{\partial \varepsilon} \mid_{\varepsilon \to 0}
+=
+\int \Theta(F, X) \frac{f_{\varepsilon}(X)}{\partial \varepsilon} \mid_{\varepsilon = 0} \ dX
++ 
+\int \frac{\partial \Theta(F_{\varepsilon}, X)}{\partial \varepsilon} f(X) \ dX
+$$
+
+Looking specific at the second term, we know that according to the first order condition:
+
+$$
+\frac{\partial \Theta_{\varepsilon}}{\partial \varepsilon}:
+\mathbb{E}[T(Y - \Theta(X)) | X] = 0
+$$
+
+This always holds for every distribution.
+
+This is true for the distribution in the perfurbation:
+
+$$
+\frac{\partial \Theta_{\varepsilon}}{\partial \varepsilon}:
+\mathbb{E}_{\varepsilon}[T(Y - \Theta_{\varepsilon}(X)) | X] = 0
+$$
+
+This last term can be viewed as:
+
+$$
+\mathbb{E}_{\varepsilon}[T(Y - \Theta_{\varepsilon}(X)) | X] =
+\int t (y - \Theta_{\varepsilon}(x)) f_{\varepsilon} (y, t \mid x) \, dy dt = 0
+$$
+
+A BUNCH OF STEPS\dots
+
 
 
 

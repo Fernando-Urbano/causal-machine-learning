@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1731954394.66747 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" "hw3.pdf" "hw3" 1731954395.42776 0
-  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" 1731954393.54867 79888 ff62aac8137f9530cda522eecdf1f436 ""
+["pdflatex"] 1732423785.6904 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" "hw3.pdf" "hw3" 1732423786.85964 0
+  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" 1732423784.17856 160959 e0e89937f399fcf171361e6b333712f2 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -73,6 +73,9 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/article.cls" 1705352648 20144 147463a6a579f4597269ef9565205cfe ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/size10.clo" 1705352648 8448 dbc0dbf4156c0bb9ba01a1c685d3bad0 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/base/ts1cmtt.fd" 1705352648 2287 003e26f17fb2011982a0904ffee9cab0 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/changepage/changepage.sty" 1256071977 4523 a9044e2dc40e764dac60d2acda7ae919 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/colortbl/colortbl.sty" 1708463147 12355 ec728d2e4c37cf8919ee2eff9b75ad0c ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/comment/comment.sty" 1472166125 10197 204f75d5d8d88aa345a8c402e879e63b ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1668028059 18450 88279bf67c81e69f8e3f1c1bad1a26c5 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/float/float.sty" 1137110151 6749 16d2656a1984957e674b149555f1ea1d ""
@@ -98,14 +101,15 @@
   "/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstpatch.sty" 1708549794 329 f19f5da7234b51d16764e23d20999c73 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/mathtools/mathtools.sty" 1710187076 62672 9ff036bc89365461cc2bd482cc1e4879 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/mathtools/mhsetup.sty" 1616101747 5582 a43dedf8e5ec418356f1e9dfe5d29fc3 ""
+  "/usr/local/texlive/2024/texmf-dist/tex/latex/tools/array.sty" 1698869629 12667 e4b5eb11e4b7239e6c8a52bbe074a6c6 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/tools/calc.sty" 1698869629 10214 547fd4d29642cb7c80bf54b49d447f01 ""
   "/usr/local/texlive/2024/texmf-dist/tex/latex/xcolor/xcolor.sty" 1700082560 55487 80a65caedd3722f4c20a14a69e785d8f ""
   "/usr/local/texlive/2024/texmf-dist/web2c/texmf.cnf" 1708706663 41649 5d6ae549fbbcb850a863f69aa41f3d10 ""
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726838998.69877 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726838976 8221424 454b2c53fe337be275f410895c638726 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "hw3.aux" 1731954395.35485 5593 ea230a5fd132b9b73620ffb889e76791 "pdflatex"
-  "hw3.tex" 1731954393.54867 79888 ff62aac8137f9530cda522eecdf1f436 ""
+  "hw3.aux" 1732423786.78631 8999 658905be06492249b5b3e4a495350648 "pdflatex"
+  "hw3.tex" 1732423784.17856 160959 e0e89937f399fcf171361e6b333712f2 ""
   (generated)
   "hw3.aux"
   "hw3.log"

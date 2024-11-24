@@ -9,6 +9,7 @@ library(MASS)
 library(stats)
 library(tidyverse)
 library(glmnet)
+library(rsample)
 ```
 
 ```{r}
@@ -44,8 +45,8 @@ banerji_data <- banerji_raw %>%
   select(-treatment)
 
 features <- banerji_data %>% colnames()
-features <- features[!features %in% c("treatment", "caser_total_norm")]
-continous_features <- features[!features %in% discrete_features]
+features <- features[!features %in% c("treatment", "caser_total_norm", "t2", "t3", "t4")]
+continous_features <- features[(!features %in% discrete_features) & (!features %in% c("t2", "t3", "t4"))]
 
 banerji_demeaned_data <- banerji_data %>% 
   mutate(across(features, ~ (. - mean(.)), .names = "{.col}"))
@@ -308,6 +309,7 @@ n_treatment_features <- length(treatment_features %>% colnames())
 
 other_features <- selected_data %>% 
   select(-starts_with("t")) %>% 
+  select(-selected_discrete_variable) %>% 
   select(-caser_total_norm) %>% 
   mutate_all(~ (. - mean(.)) / sd(.))
 
@@ -342,3 +344,102 @@ lm(
 ) %>% 
   summary()
 ```
+
+# 3.E
+```{r}
+create_interactions <- function(data, interaction_order) {
+  feature_names <- colnames(data)
+  
+  combinations <- combn(feature_names, interaction_order, simplify = FALSE)
+  
+  interaction_data <- lapply(combinations, function(comb) {
+    interaction_term <- apply(data[comb], 1, prod)
+    interaction_name <- paste(comb, collapse = ":")
+    data.frame(interaction_term) |> setNames(interaction_name)
+  })
+  
+  do.call(cbind, interaction_data)
+}
+
+selected_data <- banerji_data %>%
+  select(-caser_total_norm) %>% 
+  select(-selected_discrete_variable, -t2, -t3, -t4)
+
+treatment_features <- banerji_data %>% 
+  select(starts_with("t"), selected_discrete_variable) %>% 
+  purrr::set_names("t2", "t3", "t4", "selected_discrete_variable") %>% 
+  mutate(across(
+    c("t2", "t3", "t4"), ~ . * selected_discrete_variable, 
+    .names = "{.col}:{selected_discrete_variable}"
+  )) %>% 
+  rename_with(~ gsub("selected_discrete_variable", selected_discrete_variable, .))
+
+pairwise_interaction <- create_interactions(selected_data, 2)
+threewise_interaction <- create_interactions(selected_data, 3)
+
+banerji_data_pairwise_threewise_interactions <- cbind(
+  selected_data,
+  pairwise_interaction,
+  threewise_interaction
+) %>% 
+  mutate_all(~ (. - mean(.)) / sd(.)) %>% 
+  cbind(
+    banerji_data %>% select(caser_total_norm),
+    treatment_features
+  )
+
+set.seed(42)
+
+n_obs <- banerji_data_pairwise_threewise_interactions %>% nrow()
+
+sample_a_indices <- sample(1:n_obs, size = .5 * n_obs)
+sample_b_indices <- setdiff(1:n_obs, sample_a_indices)
+
+sample_a <- banerji_data_pairwise_threewise_interactions[sample_a_indices, ]
+sample_b <- banerji_data_pairwise_threewise_interactions[sample_b_indices, ]
+
+penalty_factors <- c(
+  rep(1, ncol(banerji_data_pairwise_threewise_interactions) - ncol(treatment_features) - 1),
+  rep(0, treatment_features %>% ncol())
+)
+
+cv_model <- cv.glmnet(
+  as.matrix(sample_a %>% select(-caser_total_norm)), sample_a$caser_total_norm,
+  alpha = 1,
+  penalty.factor = penalty_factors
+)
+
+best_lambda <- cv_model$lambda.min
+coefficients <- coef(cv_model, s = "lambda.min")
+print(paste('Best lambda:', best_lambda))
+print(coefficients)
+
+non_zero_features <- coef(cv_model, s = "lambda.min")[-1] != 0
+
+mean(non_zero_features)
+
+lm(
+  caser_total_norm ~ .,
+  sample_b %>% 
+    .[, non_zero_features] %>% 
+    cbind(
+      sample_b %>% 
+        select(caser_total_norm)
+    )
+) %>% 
+  summary()
+
+lm(
+  caser_total_norm ~ .,
+  sample_a %>% 
+    .[, non_zero_features] %>% 
+    cbind(
+      sample_a %>% 
+        select(caser_total_norm)
+    )
+) %>% 
+  summary()
+```
+
+
+

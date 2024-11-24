@@ -1,7 +1,11 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{comment}
 \usepackage{amsfonts}
+\usepackage{colortbl}
+\usepackage[table,xcdraw]{xcolor}
 \usepackage{mathtools}
+\usepackage{changepage}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage{amssymb}
 \usepackage{color}
@@ -17,7 +21,7 @@
 \renewcommand{\footrulewidth}{0.2pt}
 
 \fancyhead[L]{ECMA 31380 - Causal Machine Learning}
-\fancyhead[R]{Homework 2}
+\fancyhead[R]{Homework 3}
 
 \usepackage{graphicx}
 \setlength{\parskip}{0.5em}
@@ -50,7 +54,64 @@
   language=R
 }
 
-\title{ECMA 31380 - Causal Machine Learning - Homework 2}
+\lstdefinestyle{RstyleComment}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\footnotesize\color{codegreen},
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\lstdefinestyle{RstyleCommentSmall}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\scriptsize\color{codegreen}, % Changed font size here
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\lstdefinestyle{RstyleCommentTiny}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\tiny\color{codegreen}, % Changed to \tiny
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\title{ECMA 31380 - Causal Machine Learning - Homework 3}
 \author{Fernando Rocha Urbano}
 \date{Autumn 2024}
 
@@ -1028,7 +1089,7 @@ Motive this estimator as the sample analogue of the population cdf. Prove that \
 \[
 \hat{F}(x) = \frac{1}{n} \sum_{i=1}^n 1\{ x_i \leq x \}
 \]
-serves as the sample analogue of the population cumulative distribution function \( F(x) = P(X \leq x) \), because it represents the proportion of observed data points less than or equal to \( x \).
+serves as the sample analogue of the population cumulative distribution function \( F(x) = \mathbb{P}(X \leq x) \), because it represents the proportion of observed data points less than or equal to \( x \).
 
 To show that \( \hat{F}(x) \) is unbiased, we compute its expected value:
 \[
@@ -1036,7 +1097,7 @@ To show that \( \hat{F}(x) \) is unbiased, we compute its expected value:
 E[\hat{F}(x)] &= E\left[ \frac{1}{n} \sum_{i=1}^n 1\{ x_i \leq x \} \right] \\
 &= \frac{1}{n} \sum_{i=1}^n E[1\{ x_i \leq x \}] \\
 &= E[1\{ X \leq x \}] \\
-&= P(X \leq x) \\
+&= \mathbb{P}(X \leq x) \\
 &= F(x).
 \end{aligned}
 \]
@@ -1069,17 +1130,13 @@ Characterize the variance \( \Omega \) and provide a consistent estimator.
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
-To prove that
-\[
-\sqrt{n}(\hat{F}(x) - F(x)) \xrightarrow{d} \mathcal{N}(0, \Omega),
-\]
-we consider the indicator variables
+Consider the indicator variables
 \[
 Y_i = 1\{ x_i \leq x \}, \quad i = 1, 2, \dots, n.
 \]
 Each \( Y_i \) is an independent and identically distributed (i.i.d.) Bernoulli random variable with success probability \( p = F(x) \):
 \[
-E[Y_i] = F(x), \quad \operatorname{Var}(Y_i) = F(x)(1 - F(x)).
+E[Y_i] = F(x), \quad \operatorname{Var}(Y_i) = F(x)(1 - F(x))
 \]
 
 By the Central Limit Theorem (CLT), if the following sufficient conditions are met:
@@ -1088,13 +1145,14 @@ By the Central Limit Theorem (CLT), if the following sufficient conditions are m
     \item The variance \( \operatorname{Var}(Y_i) \) is finite.
 \end{itemize}
 then
-\[
-\sqrt{n}\left( \frac{1}{n} \sum_{i=1}^n Y_i - E[Y_i] \right) \xrightarrow{d} \mathcal{N}(0, \operatorname{Var}(Y_i)).
-\]
-Substituting back, we have
-\[
-\sqrt{n}(\hat{F}(x) - F(x)) \xrightarrow{d} \mathcal{N}\left( 0, F(x)(1 - F(x)) \right).
-\]
+
+$$
+\begin{aligned}
+  \sqrt{n}\left( \frac{1}{n} \sum_{i=1}^n Y_i - E[Y_i] \right) &\xrightarrow{d} \mathcal{N}(0, \operatorname{Var}(Y_i)) \\
+  \sqrt{n}(\hat{F}(x) - F(x)) &\xrightarrow{d} \mathcal{N}\left( 0, F(x)(1 - F(x)) \right)
+\end{aligned}
+$$
+
 Thus, the asymptotic variance is
 \[
 \Omega = F(x)(1 - F(x)).
@@ -1125,11 +1183,15 @@ where \( \Phi(\cdot) \) is the standard normal cumulative distribution function,
 \hat{\mu} = \frac{1}{n} \sum_{i=1}^n x_i, \quad \hat{\sigma} = \sqrt{\frac{1}{n} \sum_{i=1}^n (x_i - \hat{\mu})^2}.
 \]
 
-\begin{colorparagraph}{tacolor}
-Should it be $1 / (n - 1)$ in the standard deviation instead of $n$?
-\end{colorparagraph}
+In this case, we can use $n$ in the denominator of $\hat{\sigma}$ or $n-1$. the denominator with $n$ is the result derived from the MLE function. For finite samples, $\hat{\sigma}_{\text{MLE}}$ is biased. Nonetheless, assyntotically, it has the properties as the estimator using $n-1$ and it is unbiased:
 
-Since \( \hat{\mu} \) and \( \hat{\sigma} \) are consistent estimators of \( \mu \) and \( \sigma \) respectively, we have
+\[
+\hat{\sigma}_{\text{MLE}}^2 \xrightarrow{p} \sigma^2 \quad \text{and} \quad \hat{\sigma}^2 \xrightarrow{p} \sigma^2 \quad \text{as } n \to \infty.
+\]
+
+We continue with $\hat{\sigma}_{\text{MLE}}$ to simplify further calculations.
+
+Again, since \( \hat{\mu} \) and \( \hat{\sigma} \) are consistent estimators of \( \mu \) and \( \sigma \) respectively, we have
 \[
 \hat{\mu} \xrightarrow{p} \mu, \quad \hat{\sigma} \xrightarrow{p} \sigma \quad \text{as } n \to \infty.
 \]
@@ -1139,7 +1201,22 @@ The function \( \Phi\left( \frac{x - \mu}{\sigma} \right) \) is continuous in bo
 \]
 Therefore, \( \tilde{F}(x) \) is a consistent estimator of \( F(x) \).
 
-To establish the asymptotic normality, we use the Delta Method. Let \( \theta = (\mu, \sigma) \) and \( \hat{\theta} = (\hat{\mu}, \hat{\sigma}) \). Define the function
+To establish the asymptotic normality, we use the Delta Method.
+
+The Delta Method states that if:
+\begin{itemize}
+  \item \( \sqrt{n} (\hat{\theta} - \theta) \xrightarrow{d} \mathcal{N}(0, \Sigma) \), meaning that the estimator  $\hat{\theta}$  is asymptotically Normal with mean  $\theta$  and covariance matrix  $\Sigma$.
+  \item $h(\theta)$  is a function that is continuously differentiable at  $\theta $.
+\end{itemize}
+
+Then:
+
+$$
+\sqrt{n} (h(\hat{\theta}) - h(\theta)) \xrightarrow{d} \mathcal{N}(0, \nabla h(\theta)^\top \Sigma \nabla h(\theta))
+$$
+
+
+Let \( \theta = (\mu, \sigma) \) and \( \hat{\theta} = (\hat{\mu}, \hat{\sigma}) \). Define the function
 \[
 h(\theta) = \Phi\left( \frac{x - \mu}{\sigma} \right).
 \]
@@ -1147,7 +1224,20 @@ The first-order Taylor expansion of \( \tilde{F}(x) \) around \( \theta \) is
 \[
 \sqrt{n} \left( \tilde{F}(x) - F(x) \right) \approx \nabla h(\theta)^T \sqrt{n} (\hat{\theta} - \theta),
 \]
-where the gradient \( \nabla h(\theta) \) is given by
+where the partial derivatives of \( h(\theta) \) are
+
+$$
+\frac{\partial h}{\partial \mu} = \dfrac{\partial \left(\dfrac{x - \mu}{\sigma}\right)}{\partial \mu} \phi \left(\dfrac{x - \mu}{\sigma}\right) = -\frac{1}{\sigma} \phi\left( \frac{x - \mu}{\sigma} \right)
+$$
+
+$$
+\frac{\partial h}{\partial \sigma} = \dfrac{\partial \left(\dfrac{x - \mu}{\sigma}\right)}{\partial \sigma} \phi \left(\dfrac{x - \mu}{\sigma}\right) = -\frac{x - \mu}{\sigma^2} \phi\left( \frac{x - \mu}{\sigma} \right)
+$$
+
+where \( \phi(\cdot) \) is the standard normal probability density function.
+
+Therefore, the \( \nabla h(\theta) \) is defined as:
+
 \[
 \nabla h(\theta) = \begin{pmatrix}
 \displaystyle \frac{\partial h}{\partial \mu} \\[2ex]
@@ -1155,9 +1245,8 @@ where the gradient \( \nabla h(\theta) \) is given by
 \end{pmatrix} = \begin{pmatrix}
 \displaystyle -\frac{1}{\sigma} \phi\left( \frac{x - \mu}{\sigma} \right) \\[2ex]
 \displaystyle -\frac{x - \mu}{\sigma^2} \phi\left( \frac{x - \mu}{\sigma} \right)
-\end{pmatrix},
+\end{pmatrix}
 \]
-and \( \phi(\cdot) \) is the standard normal probability density function.
 
 Under the assumption of normality, the sample mean and sample variance are asymptotically independent and satisfy
 \[
@@ -1207,6 +1296,253 @@ Evaluate the consistency and the variance (i.e., the CLT) for both estimators. I
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+In this simulation, we use 9 different distributions:
+\begin{itemize}
+  \item Normal(1, 1)
+  \item Exponential(2)
+  \item Gamma(3, 2)
+  \item Gamma(1, 1)
+  \item Log-Normal(1, 1)
+  \item Log-Normal(1, 2)
+  \item T-Student(10)
+  \item T-Student(70)
+  \item T-Student(150)
+\end{itemize}
+
+We run simulations for $n$ between 10 and 400, with intervals of 5. For each $n$, we run 500 simulations. In total, we run 355 thousand simulations.
+
+For $x = 0.5$, $x = 1.5$ and $x = 2.5$ we provide estimates for:
+\begin{itemize}
+  \item Confidence Interval: a raw estimate of the CI, using $\hat{\text{CDF}} \pm 2 \times \text{Var}(\hat{\text{CDF}})$ for that particular sample size and distribution. The estimate is not statistically precise, but provides intuition.
+  We define:
+  $$
+  \hat{\text{CDF}} = \frac{1}{n} \sum_s^{S} \hat{\text{CDF}}_s
+  $$
+  where $S$ is the number of simulations for each $n$.
+  \item Bias: how much the estimated CDF differs from the actual CDF.
+  $$
+  \text{Bias} = \hat{\text{CDF}} - {\text{CDF}}
+  $$
+  \item Variance: 
+  $$
+  \text{Variance} = \frac{1}{S-1} \sum_s^{S} \left(\hat{\text{CDF}}_s - \hat{\text{CDF}}\right)
+  $$
+  \item MSE (Mean Squared Error): 
+  $$
+  \text{MSE} = \text{Variance} + \text{Bias}^2
+  $$
+\end{itemize}
+
+We present the following takeaways:
+\begin{itemize}
+  \item When the data generating process has normal distribution $\tilde{F}(x)$ outperforms $\hat{F}(x)$.
+  \item The variance of $\tilde{F}(x)$ is almost always smaller. Nonetheless, the  $\tilde{F}(x)$ estimator is biased for most distributions, leading to considerably higher MSE.
+  \item MSE of $\tilde{F}(x)$ only outperforms the MSE of $\hat{F}(x)$ for distributions similar to normal. We see that in T-Student distribution with high $df$ (e.g. 70 and 150), distributions extremely similar to a normal.
+  \item In all distributions, with the exception of T-Student with high $df$ and Normal, increase in $n$ leads in most cases to equal or bigger bias when using $\tilde{F}(x)$.
+\end{itemize}
+
+In conclusion, $\tilde{F}(x)$ is only preferable in situations where we have a strong case to believe the data generating process follows a normal or t-student with high $df$.
+
+\begin{colorparagraph}{tacolor}
+  REMOVE COMMENT
+\end{colorparagraph}
+
+\begin{comment}
+\subsubsection*{Bias for $x = 0.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/bias_x5_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_normal.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x5_t_student_150.png}
+  \label{fig:bias_x5}
+\end{figure}
+
+\subsubsection*{Variance for $x = 0.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/variance_x5_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_normal.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x5_t_student_150.png}
+  \label{fig:variance_x5}
+\end{figure}
+
+\subsubsection*{MSE for $x = 0.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/mse_x5_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_normal.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x5_t_student_150.png}
+  \label{fig:mse_x5}
+\end{figure}
+
+\subsubsection*{CI for $x = 0.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/ci_x5_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_normal.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x5_t_student_150.png}
+  \label{fig:ci_x5}
+\end{figure}
+
+\subsubsection*{Bias for $x = 1.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/bias_x15_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_normal.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x15_t_student_150.png}
+  \label{fig:bias_x15}
+\end{figure}
+
+\subsubsection*{Variance for $x = 1.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/variance_x15_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_normal.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x15_t_student_150.png}
+  \label{fig:variance_x15}
+\end{figure}
+
+\subsubsection*{MSE for $x = 1.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/mse_x15_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_normal.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x15_t_student_150.png}
+  \label{fig:mse_x15}
+\end{figure}
+
+\subsubsection*{CI for $x = 1.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/ci_x15_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_normal.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x15_t_student_150.png}
+  \label{fig:ci_x15}
+\end{figure}
+
+\subsubsection*{Bias for $x = 2.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/bias_x25_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_normal.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/bias_x25_t_student_150.png}
+  \label{fig:bias_x25}
+\end{figure}
+
+\subsubsection*{Variance for $x = 2.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/variance_x25_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_normal.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/variance_x25_t_student_150.png}
+  \label{fig:variance_x25}
+\end{figure}
+
+\subsubsection*{MSE for $x = 2.5$}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/mse_x25_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_normal.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/mse_x25_t_student_150.png}
+  \label{fig:mse_x25}
+\end{figure}
+
+\subsubsection*{CI for $x = 2.5$}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=115px]{q2d-plots/ci_x25_gamma_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_gamma_3_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_exponential.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_log_normal_1_1.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_log_normal_1_2.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_normal.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_t_student_10.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_t_student_70.png}
+  \includegraphics[width=115px]{q2d-plots/ci_x25_t_student_150.png}
+  \label{fig:ci_x25}
+\end{figure}
+\end{comment}
+
 
 % To examine the empirical performance of the estimators \( \hat{F}(x) \) and \( \tilde{F}(x) \), we conduct a simulation study. We consider different sample sizes \( n \), various distributions, and evaluate the estimators at three representative values of \( x \). The study aims to assess consistency, variance behavior, and efficiency under Normal and non-Normal distributions.
 
@@ -1380,16 +1716,17 @@ Evaluate the consistency and the variance (i.e., the CLT) for both estimators. I
 % }
 % \end{verbatim}
 
+\rule{\textwidth}{0.5pt}
+
 \begin{colorparagraph}{questioncolor}
 Now we turn to estimating the density \( f(x) \). The density is the derivative of the cdf, and therefore is given by
 \[
-f(x) = F'(x) = \lim_{h \to 0} \frac{F(x + h) - F(x)}{h}.
+f(x) = F'(x) = \lim_{h \to 0} \frac{F(x + h) - F(x)}{h}
 \]
 \end{colorparagraph}
 
 \begin{colorparagraph}{questioncolor}
 \label{q2e}
-\rule{\textwidth}{0.5pt}
 \subsection{Plug-In Estimator}
 (e) Use (1) and (2), for a fixed \( h \), to give a plug-in estimator for \( f(x) \) denoted \( \hat{f}(x) \).
 
@@ -1426,10 +1763,10 @@ Substituting the expression for \( \hat{F}(x) \), we get:
 Simplifying, note that \( 1\{ x_i \leq x + h \} - 1\{ x_i \leq x \} \) equals 1 if \( x < x_i \leq x + h \) and 0 otherwise. Therefore, the estimator counts the number of observations falling in the interval \( (x, x + h] \):
 
 \[
-\hat{f}(x) = \frac{1}{n h} \sum_{i=1}^n 1\{ x < x_i \leq x + h \} = \frac{N_h(x)}{n h},
+\hat{f}(x) = \frac{1}{n h} \sum_{i=1}^n 1\{ x < x_i \leq x + h \} = \frac{n_h(x)}{n h},
 \]
 
-where \( N_h(x) \) is the number of observations in \( (x, x + h] \).
+where \( n_h(x) \) is the number of observations in \( (x, x + h] \).
 
 Thus, the plug-in estimator for \( f(x) \) is:
 
@@ -1488,6 +1825,74 @@ As \( h \to 0 \), the bias approaches zero:
 
 Thus, the bias of \( \hat{f}(x) \) vanishes as \( h \to 0 \).
 
+In a more informal way, it is interesting to view the bias as:
+
+\begin{align*}
+  \mathbb{E}[\hat{f}(x) - f(x)] &=
+  \mathbb{E}\left[\frac{\hat{F}(x + h) - \hat{F}(x)}{h}\right]
+  - \mathbb{E}\left[\frac{F(x + h) - F(x)}{h}\right] \\
+  &=
+  \mathbb{E}\left[\frac{\hat{F}(x + h)}{h}\right]
+  - \mathbb{E}\left[\frac{F(x + h)}{h}\right] \quad \text{(from the results of 2.e)}\\
+  &=
+  \frac{1}{h} \left(
+    \mathbb{E}\left[\hat{F}(x + h)\right]
+    - \mathbb{E}\left[F(x + h)\right]
+  \right)
+  \\
+  &=
+  \frac{1}{h} \left(
+    \mathbb{E}\left[
+      \frac{1}{n}\sum_i^n1 \{ x_i < x + h \}
+    \right]
+    - F(x + h)
+  \right)
+  \\
+  &=
+  \frac{1}{h} \left(
+    \frac{1}{n}
+    \left[
+      \sum_i^n \mathbb{E}[1 \{ x_i \leq x \} + 1 \{ x < x_i \leq x + h \}]
+    \right]
+    - \mathbb{P}(X \leq x + h)
+  \right)
+  \\
+  &=
+  \frac{1}{h} \left(
+    \frac{1}{n}
+    \left[
+      \sum_i^n \left(\mathbb{E}[1 \{ x_i \leq x \}] + \mathbb{E}[1 \{ x < x_i \leq x + h \}]\right)
+    \right]
+    - \mathbb{P}(X \leq x + h)
+  \right)
+  \\
+  &=
+  \frac{1}{h} \left(
+    \mathbb{P}(X < x) + \frac{n_h}{n}
+    - \mathbb{P}(X \leq x + h)
+  \right)
+  \\
+  &=
+  \frac{1}{h} \left(
+    \frac{n_h}{n}
+    - \mathbb{P}(x < X \leq x + h)
+  \right)
+\end{align*}
+
+Thus,
+
+$$
+\lim_{h \to 0} \frac{1}{h} \left(
+    \frac{n_h}{n}
+    - \mathbb{P}(x < X \leq x + h)
+  \right) = 0
+$$
+
+\begin{colorparagraph}{tacolor}CHECK:
+Is it worth to keep this last part?
+\end{colorparagraph}
+
+
 \begin{colorparagraph}{questioncolor}
 \label{q2g}
 \rule{\textwidth}{0.5pt}
@@ -1500,12 +1905,6 @@ and give the precise form of \( K \).
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
-
-We assume that \( f(x) \) is twice continuously differentiable. Our goal is to show that the bias of \( \hat{f}(x) \) is \( O(h) \) and to find the constant \( K \) such that:
-
-\[
-\mathbb{E}[\hat{f}(x) - f(x)] = K h + o(h).
-\]
 
 Starting from the expression for the expected value of \( \hat{f}(x) \):
 
@@ -1567,7 +1966,7 @@ Y_i = 1\{ x < x_i \leq x + h \}, \quad i = 1, 2, \dots, n.
 Each \( Y_i \) is an independent Bernoulli random variable with success probability:
 
 \[
-p = P(x < X \leq x + h) = F(x + h) - F(x).
+p = \mathbb{P}(x < X \leq x + h) = F(x + h) - F(x).
 \]
 
 The variance of \( \hat{f}(x) \) is:
@@ -1737,7 +2136,7 @@ Recall that:
 with \( Y_i = 1\{ x < x_i \leq x + h \} \). The \( Y_i \) are independent and identically distributed (i.i.d.) Bernoulli random variables with success probability:
 
 \[
-p = P(x < X \leq x + h) = F(x + h) - F(x).
+p = \mathbb{P}(x < X \leq x + h) = F(x + h) - F(x).
 \]
 
 The mean and variance of \( Y_i \) are:
@@ -1976,9 +2375,9 @@ By selecting \( \beta \) slightly greater than \( \frac{1}{3} \), we ensure that
     \item The conditions \( n h \to \infty \) and \( n h^3 \to 0 \) are satisfied.
 \end{itemize}
 
-\textbf{Conclusion:} For the goal of inference, we would choose \( h \) proportional to \( n^{-\beta} \) with \( \beta \) slightly greater than \( \frac{1}{3} \). This choice balances the need for the estimator to be asymptotically normal (which facilitates valid statistical inference) while controlling the bias and variance.
+This choice balances the need for the estimator to be asymptotically normal (which facilitates valid statistical inference) while controlling the bias and variance.
 
-Therefore, in an application focused on inference, we would select \( h \) such that:
+The optimal choice for \( h \) is:
 
 \[
 h = n^{-\beta}, \quad \text{where} \quad \beta = \frac{1}{3} + \varepsilon, \quad \varepsilon > 0.
@@ -1995,16 +2394,184 @@ This ensures that the standardized estimator converges in distribution to a norm
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+For this question, we use the following calculations:
+
+$$
+p_{x, h} = \frac{n_h}{n}, \quad \text{where} \ n_h \ \text{is the n. of obs in} \ h \text{and} \ n \text{is the n. of obs in the sample simulation}
+$$
+
+$$
+\hat{f}(x)_h = \frac{p_{x, h}}{h} 
+$$
+
+$$
+\text{Var}[\hat{f}(x)_h] = \frac{p_{x, h} (1 - p_{x, h})}{n h^2} = \hat{\sigma}^2_{x, h}
+$$
+
+$$
+\text{CI} = \left[
+  \hat{f}(x)_h - t_{n-1}\left(1 - \frac{\alpha}{2}\right) \hat{\sigma}_{x, h},
+  \quad \hat{f}(x)_h + t_{n-1}\left(1 - \frac{\alpha}{2}\right) \hat{\sigma}_{x, h}
+\right]
+$$
+
+We run simulations using:
+\begin{itemize}
+  \item Sample sizes $n$ of: 10, 25, 50, 75, 100, 200, 300, 400, 500, 600, 700, 800, 900, 1000
+  \item Interval $h$ of:
+  $$
+  h_i = \frac{1}{n_i^{1/3}} + \varepsilon \quad \ \text{for} \ n_i \ \text{in sample sizes available and} \ \varepsilon = 0.0001 
+  $$
+  The intervals tested coincide with the optimal values found for the previous solutions.
+  \item The following distributions:
+  \begin{itemize}
+    \item T-Student(30)
+    \item T-Student(50)
+    \item T-Student(100)
+    \item Normal(0, 1)
+    \item Normal(1, 1)
+    \item Gamma(1, 1)
+    \item Gamma(2, 3)
+    \item Log-Normal(1, 1)
+  \end{itemize}
+  \item 1000 simulations for every combination of $n$, $h$ and distribution, using the results for $x = 0.5$ and $x = 1$, totaling 1.792 million simulations.
+\end{itemize}
+
+We check the performance of the results based on the efficiency of the CI.
+
+Given that we always use CI of $95\%$, we hope that in $95\%$ of the simulations the true $f(x)$ falls within the ranges determined.
+
+Our results agree with the theoretical conclusions: for smaller samples, bigger $h$ yields more precise results. As $n$ increases, the results using bigger $h$ has a considerable decrease in performance.
+
+The best results, as expected, are found for big $n$ and, on average, $h = \frac{1}{n^{1/3}}$, as specified to provide good inference.
+
+\begin{colorparagraph}{tacolor}
+  REMOVE COMMENT
+\end{colorparagraph}
+
+\begin{comment}
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(30) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_t_student_30_comp_h_n.tex}
+  \label{tab:simulation_t_student_30_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(50) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_t_student_50_comp_h_n.tex}
+  \label{tab:simulation_t_student_50_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(100) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_t_student_100_comp_h_n.tex}
+  \label{tab:simulation_t_student_100_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Normal(0,1) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_normal_0_1_comp_h_n.tex}
+  \label{tab:simulation_normal_0_1_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Normal(1,1) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_normal_1_1_comp_h_n.tex}
+  \label{tab:simulation_normal_1_1_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Gamma(1,1) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_gamma_1_1_comp_h_n.tex}
+  \label{tab:simulation_gamma_1_1_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Gamma(2,3) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_gamma_2_3_comp_h_n.tex}
+  \label{tab:simulation_gamma_2_3_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Log-Normal(1,1) in $x = 1$}
+  \input{q2m-data/simulations_f_x10_log_normal_1_1_comp_h_n.tex}
+  \label{tab:simulation_log_normal_1_1_x10}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(30) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_t_student_30_comp_h_n.tex}
+  \label{tab:simulation_t_student_30_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(50) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_t_student_50_comp_h_n.tex}
+  \label{tab:simulation_t_student_50_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for T-Student(100) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_t_student_100_comp_h_n.tex}
+  \label{tab:simulation_t_student_100_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Normal(0,1) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_normal_0_1_comp_h_n.tex}
+  \label{tab:simulation_normal_0_1_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Normal(1,1) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_normal_1_1_comp_h_n.tex}
+  \label{tab:simulation_normal_1_1_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Gamma(1,1) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_gamma_1_1_comp_h_n.tex}
+  \label{tab:simulation_gamma_1_1_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Gamma(2,3) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_gamma_2_3_comp_h_n.tex}
+  \label{tab:simulation_gamma_2_3_x5}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \title{$f(x)$ Simulation Results for Log-Normal(1,1) in $x = 0.5$}
+  \input{q2m-data/simulations_f_x5_log_normal_1_1_comp_h_n.tex}
+  \label{tab:simulation_log_normal_1_1_x5}
+\end{table}
+\end{comment}
+
 \begin{colorparagraph}{questioncolor}
 
 \rule{\textwidth}{0.5pt}
 \label{q3}
-\rule{\textwidth}{0.5pt}
 \section{Application}
 
 The file \texttt{Banerji-Berry-Shotland\_2017\_AEJ.csv} contains data from a recent paper.
 
-The outcome is a (normalized) child’s test, in \texttt{caser\_total\_norm}. \texttt{treatment} has four different values, indicating different trainings for mothers. The first is the baseline/control. There are six \( X \) variables (dummies) and three \( W \) variables (continuous). We want to explore the impact of each treatment relative to the baseline (\texttt{treatment}=1).
+The outcome is a (normalized) child's test, in \texttt{caser\_total\_norm}. \texttt{treatment} has four different values, indicating different trainings for mothers. The first is the baseline/control. There are six \( X \) variables (dummies) and three \( W \) variables (continuous). We want to explore the impact of each treatment relative to the baseline (\texttt{treatment}=1).
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
@@ -2019,6 +2586,300 @@ The outcome is a (normalized) child’s test, in \texttt{caser\_total\_norm}. \t
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+\subsubsection*{Regression without Covariates}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression without Covariates]
+  Call:
+  lm(formula = caser_total_norm ~ ., data = banerji_data %>% select(caser_total_norm, 
+      t2, t3, t4))
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -1.3966 -0.8517 -0.2407  0.7092  2.2221 
+  
+  Coefficients:
+              Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)  0.18733    0.01643  11.403  < 2e-16 ***
+  t2           0.05233    0.02325   2.250 0.024434 *  
+  t3           0.07789    0.02353   3.310 0.000936 ***
+  t4           0.10038    0.02331   4.307 1.66e-05 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.9998 on 14570 degrees of freedom
+  Multiple R-squared:  0.001408,	Adjusted R-squared:  0.001202 
+  F-statistic: 6.847 on 3 and 14570 DF,  p-value: 0.0001319
+\end{lstlisting}
+\end{figure}
+
+The estimators for the treatment are:
+\begin{itemize}
+  \item $\hat{\mu}_1 = \mathbb{E}[Y(1)] = 0.18733$
+  \item $\hat{\mu}_2 = \mathbb{E}[Y(2)] = 0.18733 + 0.05233 = 0.23966$
+  \item $\hat{\mu}_3 = \mathbb{E}[Y(3)] = 0.18733 + 0.07789 = 0.26522$
+  \item $\hat{\mu}_4 = \mathbb{E}[Y(4)] = 0.18733 + 0.10038 = 0.28771$
+\end{itemize}
+
+All treatment are statistically significanly from $t_1$ (control).
+
+\subsubsection*{Regression with Covariates}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression with Covariates]
+  Call:
+  lm(formula = caser_total_norm ~ ., data = banerji_data)
+  
+  Residuals:
+      Min      1Q  Median      3Q     Max 
+  -3.1702 -0.2850 -0.0686  0.2346  3.1656 
+  
+  Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+  (Intercept)          0.047014   0.024572   1.913  0.05573 .  
+  age                  0.010872   0.002372   4.584 4.60e-06 ***
+  state                0.007818   0.008483   0.922  0.35678    
+  bl_caser_total_norm  0.852219   0.004639 183.720  < 2e-16 ***
+  boy                  0.052580   0.007636   6.886 5.96e-12 ***
+  number_of_kids      -0.008028   0.002508  -3.201  0.00137 ** 
+  mother_educ          0.120762   0.011264  10.721  < 2e-16 ***
+  factor_educ          0.073858   0.008155   9.057  < 2e-16 ***
+  mother_age30        -0.017244   0.007926  -2.176  0.02961 *  
+  farmingIncome        0.034616   0.008106   4.270 1.96e-05 ***
+  t2                   0.014434   0.010533   1.370  0.17057    
+  t3                   0.025175   0.010667   2.360  0.01828 *  
+  t4                   0.055961   0.010569   5.295 1.21e-07 ***
+  ---
+  Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+  
+  Residual standard error: 0.4525 on 14561 degrees of freedom
+  Multiple R-squared:  0.7955,	Adjusted R-squared:  0.7954 
+  F-statistic:  4721 on 12 and 14561 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+When adding the covariates without demeaning them, we cannot recover directly the influence of the treatment. This happens because the mean of the covariates is not zero and, thus, influences the parameters of $t_2$, $t_3$, $t_4$.
+
+\subsubsection*{Regression with Demeaned Covariates}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression with Demeaned Covariates]
+Call:
+lm(formula = caser_total_norm ~ ., data = banerji_demeaned_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1702 -0.2850 -0.0686  0.2346  3.1656 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.220804   0.007444  29.660  < 2e-16 ***
+age                  0.010872   0.002372   4.584 4.60e-06 ***
+state                0.007818   0.008483   0.922  0.35678    
+bl_caser_total_norm  0.852219   0.004639 183.720  < 2e-16 ***
+boy                  0.052580   0.007636   6.886 5.96e-12 ***
+number_of_kids      -0.008028   0.002508  -3.201  0.00137 ** 
+mother_educ          0.120762   0.011264  10.721  < 2e-16 ***
+factor_educ          0.073858   0.008155   9.057  < 2e-16 ***
+mother_age30        -0.017244   0.007926  -2.176  0.02961 *  
+farmingIncome        0.034616   0.008106   4.270 1.96e-05 ***
+t2                   0.014434   0.010533   1.370  0.17057    
+t3                   0.025175   0.010667   2.360  0.01828 *  
+t4                   0.055961   0.010569   5.295 1.21e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4525 on 14561 degrees of freedom
+Multiple R-squared:  0.7955,	Adjusted R-squared:  0.7954 
+F-statistic:  4721 on 12 and 14561 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+The estimators for the treatment are:
+\begin{itemize}
+  \item $\hat{\mu}_1 = \mathbb{E}[Y(1)] = 0.220804$
+  \item $\hat{\mu}_2 = \mathbb{E}[Y(2)] = 0.220804 + 0.014434 = 0.23524$
+  \item $\hat{\mu}_3 = \mathbb{E}[Y(3)] = 0.220804 + 0.025175 = 0.24598$
+  \item $\hat{\mu}_4 = \mathbb{E}[Y(4)] = 0.220804 + 0.055961 = 0.27677$
+\end{itemize}
+
+\subsubsection*{Regression with Demeaned Covariates and Interaction with Treatment}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression with Demeaned Covariates and Interaction with Treatment]
+Call:
+lm(formula = caser_total_norm ~ ., data = banerji_interaction_with_treatment_data)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-3.15439 -0.28318 -0.06778  0.23171  3.14488 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(>|t|)    
+(Intercept)               0.2206781  0.0074665  29.556  < 2e-16 ***
+age                       0.0078702  0.0047159   1.669 0.095165 .  
+state                    -0.0157254  0.0167048  -0.941 0.346531    
+bl_caser_total_norm       0.8560157  0.0093911  91.151  < 2e-16 ***
+boy                       0.0587387  0.0150555   3.901  9.6e-05 ***
+number_of_kids           -0.0053473  0.0053995  -0.990 0.322031    
+mother_educ               0.1036680  0.0228584   4.535  5.8e-06 ***
+factor_educ               0.0614496  0.0163795   3.752 0.000176 ***
+mother_age30             -0.0239711  0.0159705  -1.501 0.133387    
+farmingIncome             0.0360261  0.0157747   2.284 0.022398 *  
+t2                        0.0145792  0.0105516   1.382 0.167082    
+t3                        0.0251895  0.0106849   2.357 0.018412 *  
+t4                        0.0566208  0.0105900   5.347  9.1e-08 ***
+`age:t2`                 -0.0012798  0.0066639  -0.192 0.847706    
+`state:t2`                0.0166727  0.0236875   0.704 0.481531    
+`bl_caser_total_norm:t2`  0.0088660  0.0130646   0.679 0.497385    
+`boy:t2`                  0.0120852  0.0214209   0.564 0.572642    
+`number_of_kids:t2`      -0.0051515  0.0074093  -0.695 0.486899    
+`mother_educ:t2`          0.0435934  0.0324624   1.343 0.179328    
+`factor_educ:t2`         -0.0105803  0.0229996  -0.460 0.645507    
+`mother_age30:t2`         0.0385381  0.0223856   1.722 0.085171 .  
+`farmingIncome:t2`       -0.0076130  0.0225113  -0.338 0.735229    
+`age:t3`                 -0.0009993  0.0067380  -0.148 0.882104    
+`state:t3`                0.0328596  0.0243263   1.351 0.176785    
+`bl_caser_total_norm:t3` -0.0027395  0.0132984  -0.206 0.836794    
+`boy:t3`                 -0.0425143  0.0216588  -1.963 0.049676 *  
+`number_of_kids:t3`      -0.0001652  0.0071542  -0.023 0.981581    
+`mother_educ:t3`          0.0227090  0.0316270   0.718 0.472753    
+`factor_educ:t3`          0.0444950  0.0234417   1.898 0.057701 .  
+`mother_age30:t3`         0.0277102  0.0226109   1.226 0.220397    
+`farmingIncome:t3`        0.0079026  0.0230456   0.343 0.731669    
+`age:t4`                  0.0153258  0.0066877   2.292 0.021940 *  
+`state:t4`                0.0435920  0.0236954   1.840 0.065836 .  
+`bl_caser_total_norm:t4` -0.0242199  0.0131799  -1.838 0.066137 .  
+`boy:t4`                  0.0025854  0.0214199   0.121 0.903930    
+`number_of_kids:t4`      -0.0049219  0.0073465  -0.670 0.502890    
+`mother_educ:t4`          0.0010198  0.0320488   0.032 0.974616    
+`factor_educ:t4`          0.0191965  0.0229212   0.837 0.402327    
+`mother_age30:t4`        -0.0400953  0.0224720  -1.784 0.074407 .  
+`farmingIncome:t4`       -0.0006717  0.0227106  -0.030 0.976406    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4522 on 14534 degrees of freedom
+Multiple R-squared:  0.7962,	Adjusted R-squared:  0.7957 
+F-statistic:  1456 on 39 and 14534 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\subsubsection*{Regression with Demeaned Covariates and Interaction with Discrete Variables}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression with Demeaned Covariates and Interaction with Discrete Variables]
+Call:
+lm(formula = caser_total_norm ~ ., data = banerji_interaction_with_discrete_features_data)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1965 -0.2816 -0.0662  0.2292  3.1190 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                          0.2334465  0.0076312  30.591  < 2e-16 ***
+age                                  0.0120631  0.0025196   4.788 1.70e-06 ***
+state                                0.0063704  0.0085238   0.747 0.454855    
+bl_caser_total_norm                  0.8569115  0.0047928 178.792  < 2e-16 ***
+boy                                  0.0525410  0.0076121   6.902 5.33e-12 ***
+number_of_kids                      -0.0093497  0.0025912  -3.608 0.000309 ***
+mother_educ                          0.1145596  0.0119436   9.592  < 2e-16 ***
+factor_educ                          0.0716927  0.0081653   8.780  < 2e-16 ***
+mother_age30                        -0.0174407  0.0079114  -2.204 0.027505 *  
+farmingIncome                        0.0303828  0.0081049   3.749 0.000178 ***
+t2                                   0.0126451  0.0104912   1.205 0.228106    
+t3                                   0.0254664  0.0106236   2.397 0.016536 *  
+t4                                   0.0555816  0.0105252   5.281 1.30e-07 ***
+`boy:age`                            0.0021971  0.0045344   0.485 0.628002    
+`factor_educ:age`                   -0.0010452  0.0048498  -0.216 0.829377    
+`farmingIncome:age`                  0.0016801  0.0048539   0.346 0.729247    
+`mother_age30:age`                  -0.0174581  0.0047981  -3.639 0.000275 ***
+`mother_educ:age`                   -0.0170993  0.0075371  -2.269 0.023302 *  
+`state:age`                         -0.0057160  0.0054432  -1.050 0.293685    
+`boy:bl_caser_total_norm`           -0.0270815  0.0089213  -3.036 0.002405 ** 
+`factor_educ:bl_caser_total_norm`   -0.0363072  0.0099022  -3.667 0.000247 ***
+`farmingIncome:bl_caser_total_norm` -0.0121865  0.0093312  -1.306 0.191575    
+`mother_age30:bl_caser_total_norm`   0.0091714  0.0090524   1.013 0.311010    
+`mother_educ:bl_caser_total_norm`    0.0022111  0.0125935   0.176 0.860632    
+`state:bl_caser_total_norm`          0.0652783  0.0098139   6.652 3.00e-11 ***
+`boy:number_of_kids`                 0.0011213  0.0048828   0.230 0.818374    
+`factor_educ:number_of_kids`        -0.0067374  0.0051856  -1.299 0.193878    
+`farmingIncome:number_of_kids`      -0.0092593  0.0054203  -1.708 0.087610 .  
+`mother_age30:number_of_kids`       -0.0008231  0.0050972  -0.161 0.871722    
+`mother_educ:number_of_kids`        -0.0017150  0.0077143  -0.222 0.824073    
+`state:number_of_kids`              -0.0216544  0.0055545  -3.899 9.72e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4503 on 14543 degrees of freedom
+Multiple R-squared:  0.7978,	Adjusted R-squared:  0.7974 
+F-statistic:  1913 on 30 and 14543 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+The estimators for the treatment are:
+\begin{itemize}
+  \item $\hat{\mu}_1 = \mathbb{E}[Y(1)] = 0.2334465$
+  \item $\hat{\mu}_2 = \mathbb{E}[Y(2)] = 0.2334465 + 0.0126451 = 0.2460916$
+  \item $\hat{\mu}_3 = \mathbb{E}[Y(3)] = 0.2334465 + 0.0254664 = 0.2589129$
+  \item $\hat{\mu}_4 = \mathbb{E}[Y(4)] = 0.2334465 + 0.0555816 = 0.2890281$
+\end{itemize}
+
+\subsubsection*{Comparison}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.05233 = 0.239659 & 0.024434         & 0.02325 \\ 
+    W/ Dem Cov               & 0.220804 + 0.014434 = 0.235238 & 0.17057        & 0.010533 \\   
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0126451 = 0.2460916 & 0.228106    & 0.0104912 \\       
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+$t_2$ significance level decreases as we add covariates, but the standard error decreases with the addition of more covariates.
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.05233 = 0.239659 & 0.024434         & 0.02325 \\ 
+    W/ Dem Cov               & 0.220804 + 0.014434 = 0.235238 & 0.17057        & 0.010533 \\   
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0126451 = 0.2460916 & 0.228106    & 0.0104912 \\       
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+$t_3$ significance level decreases as we add covariates. $t_3$ is still significant after adding covariates, showing relevant statistical difference between the control level and the treatment 3 level. The standard error decreases with the addition of more covariates.
+
+\begin{figure}[H]
+\begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_4$ & p-value $t_4$ & Std Error $t_4$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.10038 = 0.28771 & 1.66 e -05          & 0.02331 \\
+    W/ Dem Cov               & 0.220804 + 0.055961 = 0.276765 & 1.21 e -07       & 0.010569 \\ 
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0555816 = 0.2890281 & 1.30 e -07    & 0.0105252 \\   
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_4$}
+\end{table}
+\end{figure}
+
+$t_4$ significance level increases as we add covariates. $t_4$ is highly significant even at 1\% level regardless of the covariates added, showing relevant statistical difference between the control level and the treatment 4 level.  The standard error decreases with the addition of more covariates.
+
 \begin{colorparagraph}{questioncolor}
 \label{q3b}
 \rule{\textwidth}{0.5pt}
@@ -2027,6 +2888,215 @@ The outcome is a (normalized) child’s test, in \texttt{caser\_total\_norm}. \t
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+\subsubsection*{LASSO Model without Interactions}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Regression with Demeaned Covariates and Interaction with Discrete Variables]
+[1] "Best lambda: 0.00172896895443247"
+13 x 1 sparse Matrix of class "dgCMatrix"
+                              s1
+(Intercept)          0.220644695
+age                  0.018719744
+state                .          
+bl_caser_total_norm  0.862970413
+boy                  0.024063319
+number_of_kids      -0.010475785
+mother_educ          0.041056669
+factor_educ          0.034546832
+mother_age30        -0.006418082
+farmingIncome        0.013878908
+t2                   0.014654484
+t3                   0.025316624
+t4                   0.056238208
+\end{lstlisting}
+\end{figure}
+
+\subsubsection*{Model without Interactions controlling for LASSO}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Model without Interactions controlling for LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = banerji_interaction_with_discrete_features_data %>% 
+    select(all_features %>% colnames()) %>% .[, non_zero_features] %>% 
+    cbind(banerji_interaction_with_discrete_features_data %>% 
+        select(caser_total_norm)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1670 -0.2845 -0.0686  0.2359  3.1580 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.220710   0.007444  29.650  < 2e-16 ***
+age                  0.011235   0.002339   4.803 1.57e-06 ***
+bl_caser_total_norm  0.851664   0.004599 185.169  < 2e-16 ***
+boy                  0.052720   0.007634   6.906 5.20e-12 ***
+number_of_kids      -0.007833   0.002499  -3.134  0.00173 ** 
+mother_educ          0.121976   0.011186  10.904  < 2e-16 ***
+factor_educ          0.072551   0.008031   9.034  < 2e-16 ***
+mother_age30        -0.016881   0.007917  -2.132  0.03299 *  
+farmingIncome        0.032076   0.007623   4.208 2.59e-05 ***
+t2                   0.014645   0.010530   1.391  0.16431    
+t3                   0.025218   0.010667   2.364  0.01808 *  
+t4                   0.056082   0.010568   5.307 1.13e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4525 on 14562 degrees of freedom
+Multiple R-squared:  0.7955,	Adjusted R-squared:  0.7954 
+F-statistic:  5150 on 11 and 14562 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\subsubsection*{LASSO Model with Interactions}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=LASSO Model with Interactions]
+[1] "Best lambda: 0.00189044654131057"
+31 x 1 sparse Matrix of class "dgCMatrix"
+                                              s1
+(Intercept)                        0.2211187665
+age                                0.0190715846
+state                              .           
+bl_caser_total_norm                0.8684083028
+boy                                0.0241497877
+number_of_kids                    -0.0126412496
+mother_educ                        0.0396514364
+factor_educ                        0.0332970434
+mother_age30                      -0.0066400340
+farmingIncome                      0.0121875354
+boy:age                            .           
+factor_educ:age                    .           
+farmingIncome:age                  .           
+mother_age30:age                  -0.0117502693
+mother_educ:age                   -0.0087160941
+state:age                         -0.0017946149
+boy:bl_caser_total_norm           -0.0103103377
+factor_educ:bl_caser_total_norm   -0.0167799656
+farmingIncome:bl_caser_total_norm -0.0033334836
+mother_age30:bl_caser_total_norm   0.0002676178
+mother_educ:bl_caser_total_norm    .           
+state:bl_caser_total_norm          0.0302192207
+boy:number_of_kids                 .           
+factor_educ:number_of_kids        -0.0024424862
+farmingIncome:number_of_kids      -0.0037319979
+mother_age30:number_of_kids        .           
+mother_educ:number_of_kids         .           
+state:number_of_kids              -0.0128826236
+t2                                 0.0129975670
+t3                                 0.0256619453
+t4                                 0.0556894608
+\end{lstlisting}
+\end{figure}
+
+\subsubsection*{Model with Interactions controlling for LASSO}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Model with Interactions controlling for LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = selected_data %>% select(all_features %>% 
+    colnames()) %>% .[, non_zero_features] %>% cbind(selected_data %>% 
+    select(caser_total_norm)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1951 -0.2812 -0.0653  0.2289  3.1138 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                          0.233349   0.007563  30.856  < 2e-16 ***
+age                                  0.012288   0.002465   4.985 6.28e-07 ***
+bl_caser_total_norm                  0.856703   0.004724 181.333  < 2e-16 ***
+boy                                  0.052549   0.007604   6.911 5.02e-12 ***
+number_of_kids                      -0.009203   0.002570  -3.581 0.000343 ***
+mother_educ                          0.116805   0.011232  10.399  < 2e-16 ***
+factor_educ                          0.070433   0.008030   8.771  < 2e-16 ***
+mother_age30                        -0.017145   0.007881  -2.176 0.029599 *  
+farmingIncome                        0.028104   0.007600   3.698 0.000218 ***
+`mother_age30:age`                  -0.017289   0.004740  -3.647 0.000266 ***
+`mother_educ:age`                   -0.016632   0.005926  -2.807 0.005013 ** 
+`state:age`                         -0.006574   0.004949  -1.328 0.184072    
+`boy:bl_caser_total_norm`           -0.024780   0.007481  -3.312 0.000927 ***
+`factor_educ:bl_caser_total_norm`   -0.037068   0.008080  -4.588 4.52e-06 ***
+`farmingIncome:bl_caser_total_norm` -0.010240   0.007865  -1.302 0.192914    
+`mother_age30:bl_caser_total_norm`   0.008967   0.008914   1.006 0.314423    
+`state:bl_caser_total_norm`          0.066593   0.009486   7.020 2.32e-12 ***
+`factor_educ:number_of_kids`        -0.006854   0.005053  -1.357 0.174946    
+`farmingIncome:number_of_kids`      -0.009296   0.005347  -1.738 0.082151 .  
+`state:number_of_kids`              -0.021912   0.005491  -3.991 6.61e-05 ***
+t2                                   0.012783   0.010482   1.220 0.222674    
+t3                                   0.025435   0.010616   2.396 0.016592 *  
+t4                                   0.055499   0.010519   5.276 1.34e-07 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4501 on 14551 degrees of freedom
+Multiple R-squared:  0.7978,	Adjusted R-squared:  0.7975 
+F-statistic:  2610 on 22 and 14551 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\subsubsection*{Comparison}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.05233 = 0.239659 & 0.024434         & 0.02325 \\ 
+    W/ Dem Cov               & 0.220804 + 0.014434 = 0.235238 & 0.17057        & 0.010533 \\   
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0126451 = 0.2460916 & 0.228106    & 0.0104912 \\       
+    LASSO W/ Dem Cov               & 0.220710 + 0.014645 = 0.235355 & 0.16431  & 0.010530 \\         
+    LASSO W/ Dem Cov Disc Interac  & 0.233349 + 0.012783 = 0.246132 & 0.222674 & 0.010482 \\         
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+\begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_3$ & p-value $t_3$ & Std Error $t_3$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.07789 = 0.26522 & 1.66 e -05        & 0.02353 \\
+    W/ Dem Cov               & 0.220804 + 0.025175 = 0.245979 & 0.01828        & 0.010667 \\
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0254664 = 0.2589129 & 0.016536    & 0.0106236 \\
+    LASSO W/ Dem Cov               & 0.220710 + 0.025218 = 0.245928 & 0.01808  & 0.010667 \\
+    LASSO W/ Dem Cov Disc Interac  & 0.233349 + 0.025435 = 0.258784 & 0.016592 & 0.010616  \\
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_3$}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+\begin{table}[H]
+  \centering
+  \label{tab:}
+  \begin{tabular}{|cccc|}
+    \hline
+    Model & $t_1 + t_4$ & p-value $t_4$ & Std Error $t_4$ \\
+    \hline
+    W/out Cov                & 0.18733 + 0.10038 = 0.28771 & 1.66 e -05          & 0.02331 \\
+    W/ Dem Cov               & 0.220804 + 0.055961 = 0.276765 & 1.21 e -07       & 0.010569 \\ 
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0555816 = 0.2890281 & 1.30 e -07    & 0.0105252 \\   
+    LASSO W/ Dem Cov               & 0.220710 + 0.056082 = 0.276792 & 1.13 e -07 & 0.010568 \\       
+    LASSO W/ Dem Cov Disc Interac  & 0.233349 + 0.055499 = 0.288848 & 1.34 e -07 & 0.010519 \\       
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_4$}
+\end{table}
+\end{figure}
+
+Considering standard error as proxy for precision, for $t_2$, $t_3$ and $t_4$, there is improvement in precision of the estimators by using controls selected by LASSO.
+
+Specifically, we see that there is improvement using only demeaned covariates and when using demeaned covariates with intereaction.
+
+The best model for all three ATE regarding standard error estimate is the model with demeaned covariates and interaction with covariates being selected by LASSO.
 
 \begin{colorparagraph}{questioncolor}
 \label{q3c}
@@ -2037,30 +3107,484 @@ The outcome is a (normalized) child’s test, in \texttt{caser\_total\_norm}. \t
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+\subsubsection*{Model with Interactions controlling for LASSO}
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Model with Interactions controlling for LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = banerji_data %>% select(t2, 
+    t3, t4, selected_discrete_variable, caser_total_norm) %>% 
+    purrr::set_names("t2", "t3", "t4", "selected_discrete_variable", 
+        "caser_total_norm") %>% mutate(across(c("t2", "t3", "t4"), 
+    ~. * selected_discrete_variable, .names = "{.col}:{selected_discrete_variable}")) %>% 
+    rename_with(~gsub("selected_discrete_variable", selected_discrete_variable, 
+        .)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.8028 -0.8262 -0.2202  0.6946  2.2778 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)       0.13164    0.01743   7.551 4.57e-14 ***
+t2                0.04140    0.02467   1.678   0.0934 .  
+t3                0.04969    0.02519   1.972   0.0486 *  
+t4                0.10044    0.02477   4.055 5.03e-05 ***
+mother_educ       0.41335    0.04750   8.703  < 2e-16 ***
+`t2:mother_educ`  0.08350    0.06729   1.241   0.2147    
+`t3:mother_educ`  0.09925    0.06541   1.518   0.1292    
+`t4:mother_educ` -0.01516    0.06687  -0.227   0.8207    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.9869 on 14566 degrees of freedom
+Multiple R-squared:  0.02718,	Adjusted R-squared:  0.02671 
+F-statistic: 58.14 on 7 and 14566 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+The estimators for the treatment are:
+\begin{itemize}
+  \item $\mu_1(0) = \mathbb{E}[Y(1) \mid X = 0]$
+  \begin{align*}
+    \hat{\mu}_1(0) = \beta_{0} = 0.13164
+  \end{align*}
+  \item $\mu_1(1) = \mathbb{E}[Y(1) \mid X = 1]$
+  \begin{align*}
+    \hat{\mu}_1(1) = \beta_{0} + \beta_{\text{ME}} = 0.13164 + 0.41335 = 0.54499
+  \end{align*}
+  \item $\mu_2(0) = \mathbb{E}[Y(2) \mid X = 0]$
+  \begin{align*}
+    \hat{\mu}_2(0) = \beta_{0} + \beta_{t_2} = 0.13164 + 0.04140 = 0.17304
+  \end{align*}
+  \item $\mu_2(1) = \mathbb{E}[Y(2) \mid X = 1]$
+  \begin{align*}
+    \hat{\mu}_2(1) = \beta_{0} + \beta_{t_2} + \beta_{\text{ME}} + \beta_{\text{ME}, t_2} = 0.13164 + 0.41335 + 0.04140 + 0.08350 = 0.66989
+  \end{align*}
+  \item $\mu_3(0) = \mathbb{E}[Y(3) \mid X = 0]$
+  \begin{align*}
+    \hat{\mu}_3(0) = \beta_{0} + \beta_{t_3} = 0.13164 + 0.04969 = 0.18133
+  \end{align*}
+  \item $\mu_3(1) = \mathbb{E}[Y(3) \mid X = 1]$
+  \begin{align*}
+    \hat{\mu}_3(1) = \beta_{0} + \beta_{t_3} + \beta_{\text{ME}} + \beta_{\text{ME}, t_3} = 0.13164 + 0.41335 + 0.04969 + 0.09925 = 0.693930
+  \end{align*}
+  \item $\mu_4(0) = \mathbb{E}[Y(4) \mid X = 0]$
+  \begin{align*}
+    \hat{\mu}_4(0) = \beta_{0} + \beta_{t_4} = 0.13164 + 0.10044 = 0.23208
+  \end{align*}
+  \item $\mu_4(1) = \mathbb{E}[Y(4) \mid X = 1]$
+  \begin{align*}
+    \hat{\mu}_4(1) = \beta_{0} + \beta_{t_4} + \beta_{\text{ME}} + \beta_{\text{ME}, t_4} = 0.13164 + 0.41335 + 0.10044 - 0.01516 = 0.63027
+  \end{align*}
+\end{itemize}
+\end{figure}
+
 \begin{colorparagraph}{questioncolor}
 \label{q3d}
-\subsection{LASSO to All Variables}
 \rule{\textwidth}{0.5pt}
+\subsection{LASSO to All Variables}
 (d) Add all the other \( X \) variables, and the \( W \) variables, and interactions and polynomials, and apply the lasso to select controls while still giving inference on the eight \( \mu_t(x) \). Is precision improved?
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=LASSO for CATE]
+[1] "Best lambda: 0.000502677636886109"
+40 x 1 sparse Matrix of class "dgCMatrix"
+                                              s1
+(Intercept)                         2.082162e-01
+age                                 4.462536e-02
+state                               1.562346e-02
+bl_caser_total_norm                 8.864615e-01
+boy                                 1.030960e-02
+number_of_kids                      .           
+factor_educ                         3.959780e-02
+mother_age30                        .           
+farmingIncome                       1.028717e-02
+boy:age                             1.333859e-02
+factor_educ:age                     .           
+farmingIncome:age                   3.259882e-03
+mother_age30:age                   -1.148611e-02
+state:age                           1.901602e-02
+boy:bl_caser_total_norm            -8.192345e-03
+factor_educ:bl_caser_total_norm    -1.730713e-02
+farmingIncome:bl_caser_total_norm  -4.040476e-03
+mother_age30:bl_caser_total_norm    5.834013e-03
+state:bl_caser_total_norm           1.008217e-01
+boy:number_of_kids                  2.900538e-03
+factor_educ:number_of_kids         -5.950095e-03
+farmingIncome:number_of_kids       -3.256761e-04
+mother_age30:number_of_kids         .           
+state:number_of_kids               -3.115408e-02
+age:bl_caser_total_norm            -6.646937e-02
+age:number_of_kids                  .           
+bl_caser_total_norm:number_of_kids  2.036422e-02
+age^2                              -1.983193e-04
+bl_caser_total_norm^2              -1.408387e-01
+number_of_kids^2                    4.607524e-05
+age^3                              -5.922764e-02
+bl_caser_total_norm^3               6.522308e-02
+number_of_kids^3                    1.463515e-02
+t2                                  6.249520e-03
+t3                                  1.847526e-02
+t4                                  5.433661e-02
+mother_educ                         9.763798e-02
+t2:mother_educ                      3.958140e-02
+t3:mother_educ                      2.775945e-02
+t4:mother_educ                      8.679767e-03
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=CATE with Controls selected by LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = as_tibble(all_features) %>% 
+    .[, non_zero_features] %>% cbind(selected_data %>% select(caser_total_norm)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0586 -0.2659 -0.0567  0.2295  3.2402 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                           0.208270   0.007833  26.587  < 2e-16 ***
+age                                   0.504941   0.072963   6.920 4.69e-12 ***
+state                                 0.025152   0.020941   1.201  0.22973    
+bl_caser_total_norm                   0.873575   0.028988  30.136  < 2e-16 ***
+boy                                   0.009539   0.017786   0.536  0.59175    
+factor_educ                           0.053964   0.010594   5.094 3.56e-07 ***
+farmingIncome                         0.024912   0.018485   1.348  0.17779    
+`boy:age`                             0.016003   0.016868   0.949  0.34280    
+`farmingIncome:age`                   0.007598   0.017426   0.436  0.66284    
+`mother_age30:age`                   -0.012303   0.004341  -2.834  0.00460 ** 
+`state:age`                           0.041751   0.028233   1.479  0.13922    
+`boy:bl_caser_total_norm`            -0.013141   0.006775  -1.939  0.05246 .  
+`factor_educ:bl_caser_total_norm`    -0.022588   0.006391  -3.534  0.00041 ***
+`farmingIncome:bl_caser_total_norm`  -0.008421   0.006796  -1.239  0.21534    
+`mother_age30:bl_caser_total_norm`    0.007703   0.005355   1.438  0.15034    
+`state:bl_caser_total_norm`           0.097842   0.015695   6.234 4.68e-10 ***
+`boy:number_of_kids`                  0.002086   0.010578   0.197  0.84366    
+`factor_educ:number_of_kids`         -0.020477   0.011029  -1.857  0.06339 .  
+`farmingIncome:number_of_kids`       -0.021116   0.012049  -1.753  0.07971 .  
+`state:number_of_kids`               -0.068763   0.017570  -3.914 9.14e-05 ***
+`age:bl_caser_total_norm`            -0.045611   0.024053  -1.896  0.05795 .  
+`bl_caser_total_norm:number_of_kids`  0.020335   0.010434   1.949  0.05131 .  
+`age^2`                              -0.884192   0.135085  -6.545 6.13e-11 ***
+`bl_caser_total_norm^2`              -0.143036   0.012749 -11.219  < 2e-16 ***
+`number_of_kids^2`                    0.080684   0.033884   2.381  0.01727 *  
+`age^3`                               0.365861   0.065426   5.592 2.29e-08 ***
+`bl_caser_total_norm^3`               0.072101   0.014852   4.854 1.22e-06 ***
+`number_of_kids^3`                   -0.027417   0.021997  -1.246  0.21265    
+t2                                    0.006672   0.011059   0.603  0.54633    
+t3                                    0.018026   0.011307   1.594  0.11091    
+t4                                    0.054896   0.011111   4.941 7.87e-07 ***
+mother_educ                           0.097025   0.021555   4.501 6.81e-06 ***
+`t2:mother_educ`                      0.038410   0.030138   1.274  0.20252    
+`t3:mother_educ`                      0.027552   0.029308   0.940  0.34719    
+`t4:mother_educ`                      0.007047   0.029940   0.235  0.81393    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4416 on 14539 degrees of freedom
+Multiple R-squared:  0.8056,	Adjusted R-squared:  0.8051 
+F-statistic:  1772 on 34 and 14539 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|c|cc|}
+    \hline
+    Parameter & Std. Error Model Without Cov. & Std. Error Model with LASSO Cov. \\
+    \hline
+    $t_2$                       & 0.0934       & 0.54633    \\
+    $t_3$                       & 0.0486       & 0.11091    \\
+    $t_4$                       & 5.03 e -05   & 7.87 e -07 \\
+    $t_2 : \texttt{mother\_educ}$ & 0.2147      & 0.20252    \\
+    $t_3 : \texttt{mother\_educ}$ & 0.1292      & 0.34719    \\
+    $t_4 : \texttt{mother\_educ}$ & 0.8207      & 0.81393    \\
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|c|cc|}
+    \hline
+    Parameter & Std. Error Model Without Cov. & Std. Error Model with LASSO Cov. \\
+    \hline
+    $t_2$                       & 0.02467       & 0.011059 \\
+    $t_3$                       & 0.02519       & 0.011307 \\
+    $t_4$                       & 0.02477       & 0.011111 \\
+    $t_2:\texttt{mother\_educ}$ & 0.06729       & 0.030138 \\
+    $t_3:\texttt{mother\_educ}$ & 0.06541       & 0.029308 \\
+    $t_4:\texttt{mother\_educ}$ & 0.06687       & 0.029940 \\
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+We see improvement in precision after adding covariates for all parameters (using Standard Error) as proxy for precision.
+
+For $t_4$ and $t_4:\texttt{mother\_educ}$ there is improvement even in p-value.
+
+
 \begin{colorparagraph}{questioncolor}
+\rule{\textwidth}{0.5pt}
 \subsection{Sample A and Sample B}
 \label{q3e}
-\rule{\textwidth}{0.5pt}
 (e) Split the data randomly in two pieces, call them sample A and sample B. In sample A, use the lasso to identify the most impacted subgroups based on \( X \) and interactions in \( X \) (go up to only two- or three-way interactions). Use sample B to validate the size of these impacts and do hypothesis testing. Discuss the role played by sample splitting in this case.
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO - Only Showing Non-Zero Variables]
+100 x 1 sparse Matrix of class "dgCMatrix"
+                                                            s1
+(Intercept)                                       0.2144797531
+age                                               0.0281165901
+bl_caser_total_norm                               0.8414957100
+number_of_kids                                    0.0031073010
+factor_educ                                       0.0121030944
+farmingIncome                                    -0.0002860080
+age:bl_caser_total_norm                          -0.0431832017
+age:boy                                           0.0185544106
+state:bl_caser_total_norm                         0.1908771300
+state:factor_educ                                 0.0124303091
+state:farmingIncome                               0.0007226657
+bl_caser_total_norm:mother_age30                 -0.0001074328
+boy:number_of_kids                                0.0120670221
+number_of_kids:mother_age30                       0.0047433751
+age:state:bl_caser_total_norm                    -0.1160607119
+age:state:number_of_kids                         -0.0364662876
+age:state:factor_educ                             0.0262208697
+age:state:farmingIncome                           0.0230873583
+age:bl_caser_total_norm:boy                      -0.0279366353
+age:bl_caser_total_norm:factor_educ              -0.0657800701
+age:bl_caser_total_norm:mother_age30             -0.0216465918
+age:bl_caser_total_norm:farmingIncome            -0.0101131068
+age:boy:number_of_kids                            0.0000133068
+age:mother_age30:farmingIncome                   -0.0288624155
+state:bl_caser_total_norm:boy                     0.0146324285
+state:bl_caser_total_norm:number_of_kids          0.0195089515
+state:bl_caser_total_norm:factor_educ             0.0213374333
+state:bl_caser_total_norm:mother_age30           -0.0042999453
+state:boy:farmingIncome                           0.0145076285
+state:factor_educ:mother_age30                   -0.0035105213
+state:factor_educ:farmingIncome                   0.0012287151
+state:mother_age30:farmingIncome                  0.0243074119
+bl_caser_total_norm:boy:factor_educ               0.0066880420
+bl_caser_total_norm:number_of_kids:factor_educ    0.0173389292
+bl_caser_total_norm:factor_educ:farmingIncome    -0.0038277620
+boy:factor_educ:farmingIncome                    -0.0128410264
+boy:mother_age30:farmingIncome                   -0.0085520226
+number_of_kids:mother_age30:farmingIncome        -0.0036848997
+t2                                               -0.0040694660
+t3                                                0.0139670529
+t4                                                0.0498399624
+mother_educ                                       0.0821242381
+t2:mother_educ                                    0.0572264862
+t3:mother_educ                                    0.0223986859
+t4:mother_educ                                    0.0172743524
+\end{lstlisting}
+\end{figure}
+
+We keep 47\% of the features (48 out of 99), and the features related to treatment.
+
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = sample_b %>% .[, non_zero_features] %>% 
+    cbind(sample_b %>% select(caser_total_norm)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0048 -0.2661 -0.0586  0.2327  2.6275 
+
+Coefficients:
+                                                    Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                                        0.2033015  0.0111148  18.291  < 2e-16 ***
+age                                                0.0353443  0.0137153   2.577 0.009986 ** 
+bl_caser_total_norm                                0.9518833  0.0794556  11.980  < 2e-16 ***
+number_of_kids                                     0.0228890  0.0115025   1.990 0.046638 *  
+factor_educ                                       -0.0139027  0.0167671  -0.829 0.407039    
+farmingIncome                                      0.0088017  0.0197687   0.445 0.656165    
+`age:bl_caser_total_norm`                         -0.0913389  0.0941372  -0.970 0.331942    
+`age:boy`                                          0.0572287  0.0165222   3.464 0.000536 ***
+`state:bl_caser_total_norm`                        0.1933415  0.0829593   2.331 0.019804 *  
+`state:factor_educ`                                0.0556608  0.0275777   2.018 0.043594 *  
+`state:farmingIncome`                              0.0070487  0.0357285   0.197 0.843609    
+`bl_caser_total_norm:mother_age30`                -0.0981152  0.0437718  -2.242 0.025023 *  
+`boy:number_of_kids`                              -0.0272818  0.0225362  -1.211 0.226096    
+`number_of_kids:mother_age30`                     -0.0074939  0.0102350  -0.732 0.464079    
+`age:state:bl_caser_total_norm`                   -0.1703170  0.0798217  -2.134 0.032899 *  
+`age:state:number_of_kids`                        -0.0397825  0.0150788  -2.638 0.008350 ** 
+`age:state:factor_educ`                            0.0096676  0.0233021   0.415 0.678241    
+`age:state:farmingIncome`                         -0.0123397  0.0260546  -0.474 0.635792    
+`age:bl_caser_total_norm:boy`                     -0.0519926  0.0258961  -2.008 0.044708 *  
+`age:bl_caser_total_norm:factor_educ`             -0.0536542  0.0294783  -1.820 0.068781 .  
+`age:bl_caser_total_norm:mother_age30`             0.0844550  0.0339642   2.487 0.012920 *  
+`age:bl_caser_total_norm:farmingIncome`           -0.0227074  0.0164834  -1.378 0.168373    
+`age:boy:number_of_kids`                           0.0019349  0.0264597   0.073 0.941708    
+`age:mother_age30:farmingIncome`                  -0.0198906  0.0214441  -0.928 0.353669    
+`state:bl_caser_total_norm:boy`                    0.0239092  0.0229671   1.041 0.297901    
+`state:bl_caser_total_norm:number_of_kids`         0.0324951  0.0279518   1.163 0.245054    
+`state:bl_caser_total_norm:factor_educ`            0.0261915  0.0260080   1.007 0.313941    
+`state:bl_caser_total_norm:mother_age30`           0.0104609  0.0263450   0.397 0.691326    
+`state:boy:farmingIncome`                          0.0182192  0.0120889   1.507 0.131829    
+`state:factor_educ:mother_age30`                  -0.0189089  0.0089674  -2.109 0.035010 *  
+`state:factor_educ:farmingIncome`                  0.0001149  0.0110288   0.010 0.991689    
+`state:mother_age30:farmingIncome`                 0.0192365  0.0193029   0.997 0.319011    
+`bl_caser_total_norm:boy:factor_educ`             -0.0155427  0.0122739  -1.266 0.205440    
+`bl_caser_total_norm:boy:mother_age30`            -0.0022791  0.0112973  -0.202 0.840129    
+`bl_caser_total_norm:number_of_kids:factor_educ`  -0.0104403  0.0196029  -0.533 0.594334    
+`bl_caser_total_norm:number_of_kids:mother_age30`  0.0107413  0.0217029   0.495 0.620669    
+`bl_caser_total_norm:factor_educ:farmingIncome`   -0.0025192  0.0125900  -0.200 0.841410    
+`bl_caser_total_norm:mother_age30:farmingIncome`   0.0253755  0.0118507   2.141 0.032286 *  
+`boy:factor_educ:farmingIncome`                   -0.0045536  0.0101141  -0.450 0.652564    
+`boy:mother_age30:farmingIncome`                   0.0009734  0.0090861   0.107 0.914688    
+`number_of_kids:mother_age30:farmingIncome`       -0.0097655  0.0158369  -0.617 0.537497    
+t2                                                 0.0141120  0.0156937   0.899 0.368569    
+t3                                                 0.0282517  0.0160594   1.759 0.078587 .  
+t4                                                 0.0583243  0.0158014   3.691 0.000225 ***
+mother_educ                                        0.1043280  0.0300798   3.468 0.000527 ***
+`t2:mother_educ`                                   0.0139198  0.0424748   0.328 0.743133    
+`t3:mother_educ`                                   0.0276729  0.0417285   0.663 0.507246    
+`t4:mother_educ`                                  -0.0036344  0.0418646  -0.087 0.930823    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4432 on 7239 degrees of freedom
+Multiple R-squared:  0.802,	Adjusted R-squared:  0.8008 
+F-statistic:   624 on 47 and 7239 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO]
+Call:
+lm(formula = caser_total_norm ~ ., data = sample_a %>% .[, non_zero_features] %>% 
+    cbind(sample_a %>% select(caser_total_norm)))
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.93306 -0.27227 -0.06359  0.22800  2.98463 
+
+Coefficients:
+                                                   Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                                        0.214795   0.011217  19.150  < 2e-16 ***
+age                                                0.048690   0.014336   3.396 0.000686 ***
+bl_caser_total_norm                                0.931734   0.078250  11.907  < 2e-16 ***
+number_of_kids                                     0.024298   0.011893   2.043 0.041075 *  
+factor_educ                                        0.007698   0.017057   0.451 0.651776    
+farmingIncome                                     -0.019565   0.019813  -0.987 0.323450    
+`age:bl_caser_total_norm`                         -0.144175   0.093398  -1.544 0.122714    
+`age:boy`                                          0.021883   0.017005   1.287 0.198179    
+`state:bl_caser_total_norm`                        0.211926   0.081203   2.610 0.009077 ** 
+`state:factor_educ`                                0.018981   0.028304   0.671 0.502479    
+`state:farmingIncome`                              0.005286   0.035813   0.148 0.882666    
+`bl_caser_total_norm:mother_age30`                -0.106590   0.044475  -2.397 0.016571 *  
+`boy:number_of_kids`                               0.008049   0.022604   0.356 0.721771    
+`number_of_kids:mother_age30`                      0.009692   0.010404   0.932 0.351603    
+`age:state:bl_caser_total_norm`                   -0.115286   0.078902  -1.461 0.144027    
+`age:state:number_of_kids`                        -0.074388   0.015713  -4.734 2.24e-06 ***
+`age:state:factor_educ`                            0.030671   0.024028   1.277 0.201817    
+`age:state:farmingIncome`                          0.034374   0.026194   1.312 0.189467    
+`age:bl_caser_total_norm:boy`                     -0.039625   0.025441  -1.558 0.119380    
+`age:bl_caser_total_norm:factor_educ`             -0.066516   0.030183  -2.204 0.027572 *  
+`age:bl_caser_total_norm:mother_age30`             0.052568   0.034138   1.540 0.123633    
+`age:bl_caser_total_norm:farmingIncome`           -0.012081   0.016307  -0.741 0.458795    
+`age:boy:number_of_kids`                           0.004044   0.026598   0.152 0.879154    
+`age:mother_age30:farmingIncome`                  -0.057466   0.021356  -2.691 0.007144 ** 
+`state:bl_caser_total_norm:boy`                    0.020592   0.022147   0.930 0.352516    
+`state:bl_caser_total_norm:number_of_kids`         0.004860   0.027344   0.178 0.858936    
+`state:bl_caser_total_norm:factor_educ`            0.019396   0.025230   0.769 0.442066    
+`state:bl_caser_total_norm:mother_age30`          -0.005029   0.025956  -0.194 0.846382    
+`state:boy:farmingIncome`                          0.018288   0.011921   1.534 0.125058    
+`state:factor_educ:mother_age30`                  -0.014249   0.008992  -1.585 0.113079    
+`state:factor_educ:farmingIncome`                  0.004510   0.011033   0.409 0.682756    
+`state:mother_age30:farmingIncome`                 0.057053   0.019041   2.996 0.002743 ** 
+`bl_caser_total_norm:boy:factor_educ`              0.010406   0.011979   0.869 0.385064    
+`bl_caser_total_norm:boy:mother_age30`            -0.005557   0.011207  -0.496 0.619988    
+`bl_caser_total_norm:number_of_kids:factor_educ`   0.021801   0.019380   1.125 0.260659    
+`bl_caser_total_norm:number_of_kids:mother_age30`  0.065252   0.021045   3.101 0.001938 ** 
+`bl_caser_total_norm:factor_educ:farmingIncome`   -0.013234   0.012416  -1.066 0.286514    
+`bl_caser_total_norm:mother_age30:farmingIncome`   0.023015   0.011616   1.981 0.047602 *  
+`boy:factor_educ:farmingIncome`                   -0.014610   0.010094  -1.447 0.147822    
+`boy:mother_age30:farmingIncome`                  -0.013009   0.008949  -1.454 0.146049    
+`number_of_kids:mother_age30:farmingIncome`       -0.012496   0.015883  -0.787 0.431447    
+t2                                                -0.004855   0.015838  -0.307 0.759182    
+t3                                                 0.015108   0.016170   0.934 0.350146    
+t4                                                 0.051222   0.015882   3.225 0.001265 ** 
+mother_educ                                        0.079796   0.031758   2.513 0.012006 *  
+`t2:mother_educ`                                   0.055800   0.043576   1.281 0.200407    
+`t3:mother_educ`                                   0.017537   0.042092   0.417 0.676958    
+`t4:mother_educ`                                   0.015046   0.043660   0.345 0.730384    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.4458 on 7239 degrees of freedom
+Multiple R-squared:  0.8057,	Adjusted R-squared:  0.8044 
+F-statistic: 638.5 on 47 and 7239 DF,  p-value: < 2.2e-16
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|c|cc|}
+    \hline
+    Parameter                   & Std Error LASSO Sample A & Std Error LASSO Sample B \\
+    \hline
+    $t_2$                       & 0.015838        & 0.0156937 \\
+    $t_3$                       & 0.016170        & 0.0160594 \\
+    $t_4$                       & 0.015882        & 0.0158014 \\
+    $t_2:\texttt{mother\_educ}$ & 0.043576        & 0.0424748 \\
+    $t_3:\texttt{mother\_educ}$ & 0.042092        & 0.0417285 \\
+    $t_4:\texttt{mother\_educ}$ & 0.043660        & 0.0418646 \\
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|c|cc|}
+    \hline
+    Parameter                   & Std Error LASSO Sample A & Std Error LASSO Sample B \\
+    \hline
+    $\text{Intercept}$          & 0.2033015  &  0.21479 \\
+    $t_2$                       & 0.0141120  &  -0.004855 \\
+    $t_3$                       & 0.0282517  &  0.015108 \\
+    $t_4$                       & 0.0583243  &  0.051222 \\
+    $\beta_{\text{ME}}$         & 0.1043280  &  0.079796 \\
+    $t_2:\texttt{mother\_educ}$ & 0.0139198  &  0.055800 \\
+    $t_3:\texttt{mother\_educ}$ & 0.0276729  &  0.017537 \\
+    $t_4:\texttt{mother\_educ}$ & -0.0036344 &  0.015046 \\
+    \hline
+  \end{tabular}
+  \caption{ATE for $t_2$}
+\end{table}
+\end{figure}
+
+Precision is similar between Sample A and Sample B (standard errors). Nonetheless, the estimate parameters are relatively different in the two samples. In $t_4:\texttt{mother\_educ}$ and $t_2$, the parameters even have different signs.
 
 \begin{colorparagraph}{questioncolor}
 
 \section*{Binsreg \& Continuous Heterogeneity}
 \label{q3f}
 \rule{\textwidth}{0.5pt}
-\subsection{Other Controls}
+\subsection{Binsreg}
 For \( j = 1, 2, 3 \), define \( \omega_t(w_j) = \mathbb{E}[Y(t) \mid W_j = w_j] \).
 
 (f) Use \texttt{binsreg} to plot all possible \( \omega_t(w_j) \) (probably not in one picture). What did you specify for the other controls and why?
@@ -2068,14 +3592,193 @@ For \( j = 1, 2, 3 \), define \( \omega_t(w_j) = \mathbb{E}[Y(t) \mid W_j = w_j]
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+We use \texttt{binsreg}:
+\begin{itemize}
+  \item Without controls (left).
+  \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
+\end{itemize}
+
+For each continous variable, we provide the \texttt{binsreg} for each of the treatment.
+
+\begin{itemize}
+  \item BL Caser Total Norm has very similar \( \omega_t(w_j) = \mathbb{E}[Y(t) \mid W_j = w_j] \) for all $t$.
+  \item number of kids with and without control has more heterogeneous impact on the target when number of kids is larger for all $t$.
+  \item Number of kids has more homogeneous impact on the target for $t_3$ and $t_4$ when focusing on the lower variables of the feature number of kids than $t_1$ and $t_2$.
+  \item The impact of age seems to follow a quadratic form, meaning that fitting a model with $\texttt{age}^2$ and $\texttt{age}$ should be beneficial. The quadratic effect is smaller when controlling for selected covariates, but still visible.
+\end{itemize}
+
+\begin{colorparagraph}{tacolor}
+  REMOVE COMMENT
+\end{colorparagraph}
+
+\begin{comment}
+\begin{figure}[H]
+  \centering
+  \textbf{Binsreg for Age in $t_1$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_age_t1.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_age_t1.png}
+
+  \textbf{Binsreg for Age in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_age_t2.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_age_t2.png}
+
+  \textbf{Binsreg for Age in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_age_t3.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_age_t3.png}
+
+  \textbf{Binsreg for Age in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_age_t4.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_age_t4.png}
+\end{figure}
+  \begin{figure}[H]
+    \centering
+  
+  \textbf{Binsreg for Number of Kids in $t_1$ without and with Control}
+
+    \includegraphics[width=170px]{q3f-plots/best_binsreg_number_of_kids_t1.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_number_of_kids_t2.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_number_of_kids_t3.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_number_of_kids_t4.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png}
+\end{figure}
+  \begin{figure}[H]
+    \centering
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_1$ without and with Control}
+
+    \includegraphics[width=170px]{q3f-plots/best_binsreg_bl_caser_total_norm_t1.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_bl_caser_total_norm_t2.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_bl_caser_total_norm_t3.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_bl_caser_total_norm_t4.png}
+  \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png}
+\end{figure}
+
+\end{comment}
+
 \begin{colorparagraph}{questioncolor}
-\label{q3g}
-\subsection{Substantive}
 \rule{\textwidth}{0.5pt}
+\label{q3g}
+\subsection{Confidence Interval in Binsreg}
 (g) Pick one \( W_j \) and use confidence bands to assess a substantive question about \( \omega_t(w_j) \), \( t = 1, 2, 3, 4 \). For example, is it monotonic? Are there decreasing returns? Etc.
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+Again, We use \texttt{binsreg} with CI:
+\begin{itemize}
+  \item Without controls (left).
+  \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
+\end{itemize}
+
+\begin{itemize}
+  \item We again find that age has a non-linear function with respect to the target and controlling and not controlling for covariates.
+  \item The effect for all the continous covariates is more heterogeneous is the upper quantile of their distribution. It is particularly visible for age and number of kids controlling or not for covariates.
+  \item BL Caser Total Norm is almost always monotonic increasing with the exception of a point in the upper quantile in which we see an heterogeneous uncertain effect.
+  \item Controlling for covariates makes the effect of number of kids more homogeneous vis-a-vis not controlling. The opposite is true for age.
+\end{itemize}
+
+\begin{colorparagraph}{tacolor}
+  REMOVE COMMENT
+\end{colorparagraph}
+
+\begin{comment}
+\begin{figure}[H]
+  \centering
+  \textbf{Binsreg for Age in $t_1$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_age_t1.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png}
+
+  \textbf{Binsreg for Age in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_age_t2.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png}
+
+  \textbf{Binsreg for Age in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_age_t3.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png}
+
+  \textbf{Binsreg for Age in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_age_t4.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png}
+\end{figure}
+  \begin{figure}[H]
+    \centering
+  
+  \textbf{Binsreg for Number of Kids in $t_1$ without and with Control}
+
+    \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png}
+  
+  \textbf{Binsreg for Number of Kids in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png}
+\end{figure}
+  \begin{figure}[H]
+    \centering
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_1$ without and with Control}
+
+    \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_2$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_3$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png}
+  
+  \textbf{Binsreg for BL Caser Total Norm in $t_4$ without and with Control}
+
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png}
+  \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png}
+\end{figure}
+\end{comment}
 
 \begin{colorparagraph}{questioncolor}
 \section*{Deep Nets and Forests}
@@ -2090,6 +3793,42 @@ Provide conditions under which the functions \( \mu_t(x, w) = \mathbb{E}[Y(t) \m
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+To identify the functions \( \mu_t(x, w) = \mathbb{E}[Y(t) \mid X = x, W = w] \), the following conditions must be satisfied:
+
+\begin{enumerate}
+    \item Conditional Independence (Unconfoundedness): The potential outcomes \( Y_i(t) \) are independent of the treatment assignment \( T_i \) given the covariates \( X_i = x \) and \( W_i = w \). Formally,
+    \[
+    Y_i(t) \perp T_i \mid X_i = x, W_i = w, \quad \text{for all } t \in \{1,2,3,4\}.
+    \]
+    This assumption ensures that, conditional on \( X_i \) and \( W_i \), the treatment assignment is as good as random and there are no unobserved confounders affecting both the treatment and the outcome.
+
+    \item Positivity (Overlap): For all values of \( x \) and \( w \) in the support of \( X_i \) and \( W_i \), there is a positive probability of receiving each treatment level. That is,
+    \[
+    0 < P(T_i = t \mid X_i = x, W_i = w) < 1, \quad \text{for all } t \in \{1,2,3,4\}.
+    \]
+    This condition guarantees that there is sufficient variation in treatment assignments across all covariate patterns to estimate \( \mu_t(x, w) \).
+
+    \item Consistency: The observed outcome corresponds to the potential outcome under the received treatment. Formally,
+    \[
+    Y_i = Y_i(t) \quad \text{if } T_i = t.
+    \]
+    This assumption implies that there are no interference or spillover effects between units and that the treatment is well-defined. This is also referred to as the Stable Unit Treatment Value Assumption (SUTVA).
+
+    \item Correct Model Specification: The functional form of \( \mu_t(x, w) \) correctly captures the relationship between the covariates and the potential outcomes. Additionally, the error term \( \epsilon_i \) satisfies the following condition:
+    \[
+    \mathbb{E}[\epsilon_i \mid T_i, X_i, W_i] = 0.
+    \]
+    This ensures that there are no systematic errors in the model and that all relevant covariates are included.
+
+    \item Measurability and Integrability: The functions \( \mu_t(x, w) \) must be measurable and integrable with respect to the joint distribution of \( X_i \) and \( W_i \). This ensures that the expectations are well-defined and finite.
+\end{enumerate}
+
+Under these conditions, the functions \( \mu_t(x, w) \) are identified because the conditional expectation of the observed outcomes equals the conditional expectation of the potential outcomes:
+\[
+\mu_t(x, w) = \mathbb{E}[Y_i \mid T_i = t, X_i = x, W_i = w].
+\]
+This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed data, facilitating the assessment of treatment effects across different covariate profiles.
 
 \begin{colorparagraph}{questioncolor}
 \label{q3i}

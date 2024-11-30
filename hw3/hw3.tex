@@ -174,6 +174,7 @@
 
 \url{https://github.com/Fernando-Urbano/causal-machine-learning/tree/main/hw3}.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
 \label{q1}
@@ -189,7 +190,6 @@ The average treatment effect on the treated (ATT) is \( \tau = \mu_1 - \mu_0 \).
 
 Assume that the propensity score is correctly specified as a logistic regression: for a \( d \)-vector \( \theta_0 \), it holds that \( p(x) = (1 + \exp\{-\theta_0' x\})^{-1} \).
 
-\rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
 \begin{colorparagraph}{questioncolor}
@@ -203,6 +203,7 @@ Write down the objective function that is solved by the estimator and the equati
 \end{colorparagraph}
 
 The maximum likelihood estimator is:
+\end{figure}
 
 $$
 \ell(\theta) = \prod p(X_i)^{t_i} \times (1 - p(X_i))^{(1 - t_i)}, \quad \text{for} \\\ t_i \in \{ 0, 1 \}
@@ -320,6 +321,7 @@ The result is derived from:
   X_i \\
 \end{align*}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q1b}
 \rule{\textwidth}{0.5pt}
@@ -330,6 +332,7 @@ The result is derived from:
 \end{colorparagraph}
 
 To derive the influence function for \( \hat{\theta}_{\text{MLE}} \), we start with the score function (gradient of the log-likelihood with respect to $\theta$) for a single observation \( (T, X) \):
+\end{figure}
 
 \[
 s(T, X; \theta_0) = [T - p(X; \theta_0)] X,
@@ -369,6 +372,7 @@ Therefore, the influence function for \( \hat{\theta}_{\text{MLE}} \) is:
 
 The $\text{IF}$ provides a linear approximation of how the estimator $\theta$ responds to small changes in data distribution. We take the derivative with respect to $\theta$ because $\hat{\theta}$ is viewed as a functional estimator, meaning that it maps from the space of the probability distribution $F$ to the parameter space.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q1c}
 \rule{\textwidth}{0.5pt}
@@ -380,6 +384,7 @@ Write down the objective function that is solved by the estimator and the equati
 \end{colorparagraph}
 
 The nonlinear least squares estimator \( \hat{\theta}_{\text{NLS}} \) minimizes the sum of squared differences between the observed treatment indicator and the predicted propensity score. The objective function is:
+\end{figure}
 
 \[
 \hat{\theta}_{\text{NLS}} = \arg\min_{\theta} \sum_{i=1}^n \left[ T_i - p(X_i; \theta) \right]^2,
@@ -397,6 +402,7 @@ The equations that characterize the solution are obtained by taking the gradient
 \nabla_{\theta} \sum_{i=1}^n \left[ T_i - p(X_i; \theta) \right]^2 = -2 \sum_{i=1}^n \left[ T_i - p(X_i; \theta) \right] p(X_i; \theta) [1 - p(X_i; \theta)] X_i = 0.
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q1d}
 \rule{\textwidth}{0.5pt}
@@ -408,6 +414,7 @@ Compare it to the one for \( \hat{\theta}_{\text{MLE}} \).
 \end{colorparagraph}
 
 To derive the influence function for \( \hat{\theta}_{\text{NLS}} \), we begin by expressing the estimator as an M-estimator. The nonlinear least squares estimator minimizes the objective function:
+\end{figure}
 
 \[
 Q_n(\theta) = \frac{1}{n} \sum_{i=1}^n \left[ T_i - p(X_i; \theta) \right]^2,
@@ -502,6 +509,7 @@ Let \( \hat{p} = \sum_{i=1}^n t_i / n \) and define the estimator
 \]
 \end{colorparagraph}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q1e}
 \rule{\textwidth}{0.5pt}
@@ -515,10 +523,11 @@ Let \( \hat{p} = \sum_{i=1}^n t_i / n \) and define the estimator
   \begin{colorparagraph}{tacolor}REVIEW
     Review answer.
   \end{colorparagraph}
-}
-
-To derive the influence function for MLE we consider both the sampling variability and the estimation error from \( \hat{\theta}_{\text{MLE}} \). The estimator \( \hat{\tau} \) is defined as:
-
+  }
+  
+  To derive the influence function for MLE we consider both the sampling variability and the estimation error from \( \hat{\theta}_{\text{MLE}} \). The estimator \( \hat{\tau} \) is defined as:
+\end{figure}
+  
 \[
 \hat{\tau} = \hat{\mu}_1 - \hat{\mu}_0,
 \]
@@ -648,6 +657,7 @@ The influence function of the estimator \( \hat{\tau} \) when using maximum like
 \phi_{\hat{\tau}}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + \frac{T_i - p}{1 - p} \mu_0 - \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
 \]
   
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q1f}
 \rule{\textwidth}{0.5pt}
@@ -658,11 +668,12 @@ The influence function of the estimator \( \hat{\tau} \) when using maximum like
 \end{colorparagraph}
 
 \ifthenelse{\boolean{showcomments}}{
-\begin{colorparagraph}{tacolor}REVIEW
-  Review answer
-\end{colorparagraph}
-}
-To derive the influence function when the propensity score is estimated using nonlinear least squares (NLS), we consider both the sampling variability and the estimation error from \(\hat{\theta}_{\text{NLS}}\).
+  \begin{colorparagraph}{tacolor}REVIEW
+    Review answer
+  \end{colorparagraph}
+  }
+  To derive the influence function when the propensity score is estimated using nonlinear least squares (NLS), we consider both the sampling variability and the estimation error from \(\hat{\theta}_{\text{NLS}}\).
+\end{figure}
 
 The estimator \(\hat{\tau}\) is defined as:
 
@@ -795,6 +806,7 @@ The final influence function for \(\hat{\tau}\) when using NLS is:
 
 Note that the negative sign in the last term accounts for the correct influence function of \(\hat{\theta}_{\text{NLS}}\).
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
   \label{q1g}
   \rule{\textwidth}{0.5pt}
@@ -845,6 +857,7 @@ Note that the negative sign in the last term accounts for the correct influence 
   \end{tabular}
   \caption{Simulation Results Comparing MLE and NLS Estimators for ATT}
 \end{table}
+\end{figure}
 
 We conducted a simulation study to compare the performance of the average treatment effect on the treated (ATT) estimators using maximum likelihood estimation (MLE) and nonlinear least squares (NLS) for estimating the propensity score.
 
@@ -884,11 +897,11 @@ The NLS estimator struggles in higher-dimensional settings and with higher noise
 
 These findings align with the theoretical derivations of the influence functions. The MLE estimator is asymptotically efficient under correct model specification, as it directly maximizes the likelihood function. In contrast, the NLS estimator introduces additional weighting factors that can lead to inefficiencies and convergence issues, especially more complex occasions.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 
 \rule{\textwidth}{0.5pt}
 \label{q2}
-\rule{\textwidth}{0.5pt}
 \section{Nonparametric Density Estimation}
 
 \textit{Density estimation isn't as useful as nonparametric regression, in general and for causal inference in particular, but all the conceptual lessons learned here carry over to regression.}
@@ -900,7 +913,6 @@ We have an i.i.d. sample \(\{x_1, \dots, x_n\}\) from a scalar random variable \
 
 \begin{colorparagraph}{questioncolor}
 \label{q2a}
-\rule{\textwidth}{0.5pt}
 \subsection{Empirical Distribution Function}
 (a) Consider the empirical distribution function
 \[
@@ -915,6 +927,7 @@ Motive this estimator as the sample analogue of the population cdf. Prove that \
 \hat{F}(x) = \frac{1}{n} \sum_{i=1}^n 1\{ x_i \leq x \}
 \]
 serves as the sample analogue of the population cumulative distribution function \( F(x) = \mathbb{P}(X \leq x) \), because it represents the proportion of observed data points less than or equal to \( x \).
+\end{figure}
 
 To show that \( \hat{F}(x) \) is unbiased, we compute its expected value:
 \[
@@ -945,6 +958,7 @@ To establish consistency, observe that as \( n \to \infty \):
 \]
 Since \( \hat{F}(x) \) is unbiased, it converges in mean square to \( F(x) \). By the Weak Law of Large Numbers, \( \hat{F}(x) \) also converges in probability to \( F(x) \). Therefore, \( \hat{F}(x) \) is a consistent estimator of \( F(x) \).
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2b}
 \rule{\textwidth}{0.5pt}
@@ -957,8 +971,10 @@ Characterize the variance \( \Omega \) and provide a consistent estimator.
 
 Consider the indicator variables
 \[
-Y_i = 1\{ x_i \leq x \}, \quad i = 1, 2, \dots, n.
-\]
+  Y_i = 1\{ x_i \leq x \}, \quad i = 1, 2, \dots, n.
+  \]
+\end{figure}
+
 Each \( Y_i \) is an independent and identically distributed (i.i.d.) Bernoulli random variable with success probability \( p = F(x) \):
 \[
 E[Y_i] = F(x), \quad \operatorname{Var}(Y_i) = F(x)(1 - F(x))
@@ -989,6 +1005,7 @@ A consistent estimator for \( \Omega \) is obtained by replacing \( F(x) \) with
 \]
 Since \( \hat{F}(x) \) is a consistent estimator of \( F(x) \), \( \hat{\Omega} \) is a consistent estimator of \( \Omega \).
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2c}
 \rule{\textwidth}{0.5pt}
@@ -999,6 +1016,7 @@ Since \( \hat{F}(x) \) is a consistent estimator of \( F(x) \), \( \hat{\Omega} 
 \end{colorparagraph}
 
 Given that \( X \sim \mathcal{N}(\mu, \sigma^2) \), we can estimate the cumulative distribution function at point \( x \) using the sample mean \( \hat{\mu} \) and sample standard deviation \( \hat{\sigma} \):
+\end{figure}
 
 \[
 \tilde{F}(x) = \Phi\left( \frac{x - \hat{\mu}}{\hat{\sigma}} \right),
@@ -1112,6 +1130,7 @@ The estimator \( \tilde{F}(x) = \Phi\left( \frac{x - \hat{\mu}}{\hat{\sigma}} \r
 \hat{\Omega} = \phi\left( \frac{x - \hat{\mu}}{\hat{\sigma}} \right)^2 \left( 1 + \frac{\left( \frac{x - \hat{\mu}}{\hat{\sigma}} \right)^2}{2} \right).
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2d}
 \rule{\textwidth}{0.5pt}
@@ -1134,6 +1153,7 @@ In this simulation, we use 9 different distributions:
   \item T-Student(70)
   \item T-Student(150)
 \end{itemize}
+\end{figure}
 
 We run simulations for $n$ between 10 and 400, with intervals of 5. For each $n$, we run 500 simulations. In total, we run 355 thousand simulations.
 
@@ -1364,6 +1384,7 @@ In conclusion, $\tilde{F}(x)$ is only preferable in situations where we have a s
 \end{figure}
 }
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 
 \rule{\textwidth}{0.5pt}
@@ -1382,6 +1403,7 @@ f(x) = F'(x) = \lim_{h \to 0} \frac{F(x + h) - F(x)}{h}
 \end{colorparagraph}
 
 We aim to construct a plug-in estimator \( \hat{f}(x) \) for the density \( f(x) \) using the definition of the density as the derivative of the cumulative distribution function:
+\end{figure}
 
 \[
 f(x) = F'(x) = \lim_{h \to 0} \frac{F(x + h) - F(x)}{h}.
@@ -1422,6 +1444,7 @@ Thus, the plug-in estimator for \( f(x) \) is:
 \hat{f}(x) = \frac{1}{n h} \sum_{i=1}^n 1\{ x < x_i \leq x + h \}.
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2f}
 \rule{\textwidth}{0.5pt}
@@ -1432,6 +1455,7 @@ Thus, the plug-in estimator for \( f(x) \) is:
 \end{colorparagraph}
 
 To compute the bias of \( \hat{f}(x) \) for fixed \( h \), we start by finding its expected value:
+\end{figure}
 
 \[
 \begin{aligned}
@@ -1542,7 +1566,7 @@ Thus, the bias of \( \hat{f}(x) \) vanishes as \( h \to 0 \).
 %   \end{colorparagraph}
 % }
 
-
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2g}
 \rule{\textwidth}{0.5pt}
@@ -1557,6 +1581,7 @@ and give the precise form of \( K \).
 \end{colorparagraph}
 
 Starting from the expression for the expected value of \( \hat{f}(x) \):
+\end{figure}
 
 \[
 \mathbb{E}[\hat{f}(x)] = \frac{1}{h} \left( F(x + h) - F(x) \right).
@@ -1592,6 +1617,7 @@ Thus, the bias is \( O(h) \), and the constant \( K \) is given by:
 K = \frac{1}{2} f'(x).
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2h}
 \rule{\textwidth}{0.5pt}
@@ -1602,6 +1628,7 @@ K = \frac{1}{2} f'(x).
 \end{colorparagraph}
 
 We compute the variance of \( \hat{f}(x) \) for fixed \( h \). Recall that \( \hat{f}(x) \) is given by:
+\end{figure}
 
 \[
 \hat{f}(x) = \frac{1}{n h} \sum_{i=1}^n 1\{ x < x_i \leq x + h \}.
@@ -1682,6 +1709,7 @@ Therefore, a consistent estimator of the variance \( \Sigma \) is:
 \hat{\Sigma} = \frac{\hat{f}(x)}{n h}.
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2i}
 \rule{\textwidth}{0.5pt}
@@ -1692,6 +1720,7 @@ Therefore, a consistent estimator of the variance \( \Sigma \) is:
 \end{colorparagraph}
 
 The mean square error (MSE) of the estimator \( \hat{f}(x) \) is given by the sum of the squared bias and the variance:
+\end{figure}
 
 \[
 \text{MSE}(h) = \left( \mathbb{E}[\hat{f}(x)] - f(x) \right)^2 + \mathbb{V}[\hat{f}(x)].
@@ -1757,6 +1786,7 @@ h = C n^{-1/3},
 
 where \( C \) is a constant that may depend on estimates of \( f(x) \) and \( f'(x) \). Since \( f(x) \) and \( f'(x) \) are typically unknown, we can use pilot estimates or assume reasonable values based on prior knowledge to select \( h \).
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2j}
 \rule{\textwidth}{0.5pt}
@@ -1770,6 +1800,7 @@ where \( C \) is a constant that may depend on estimates of \( f(x) \) and \( f'
 \end{colorparagraph}
 
 Recall that:
+\end{figure}
 
 \[
 \hat{f}(x) = \frac{1}{n h} \sum_{i=1}^n Y_i,
@@ -1815,6 +1846,7 @@ Therefore,
 \frac{\hat{f}(x) - \mathbb{E}[\hat{f}(x)]}{\Sigma^{1/2}} \xrightarrow{d} \mathcal{N}(0, 1).
 \]
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2k}
 \rule{\textwidth}{0.5pt}
@@ -1829,6 +1861,7 @@ Characterize precisely the requirements that \( h \) must obey as \( n \to \inft
 \end{colorparagraph}
 
 We are to provide sufficient conditions such that:
+\end{figure}
 
 \[
 \frac{\hat{f}(x) - f(x)}{\Sigma^{1/2}} \xrightarrow{d} \mathcal{N}(0, 1),
@@ -1955,6 +1988,7 @@ to hold, it is sufficient that:
     \item This ensures \( h \to 0 \), \( n h \to \infty \), and \( n h^3 \to 0 \) as \( n \to \infty \).
 \end{itemize}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2l}
 \rule{\textwidth}{0.5pt}
@@ -1965,6 +1999,7 @@ to hold, it is sufficient that:
 \end{colorparagraph}
 
 In part (i), we found that the bandwidth \( h \) that minimizes the mean square error (MSE) of the estimator \( \hat{f}(x) \) is:
+\end{figure}
 
 \[
 h_{\text{opt}} = \left( \frac{2 f(x)}{[f'(x)]^2 n} \right)^{1/3} \propto n^{-1/3}.
@@ -2025,6 +2060,7 @@ h = n^{-\beta}, \quad \text{where} \quad \beta = \frac{1}{3} + \varepsilon, \qua
 
 This ensures that the standardized estimator converges in distribution to a normal distribution, enabling us to construct confidence intervals and perform hypothesis tests reliably.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q2m}
 \rule{\textwidth}{0.5pt}
@@ -2035,6 +2071,7 @@ This ensures that the standardized estimator converges in distribution to a norm
 \end{colorparagraph}
 
 For this question, we use the following calculations:
+\end{figure}
 
 $$
 p_{x, h} = \frac{n_h}{n}, \quad \text{where} \ n_h \ \text{is the n. of obs in} \ h \text{and} \ n \text{is the n. of obs in the sample simulation}
@@ -2199,6 +2236,7 @@ The best results, as expected, are found for big $n$ and, on average, $h = \frac
 \end{table}
 }
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 
 \rule{\textwidth}{0.5pt}
@@ -2221,6 +2259,7 @@ The outcome is a (normalized) child's test, in \texttt{caser\_total\_norm}. \tex
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+\end{figure}
 
 \subsubsection*{Regression without Covariates}
 \begin{figure}[H]
@@ -2513,6 +2552,7 @@ $t_3$ significance level decreases as we add covariates. $t_3$ is still signific
 
 $t_4$ significance level increases as we add covariates. $t_4$ is highly significant even at 1\% level regardless of the covariates added, showing relevant statistical difference between the control level and the treatment 4 level.  The standard error decreases with the addition of more covariates.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3b}
 \rule{\textwidth}{0.5pt}
@@ -2521,6 +2561,7 @@ $t_4$ significance level increases as we add covariates. $t_4$ is highly signifi
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+\end{figure}
 
 \subsubsection*{LASSO Model without Interactions}
 \begin{figure}[H]
@@ -2731,6 +2772,7 @@ Specifically, we see that there is improvement when using only demeaned covariat
 
 The best model for all three ATE regarding standard error estimate is the model with demeaned covariates, interaction, and LASSO control.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3c}
 \rule{\textwidth}{0.5pt}
@@ -2739,6 +2781,7 @@ The best model for all three ATE regarding standard error estimate is the model 
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+\end{figure}
 
 \subsubsection*{Model with Interactions controlling for LASSO}
 \begin{figure}[H]
@@ -2813,6 +2856,7 @@ The estimators for the treatment are:
 \end{itemize}
 \end{figure}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3d}
 \rule{\textwidth}{0.5pt}
@@ -2821,6 +2865,7 @@ The estimators for the treatment are:
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+\end{figure}
 
 \begin{figure}[H]
 \begin{lstlisting}[style=RstyleComment, caption=LASSO for CATE]
@@ -2941,7 +2986,7 @@ F-statistic:  1772 on 34 and 14539 DF,  p-value: < 2.2e-16
     $t_4 : \texttt{mother\_educ}$ & 0.8207      & 0.81393    \\
     \hline
   \end{tabular}
-  \caption{ATE for $t_2$}
+  \caption{Parameters Inference Model without Covariates}
 \end{table}
 \end{figure}
 
@@ -2960,7 +3005,7 @@ F-statistic:  1772 on 34 and 14539 DF,  p-value: < 2.2e-16
     $t_4:\texttt{mother\_educ}$ & 0.06687       & 0.029940 \\
     \hline
   \end{tabular}
-  \caption{ATE for $t_2$}
+  \caption{Parameters Inference Model with Covariates}
 \end{table}
 \end{figure}
 
@@ -2969,6 +3014,7 @@ We see improvement in precision after adding covariates for all parameters (usin
 For $t_4$ and $t_4:\texttt{mother\_educ}$ there is improvement even in p-value.
 
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
 \subsection{Sample A and Sample B}
@@ -2977,6 +3023,7 @@ For $t_4$ and $t_4:\texttt{mother\_educ}$ there is improvement even in p-value.
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+\end{figure}
 
 
 \begin{figure}[H]
@@ -3229,7 +3276,9 @@ We use sample splitting to:
 
 
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
+\rule{\textwidth}{0.5pt}
 
 \section*{Binsreg \& Continuous Heterogeneity}
 \label{q3f}
@@ -3247,6 +3296,7 @@ We use \texttt{binsreg}:
   \item Without controls (left).
   \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
 \end{itemize}
+\end{figure}
 
 We believe that the use of \texttt{binsreg} with controls allows us to see a more clear impact of $W_j$ in the expected value for each potential treatment outcome. Furthermore, we control only for the covariates selected by LASSO, since we have the best improvement in precision when using those (and only those).
 
@@ -3330,6 +3380,7 @@ For each continous variable, we provide the \texttt{binsreg} for each of the tre
 \end{figure}
 }
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
 \label{q3g}
@@ -3344,6 +3395,7 @@ Again, We use \texttt{binsreg} with CI:
   \item Without controls (left).
   \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
 \end{itemize}
+\end{figure}
 
 Some interesting takeaways:
 
@@ -3426,10 +3478,13 @@ Some interesting takeaways:
 \end{figure}
 }
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
-\section*{Deep Nets and Forests}
-\label{q3h}
 \rule{\textwidth}{0.5pt}
+
+\section*{Deep Nets and Forests}
+\rule{\textwidth}{0.5pt}
+\label{q3h}
 \subsection{Conditions for Identification}
 (h) Consider the model
 \[
@@ -3441,6 +3496,7 @@ Provide conditions under which the functions \( \mu_t(x, w) = \mathbb{E}[Y(t) \m
 \end{colorparagraph}
 
 To identify the functions \( \mu_t(x, w) = \mathbb{E}[Y(t) \mid X = x, W = w] \), the following conditions must be satisfied:
+\end{figure}
 
 \begin{enumerate}
     \item Conditional Independence (Unconfoundedness): The potential outcomes \( Y_i(t) \) are independent of the treatment assignment \( T_i \) given the covariates \( X_i = x \) and \( W_i = w \). Formally,
@@ -3476,6 +3532,7 @@ Under these conditions, the functions \( \mu_t(x, w) \) are identified because t
 \]
 This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed data, facilitating the assessment of treatment effects across different covariate profiles.
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3i}
 \rule{\textwidth}{0.5pt}
@@ -3486,6 +3543,7 @@ This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed
 \end{colorparagraph}
 
 Below, we plot the partial dependence plot and the variable importance plot.
+\end{figure}
 
 We see that the partial dependence plot is extremely similar to bins reg plot for BL Caser Norm. Partial depencency plot and binsreg are similar for age and quite different for Number of Kids.
 
@@ -3647,6 +3705,7 @@ Sensitivity parameters: cf_y=0.03; cf_d=0.03, rho=1.0
   \end{lstlisting}
 \end{figure}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3j}
 \rule{\textwidth}{0.5pt}
@@ -3661,6 +3720,7 @@ Sensitivity parameters: cf_y=0.03; cf_d=0.03, rho=1.0
   \input{q3j-results/summary_of_validation_loss_by_architecture.tex}
   \label{tab:summary_of_validation_loss_by_architecture}
 \end{table}
+\end{figure}
 
 In our estimates of DNN, we grid-search. We test the architectures defined below, RIDGE Regularization ($\alpha \in \{0.001, 0.01, 0.1, 0.3, 0.5, 1\}$), and Learning Rate (constant and adaptive). We keep do preliminary tests and arrive to ReLU as the best activation function.
 
@@ -3703,6 +3763,7 @@ Using \texttt{DoubleML}, we get the following estimates:
 \end{table}
 \end{figure}
 
+\begin{figure}[H]
 \begin{colorparagraph}{questioncolor}
 \label{q3k}
 \rule{\textwidth}{0.5pt}
@@ -3713,9 +3774,12 @@ Using \texttt{DoubleML}, we get the following estimates:
 \end{colorparagraph}
 
 To conduct inference on the treatment effect of treatment \( t \) compared to the baseline using influence function-based estimation, we focus on estimating the average treatment effect (ATE), defined as
+\end{figure}
+
 \[
 \text{ATE} = \mathbb{E}[\mu_t(X, W) - \mu_0(X, W)],
 \]
+
 where \( \mu_t(X, W) \) represents the expected outcome given treatment \( t \) and covariates \( X \) and \( W \).
 
 In this context, the IF helps adjust for model estimation errors, ensuring valid inference even when machine learning methods are used for estimation of treatment probability and target outcome.
@@ -3867,7 +3931,7 @@ We test:
 
 We run it with a maximum of 1000 iterations, ReLU activation, and ADAM solver.
 
-The results agree with previous evidence: there is a significant difference in target level for $t_4$ when comparing to control at 1\% significance. $t_3$ is significant at 10\%.
+The results agree with previous evidence: there is a significant difference in target level for $t_4$ when comparing to control at 1\% significance. $t_3$ is significant at 10\% in RF and 5\% in the DNN model.
 
 \begin{figure}[H]
   \begin{table}[H]
@@ -3884,9 +3948,6 @@ The results agree with previous evidence: there is a significant difference in t
   \caption{$\hat{\text{ATE}}$ Estimate Comparison}
 \end{table}
 \end{figure}
-
-
-
 
 
 \end{document}

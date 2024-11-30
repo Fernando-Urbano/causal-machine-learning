@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1732931025.49434 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" "hw3.pdf" "hw3" 1732931073.06639 0
-  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" 1732930792.18136 168552 ee228e4d53ef01ec887b84b0a65df9fb ""
+["pdflatex"] 1732932666.64223 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" "hw3.pdf" "hw3" 1732932714.52917 0
+  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw3/hw3.tex" 1732932618.5784 169602 271d0b9de6a6c0b4c52bc1b047df3431 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -139,9 +139,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726838998.69877 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726838976 8221424 454b2c53fe337be275f410895c638726 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "hw3.aux" 1732931072.89676 14568 ff1cba20c0b54a8d8c363748817621c5 "pdflatex"
-  "hw3.out" 1732931072.8979 7180 62adbb990d1cd4fae21ff5e8c7024855 "pdflatex"
-  "hw3.tex" 1732930792.18136 168552 ee228e4d53ef01ec887b84b0a65df9fb ""
+  "hw3.aux" 1732932714.35607 14629 dc454b38612238016ed0dfe7093d41ae "pdflatex"
+  "hw3.out" 1732932714.35753 7180 62adbb990d1cd4fae21ff5e8c7024855 "pdflatex"
+  "hw3.tex" 1732932618.5784 169602 271d0b9de6a6c0b4c52bc1b047df3431 ""
   "q2d-plots/bias_x15_exponential.png" 1732139579.80469 90952 22ff65e170d91b0a0f17f90aa283973f ""
   "q2d-plots/bias_x15_gamma_1_1.png" 1732139583.81704 87049 f0f7ed4abf6d0615eb07533ca74d61a0 ""
   "q2d-plots/bias_x15_gamma_3_2.png" 1732139580.41491 85633 73a6c17fdcb6d844707ea3a0f62029fc ""

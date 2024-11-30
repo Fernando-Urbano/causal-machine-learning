@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  29 NOV 2024 19:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  29 NOV 2024 20:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -482,42 +482,42 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 [1
 
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (1.03937pt too wide) detected at line 251
+Overfull \hbox (1.03937pt too wide) detected at line 252
 []
  []
 
 [2]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 326.
+(hyperref)                removing `math shift' on input line 328.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 326.
+(hyperref)                removing `subscript' on input line 328.
 
 [3]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 375.
+(hyperref)                removing `math shift' on input line 379.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\theta' on input line 375.
+(hyperref)                removing `\theta' on input line 379.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 375.
+(hyperref)                removing `subscript' on input line 379.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 403.
+(hyperref)                removing `math shift' on input line 409.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `subscript' on input line 403.
+(hyperref)                removing `subscript' on input line 409.
 
 [4] [5{/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}] [6] [7] [8] [9] [10]
-Overfull \hbox (9.95345pt too wide) detected at line 781
+Overfull \hbox (9.95345pt too wide) detected at line 792
 []
  []
 
@@ -525,1135 +525,1135 @@ Overfull \hbox (9.95345pt too wide) detected at line 781
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.864         \item T
-                     he variance of both estimators decreases with increasin...] [14] [15] [16] [17] [18] [19]
-<q2d-plots/bias_x5_gamma_1_1.png, id=251, 433.62pt x 289.08pt>
+l.871         \item F
+                     or lower dimensions (\( d = 2 \)), both MLE and NLS est...] [14] [15] [16] [17] [18] [19] [20]
+<q2d-plots/bias_x5_gamma_1_1.png, id=255, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x5_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x5_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_gamma_3_2.png, id=253, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_gamma_3_2.png, id=257, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/bias_x5_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/bias_x5_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_exponential.png, id=254, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_exponential.png, id=258, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_exponential.png Graphic file (type png)
 <use q2d-plots/bias_x5_exponential.png>
-Package pdftex.def Info: q2d-plots/bias_x5_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_log_normal_1_1.png, id=255, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_log_normal_1_1.png, id=259, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x5_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x5_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_log_normal_1_2.png, id=256, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_log_normal_1_2.png, id=260, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/bias_x5_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/bias_x5_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_normal.png, id=257, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_normal.png, id=261, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_normal.png Graphic file (type png)
 <use q2d-plots/bias_x5_normal.png>
-Package pdftex.def Info: q2d-plots/bias_x5_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_t_student_10.png, id=258, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_t_student_10.png, id=262, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_t_student_10.png Graphic file (type png)
 <use q2d-plots/bias_x5_t_student_10.png>
-Package pdftex.def Info: q2d-plots/bias_x5_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_t_student_70.png, id=259, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_t_student_70.png, id=263, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_t_student_70.png Graphic file (type png)
 <use q2d-plots/bias_x5_t_student_70.png>
-Package pdftex.def Info: q2d-plots/bias_x5_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x5_t_student_150.png, id=260, 433.62pt x 289.08pt>
+<q2d-plots/bias_x5_t_student_150.png, id=264, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x5_t_student_150.png Graphic file (type png)
 <use q2d-plots/bias_x5_t_student_150.png>
-Package pdftex.def Info: q2d-plots/bias_x5_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x5_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_gamma_1_1.png, id=261, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_gamma_1_1.png, id=265, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x5_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x5_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_gamma_3_2.png, id=262, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_gamma_3_2.png, id=266, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/variance_x5_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/variance_x5_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_exponential.png, id=263, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_exponential.png, id=267, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_exponential.png Graphic file (type png)
 <use q2d-plots/variance_x5_exponential.png>
-Package pdftex.def Info: q2d-plots/variance_x5_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_log_normal_1_1.png, id=264, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_log_normal_1_1.png, id=268, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x5_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x5_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_log_normal_1_2.png, id=265, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_log_normal_1_2.png, id=269, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/variance_x5_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/variance_x5_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_normal.png, id=266, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_normal.png, id=270, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_normal.png Graphic file (type png)
 <use q2d-plots/variance_x5_normal.png>
-Package pdftex.def Info: q2d-plots/variance_x5_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_t_student_10.png, id=267, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_t_student_10.png, id=271, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_t_student_10.png Graphic file (type png)
 <use q2d-plots/variance_x5_t_student_10.png>
-Package pdftex.def Info: q2d-plots/variance_x5_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_t_student_70.png, id=268, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_t_student_70.png, id=272, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_t_student_70.png Graphic file (type png)
 <use q2d-plots/variance_x5_t_student_70.png>
-Package pdftex.def Info: q2d-plots/variance_x5_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x5_t_student_150.png, id=269, 433.62pt x 289.08pt>
+<q2d-plots/variance_x5_t_student_150.png, id=273, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x5_t_student_150.png Graphic file (type png)
 <use q2d-plots/variance_x5_t_student_150.png>
-Package pdftex.def Info: q2d-plots/variance_x5_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x5_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [20 <./q2d-plots/bias_x5_gamma_1_1.png> <./q2d-plots/bias_x5_gamma_3_2.png> <./q2d-plots/bias_x5_exponential.png> <./q2d-plots/bias_x5_log_normal_1_1.png> <./q2d-plots/bias_x5_log_normal_1_2.png> <./q2d-plots/bias_x5_normal.png> <./q2d-plots/bias_x5_t_student_10.png> <./q2d-plots/bias_x5_t_student_70.png> <./q2d-plots/bias_x5_t_student_150.png>]
-<q2d-plots/mse_x5_gamma_1_1.png, id=284, 433.62pt x 289.08pt>
+ [21 <./q2d-plots/bias_x5_gamma_1_1.png> <./q2d-plots/bias_x5_gamma_3_2.png> <./q2d-plots/bias_x5_exponential.png> <./q2d-plots/bias_x5_log_normal_1_1.png> <./q2d-plots/bias_x5_log_normal_1_2.png> <./q2d-plots/bias_x5_normal.png> <./q2d-plots/bias_x5_t_student_10.png> <./q2d-plots/bias_x5_t_student_70.png> <./q2d-plots/bias_x5_t_student_150.png>]
+<q2d-plots/mse_x5_gamma_1_1.png, id=288, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x5_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x5_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_gamma_3_2.png, id=285, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_gamma_3_2.png, id=289, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/mse_x5_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/mse_x5_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_exponential.png, id=286, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_exponential.png, id=290, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_exponential.png Graphic file (type png)
 <use q2d-plots/mse_x5_exponential.png>
-Package pdftex.def Info: q2d-plots/mse_x5_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_log_normal_1_1.png, id=287, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_log_normal_1_1.png, id=291, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x5_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x5_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_log_normal_1_2.png, id=288, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_log_normal_1_2.png, id=292, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/mse_x5_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/mse_x5_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_normal.png, id=289, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_normal.png, id=293, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_normal.png Graphic file (type png)
 <use q2d-plots/mse_x5_normal.png>
-Package pdftex.def Info: q2d-plots/mse_x5_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_t_student_10.png, id=290, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_t_student_10.png, id=294, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_t_student_10.png Graphic file (type png)
 <use q2d-plots/mse_x5_t_student_10.png>
-Package pdftex.def Info: q2d-plots/mse_x5_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_t_student_70.png, id=291, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_t_student_70.png, id=295, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_t_student_70.png Graphic file (type png)
 <use q2d-plots/mse_x5_t_student_70.png>
-Package pdftex.def Info: q2d-plots/mse_x5_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x5_t_student_150.png, id=292, 433.62pt x 289.08pt>
+<q2d-plots/mse_x5_t_student_150.png, id=296, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x5_t_student_150.png Graphic file (type png)
 <use q2d-plots/mse_x5_t_student_150.png>
-Package pdftex.def Info: q2d-plots/mse_x5_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x5_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_gamma_1_1.png, id=293, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_gamma_1_1.png, id=297, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x5_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x5_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_gamma_3_2.png, id=294, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_gamma_3_2.png, id=298, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/ci_x5_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/ci_x5_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_exponential.png, id=295, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_exponential.png, id=299, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_exponential.png Graphic file (type png)
 <use q2d-plots/ci_x5_exponential.png>
-Package pdftex.def Info: q2d-plots/ci_x5_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_log_normal_1_1.png, id=296, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_log_normal_1_1.png, id=300, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x5_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x5_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_log_normal_1_2.png, id=297, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_log_normal_1_2.png, id=301, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/ci_x5_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/ci_x5_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_normal.png, id=298, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_normal.png, id=302, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_normal.png Graphic file (type png)
 <use q2d-plots/ci_x5_normal.png>
-Package pdftex.def Info: q2d-plots/ci_x5_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_t_student_10.png, id=299, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_t_student_10.png, id=303, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_t_student_10.png Graphic file (type png)
 <use q2d-plots/ci_x5_t_student_10.png>
-Package pdftex.def Info: q2d-plots/ci_x5_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_t_student_70.png, id=300, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_t_student_70.png, id=304, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_t_student_70.png Graphic file (type png)
 <use q2d-plots/ci_x5_t_student_70.png>
-Package pdftex.def Info: q2d-plots/ci_x5_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x5_t_student_150.png, id=301, 433.62pt x 289.08pt>
+<q2d-plots/ci_x5_t_student_150.png, id=305, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x5_t_student_150.png Graphic file (type png)
 <use q2d-plots/ci_x5_t_student_150.png>
-Package pdftex.def Info: q2d-plots/ci_x5_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x5_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [21 <./q2d-plots/variance_x5_gamma_1_1.png> <./q2d-plots/variance_x5_gamma_3_2.png> <./q2d-plots/variance_x5_exponential.png> <./q2d-plots/variance_x5_log_normal_1_1.png> <./q2d-plots/variance_x5_log_normal_1_2.png> <./q2d-plots/variance_x5_normal.png> <./q2d-plots/variance_x5_t_student_10.png> <./q2d-plots/variance_x5_t_student_70.png> <./q2d-plots/variance_x5_t_student_150.png> <./q2d-plots/mse_x5_gamma_1_1.png> <./q2d-plots/mse_x5_gamma_3_2.png> <./q2d-plots/mse_x5_exponential.png> <./q2d-plots/mse_x5_log_normal_1_1.png> <./q2d-plots/mse_x5_log_normal_1_2.png> <./q2d-plots/mse_x5_normal.png> <./q2d-plots/mse_x5_t_student_10.png> <./q2d-plots/mse_x5_t_student_70.png> <./q2d-plots/mse_x5_t_student_150.png>]
-<q2d-plots/bias_x15_gamma_1_1.png, id=326, 433.62pt x 289.08pt>
+ [22 <./q2d-plots/variance_x5_gamma_1_1.png> <./q2d-plots/variance_x5_gamma_3_2.png> <./q2d-plots/variance_x5_exponential.png> <./q2d-plots/variance_x5_log_normal_1_1.png> <./q2d-plots/variance_x5_log_normal_1_2.png> <./q2d-plots/variance_x5_normal.png> <./q2d-plots/variance_x5_t_student_10.png> <./q2d-plots/variance_x5_t_student_70.png> <./q2d-plots/variance_x5_t_student_150.png> <./q2d-plots/mse_x5_gamma_1_1.png> <./q2d-plots/mse_x5_gamma_3_2.png> <./q2d-plots/mse_x5_exponential.png> <./q2d-plots/mse_x5_log_normal_1_1.png> <./q2d-plots/mse_x5_log_normal_1_2.png> <./q2d-plots/mse_x5_normal.png> <./q2d-plots/mse_x5_t_student_10.png> <./q2d-plots/mse_x5_t_student_70.png> <./q2d-plots/mse_x5_t_student_150.png>]
+<q2d-plots/bias_x15_gamma_1_1.png, id=330, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x15_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x15_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_gamma_3_2.png, id=327, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_gamma_3_2.png, id=331, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/bias_x15_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/bias_x15_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_exponential.png, id=328, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_exponential.png, id=332, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_exponential.png Graphic file (type png)
 <use q2d-plots/bias_x15_exponential.png>
-Package pdftex.def Info: q2d-plots/bias_x15_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_log_normal_1_1.png, id=329, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_log_normal_1_1.png, id=333, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x15_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x15_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_log_normal_1_2.png, id=330, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_log_normal_1_2.png, id=334, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/bias_x15_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/bias_x15_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_normal.png, id=331, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_normal.png, id=335, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_normal.png Graphic file (type png)
 <use q2d-plots/bias_x15_normal.png>
-Package pdftex.def Info: q2d-plots/bias_x15_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_t_student_10.png, id=332, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_t_student_10.png, id=336, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_t_student_10.png Graphic file (type png)
 <use q2d-plots/bias_x15_t_student_10.png>
-Package pdftex.def Info: q2d-plots/bias_x15_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_t_student_70.png, id=333, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_t_student_70.png, id=337, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_t_student_70.png Graphic file (type png)
 <use q2d-plots/bias_x15_t_student_70.png>
-Package pdftex.def Info: q2d-plots/bias_x15_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x15_t_student_150.png, id=334, 433.62pt x 289.08pt>
+<q2d-plots/bias_x15_t_student_150.png, id=338, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x15_t_student_150.png Graphic file (type png)
 <use q2d-plots/bias_x15_t_student_150.png>
-Package pdftex.def Info: q2d-plots/bias_x15_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x15_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_gamma_1_1.png, id=335, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_gamma_1_1.png, id=339, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x15_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x15_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_gamma_3_2.png, id=336, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_gamma_3_2.png, id=340, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/variance_x15_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/variance_x15_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_exponential.png, id=337, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_exponential.png, id=341, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_exponential.png Graphic file (type png)
 <use q2d-plots/variance_x15_exponential.png>
-Package pdftex.def Info: q2d-plots/variance_x15_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_log_normal_1_1.png, id=338, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_log_normal_1_1.png, id=342, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x15_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x15_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_log_normal_1_2.png, id=339, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_log_normal_1_2.png, id=343, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/variance_x15_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/variance_x15_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_normal.png, id=340, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_normal.png, id=344, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_normal.png Graphic file (type png)
 <use q2d-plots/variance_x15_normal.png>
-Package pdftex.def Info: q2d-plots/variance_x15_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_t_student_10.png, id=341, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_t_student_10.png, id=345, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_t_student_10.png Graphic file (type png)
 <use q2d-plots/variance_x15_t_student_10.png>
-Package pdftex.def Info: q2d-plots/variance_x15_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_t_student_70.png, id=342, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_t_student_70.png, id=346, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_t_student_70.png Graphic file (type png)
 <use q2d-plots/variance_x15_t_student_70.png>
-Package pdftex.def Info: q2d-plots/variance_x15_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x15_t_student_150.png, id=343, 433.62pt x 289.08pt>
+<q2d-plots/variance_x15_t_student_150.png, id=347, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x15_t_student_150.png Graphic file (type png)
 <use q2d-plots/variance_x15_t_student_150.png>
-Package pdftex.def Info: q2d-plots/variance_x15_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x15_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [22 <./q2d-plots/ci_x5_gamma_1_1.png> <./q2d-plots/ci_x5_gamma_3_2.png> <./q2d-plots/ci_x5_exponential.png> <./q2d-plots/ci_x5_log_normal_1_1.png> <./q2d-plots/ci_x5_log_normal_1_2.png> <./q2d-plots/ci_x5_normal.png> <./q2d-plots/ci_x5_t_student_10.png> <./q2d-plots/ci_x5_t_student_70.png> <./q2d-plots/ci_x5_t_student_150.png> <./q2d-plots/bias_x15_gamma_1_1.png> <./q2d-plots/bias_x15_gamma_3_2.png> <./q2d-plots/bias_x15_exponential.png> <./q2d-plots/bias_x15_log_normal_1_1.png> <./q2d-plots/bias_x15_log_normal_1_2.png> <./q2d-plots/bias_x15_normal.png> <./q2d-plots/bias_x15_t_student_10.png> <./q2d-plots/bias_x15_t_student_70.png> <./q2d-plots/bias_x15_t_student_150.png>]
-<q2d-plots/mse_x15_gamma_1_1.png, id=368, 433.62pt x 289.08pt>
+ [23 <./q2d-plots/ci_x5_gamma_1_1.png> <./q2d-plots/ci_x5_gamma_3_2.png> <./q2d-plots/ci_x5_exponential.png> <./q2d-plots/ci_x5_log_normal_1_1.png> <./q2d-plots/ci_x5_log_normal_1_2.png> <./q2d-plots/ci_x5_normal.png> <./q2d-plots/ci_x5_t_student_10.png> <./q2d-plots/ci_x5_t_student_70.png> <./q2d-plots/ci_x5_t_student_150.png> <./q2d-plots/bias_x15_gamma_1_1.png> <./q2d-plots/bias_x15_gamma_3_2.png> <./q2d-plots/bias_x15_exponential.png> <./q2d-plots/bias_x15_log_normal_1_1.png> <./q2d-plots/bias_x15_log_normal_1_2.png> <./q2d-plots/bias_x15_normal.png> <./q2d-plots/bias_x15_t_student_10.png> <./q2d-plots/bias_x15_t_student_70.png> <./q2d-plots/bias_x15_t_student_150.png>]
+<q2d-plots/mse_x15_gamma_1_1.png, id=372, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x15_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x15_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_gamma_3_2.png, id=369, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_gamma_3_2.png, id=373, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/mse_x15_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/mse_x15_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_exponential.png, id=370, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_exponential.png, id=374, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_exponential.png Graphic file (type png)
 <use q2d-plots/mse_x15_exponential.png>
-Package pdftex.def Info: q2d-plots/mse_x15_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_log_normal_1_1.png, id=371, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_log_normal_1_1.png, id=375, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x15_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x15_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_log_normal_1_2.png, id=372, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_log_normal_1_2.png, id=376, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/mse_x15_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/mse_x15_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_normal.png, id=373, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_normal.png, id=377, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_normal.png Graphic file (type png)
 <use q2d-plots/mse_x15_normal.png>
-Package pdftex.def Info: q2d-plots/mse_x15_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_t_student_10.png, id=374, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_t_student_10.png, id=378, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_t_student_10.png Graphic file (type png)
 <use q2d-plots/mse_x15_t_student_10.png>
-Package pdftex.def Info: q2d-plots/mse_x15_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_t_student_70.png, id=375, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_t_student_70.png, id=379, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_t_student_70.png Graphic file (type png)
 <use q2d-plots/mse_x15_t_student_70.png>
-Package pdftex.def Info: q2d-plots/mse_x15_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x15_t_student_150.png, id=376, 433.62pt x 289.08pt>
+<q2d-plots/mse_x15_t_student_150.png, id=380, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x15_t_student_150.png Graphic file (type png)
 <use q2d-plots/mse_x15_t_student_150.png>
-Package pdftex.def Info: q2d-plots/mse_x15_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x15_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_gamma_1_1.png, id=377, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_gamma_1_1.png, id=381, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x15_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x15_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_gamma_3_2.png, id=378, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_gamma_3_2.png, id=382, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/ci_x15_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/ci_x15_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_exponential.png, id=379, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_exponential.png, id=383, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_exponential.png Graphic file (type png)
 <use q2d-plots/ci_x15_exponential.png>
-Package pdftex.def Info: q2d-plots/ci_x15_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_log_normal_1_1.png, id=380, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_log_normal_1_1.png, id=384, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x15_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x15_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_log_normal_1_2.png, id=381, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_log_normal_1_2.png, id=385, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/ci_x15_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/ci_x15_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_normal.png, id=382, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_normal.png, id=386, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_normal.png Graphic file (type png)
 <use q2d-plots/ci_x15_normal.png>
-Package pdftex.def Info: q2d-plots/ci_x15_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_t_student_10.png, id=383, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_t_student_10.png, id=387, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_t_student_10.png Graphic file (type png)
 <use q2d-plots/ci_x15_t_student_10.png>
-Package pdftex.def Info: q2d-plots/ci_x15_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_t_student_70.png, id=384, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_t_student_70.png, id=388, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_t_student_70.png Graphic file (type png)
 <use q2d-plots/ci_x15_t_student_70.png>
-Package pdftex.def Info: q2d-plots/ci_x15_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x15_t_student_150.png, id=385, 433.62pt x 289.08pt>
+<q2d-plots/ci_x15_t_student_150.png, id=389, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x15_t_student_150.png Graphic file (type png)
 <use q2d-plots/ci_x15_t_student_150.png>
-Package pdftex.def Info: q2d-plots/ci_x15_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x15_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [23 <./q2d-plots/variance_x15_gamma_1_1.png> <./q2d-plots/variance_x15_gamma_3_2.png> <./q2d-plots/variance_x15_exponential.png> <./q2d-plots/variance_x15_log_normal_1_1.png> <./q2d-plots/variance_x15_log_normal_1_2.png> <./q2d-plots/variance_x15_normal.png> <./q2d-plots/variance_x15_t_student_10.png> <./q2d-plots/variance_x15_t_student_70.png> <./q2d-plots/variance_x15_t_student_150.png> <./q2d-plots/mse_x15_gamma_1_1.png> <./q2d-plots/mse_x15_gamma_3_2.png> <./q2d-plots/mse_x15_exponential.png> <./q2d-plots/mse_x15_log_normal_1_1.png> <./q2d-plots/mse_x15_log_normal_1_2.png> <./q2d-plots/mse_x15_normal.png> <./q2d-plots/mse_x15_t_student_10.png> <./q2d-plots/mse_x15_t_student_70.png> <./q2d-plots/mse_x15_t_student_150.png>]
-<q2d-plots/bias_x25_gamma_1_1.png, id=410, 433.62pt x 289.08pt>
+ [24 <./q2d-plots/variance_x15_gamma_1_1.png> <./q2d-plots/variance_x15_gamma_3_2.png> <./q2d-plots/variance_x15_exponential.png> <./q2d-plots/variance_x15_log_normal_1_1.png> <./q2d-plots/variance_x15_log_normal_1_2.png> <./q2d-plots/variance_x15_normal.png> <./q2d-plots/variance_x15_t_student_10.png> <./q2d-plots/variance_x15_t_student_70.png> <./q2d-plots/variance_x15_t_student_150.png> <./q2d-plots/mse_x15_gamma_1_1.png> <./q2d-plots/mse_x15_gamma_3_2.png> <./q2d-plots/mse_x15_exponential.png> <./q2d-plots/mse_x15_log_normal_1_1.png> <./q2d-plots/mse_x15_log_normal_1_2.png> <./q2d-plots/mse_x15_normal.png> <./q2d-plots/mse_x15_t_student_10.png> <./q2d-plots/mse_x15_t_student_70.png> <./q2d-plots/mse_x15_t_student_150.png>]
+<q2d-plots/bias_x25_gamma_1_1.png, id=414, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x25_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x25_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_gamma_3_2.png, id=411, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_gamma_3_2.png, id=415, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/bias_x25_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/bias_x25_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_exponential.png, id=412, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_exponential.png, id=416, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_exponential.png Graphic file (type png)
 <use q2d-plots/bias_x25_exponential.png>
-Package pdftex.def Info: q2d-plots/bias_x25_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_log_normal_1_1.png, id=413, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_log_normal_1_1.png, id=417, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/bias_x25_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/bias_x25_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_log_normal_1_2.png, id=414, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_log_normal_1_2.png, id=418, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/bias_x25_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/bias_x25_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_normal.png, id=415, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_normal.png, id=419, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_normal.png Graphic file (type png)
 <use q2d-plots/bias_x25_normal.png>
-Package pdftex.def Info: q2d-plots/bias_x25_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_t_student_10.png, id=416, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_t_student_10.png, id=420, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_t_student_10.png Graphic file (type png)
 <use q2d-plots/bias_x25_t_student_10.png>
-Package pdftex.def Info: q2d-plots/bias_x25_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_t_student_70.png, id=417, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_t_student_70.png, id=421, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_t_student_70.png Graphic file (type png)
 <use q2d-plots/bias_x25_t_student_70.png>
-Package pdftex.def Info: q2d-plots/bias_x25_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/bias_x25_t_student_150.png, id=418, 433.62pt x 289.08pt>
+<q2d-plots/bias_x25_t_student_150.png, id=422, 433.62pt x 289.08pt>
 File: q2d-plots/bias_x25_t_student_150.png Graphic file (type png)
 <use q2d-plots/bias_x25_t_student_150.png>
-Package pdftex.def Info: q2d-plots/bias_x25_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/bias_x25_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_gamma_1_1.png, id=419, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_gamma_1_1.png, id=423, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x25_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x25_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_gamma_3_2.png, id=420, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_gamma_3_2.png, id=424, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/variance_x25_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/variance_x25_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_exponential.png, id=421, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_exponential.png, id=425, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_exponential.png Graphic file (type png)
 <use q2d-plots/variance_x25_exponential.png>
-Package pdftex.def Info: q2d-plots/variance_x25_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_log_normal_1_1.png, id=422, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_log_normal_1_1.png, id=426, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/variance_x25_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/variance_x25_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_log_normal_1_2.png, id=423, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_log_normal_1_2.png, id=427, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/variance_x25_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/variance_x25_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_normal.png, id=424, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_normal.png, id=428, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_normal.png Graphic file (type png)
 <use q2d-plots/variance_x25_normal.png>
-Package pdftex.def Info: q2d-plots/variance_x25_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_t_student_10.png, id=425, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_t_student_10.png, id=429, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_t_student_10.png Graphic file (type png)
 <use q2d-plots/variance_x25_t_student_10.png>
-Package pdftex.def Info: q2d-plots/variance_x25_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_t_student_70.png, id=426, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_t_student_70.png, id=430, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_t_student_70.png Graphic file (type png)
 <use q2d-plots/variance_x25_t_student_70.png>
-Package pdftex.def Info: q2d-plots/variance_x25_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/variance_x25_t_student_150.png, id=427, 433.62pt x 289.08pt>
+<q2d-plots/variance_x25_t_student_150.png, id=431, 433.62pt x 289.08pt>
 File: q2d-plots/variance_x25_t_student_150.png Graphic file (type png)
 <use q2d-plots/variance_x25_t_student_150.png>
-Package pdftex.def Info: q2d-plots/variance_x25_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/variance_x25_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [24 <./q2d-plots/ci_x15_gamma_1_1.png> <./q2d-plots/ci_x15_gamma_3_2.png> <./q2d-plots/ci_x15_exponential.png> <./q2d-plots/ci_x15_log_normal_1_1.png> <./q2d-plots/ci_x15_log_normal_1_2.png> <./q2d-plots/ci_x15_normal.png> <./q2d-plots/ci_x15_t_student_10.png> <./q2d-plots/ci_x15_t_student_70.png> <./q2d-plots/ci_x15_t_student_150.png> <./q2d-plots/bias_x25_gamma_1_1.png> <./q2d-plots/bias_x25_gamma_3_2.png> <./q2d-plots/bias_x25_exponential.png> <./q2d-plots/bias_x25_log_normal_1_1.png> <./q2d-plots/bias_x25_log_normal_1_2.png> <./q2d-plots/bias_x25_normal.png> <./q2d-plots/bias_x25_t_student_10.png> <./q2d-plots/bias_x25_t_student_70.png> <./q2d-plots/bias_x25_t_student_150.png>]
-<q2d-plots/mse_x25_gamma_1_1.png, id=452, 433.62pt x 289.08pt>
+ [25 <./q2d-plots/ci_x15_gamma_1_1.png> <./q2d-plots/ci_x15_gamma_3_2.png> <./q2d-plots/ci_x15_exponential.png> <./q2d-plots/ci_x15_log_normal_1_1.png> <./q2d-plots/ci_x15_log_normal_1_2.png> <./q2d-plots/ci_x15_normal.png> <./q2d-plots/ci_x15_t_student_10.png> <./q2d-plots/ci_x15_t_student_70.png> <./q2d-plots/ci_x15_t_student_150.png> <./q2d-plots/bias_x25_gamma_1_1.png> <./q2d-plots/bias_x25_gamma_3_2.png> <./q2d-plots/bias_x25_exponential.png> <./q2d-plots/bias_x25_log_normal_1_1.png> <./q2d-plots/bias_x25_log_normal_1_2.png> <./q2d-plots/bias_x25_normal.png> <./q2d-plots/bias_x25_t_student_10.png> <./q2d-plots/bias_x25_t_student_70.png> <./q2d-plots/bias_x25_t_student_150.png>]
+<q2d-plots/mse_x25_gamma_1_1.png, id=457, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x25_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x25_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_gamma_3_2.png, id=453, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_gamma_3_2.png, id=458, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/mse_x25_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/mse_x25_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_exponential.png, id=454, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_exponential.png, id=459, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_exponential.png Graphic file (type png)
 <use q2d-plots/mse_x25_exponential.png>
-Package pdftex.def Info: q2d-plots/mse_x25_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_log_normal_1_1.png, id=455, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_log_normal_1_1.png, id=460, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/mse_x25_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/mse_x25_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_log_normal_1_2.png, id=456, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_log_normal_1_2.png, id=461, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/mse_x25_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/mse_x25_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_normal.png, id=457, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_normal.png, id=462, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_normal.png Graphic file (type png)
 <use q2d-plots/mse_x25_normal.png>
-Package pdftex.def Info: q2d-plots/mse_x25_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_t_student_10.png, id=458, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_t_student_10.png, id=463, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_t_student_10.png Graphic file (type png)
 <use q2d-plots/mse_x25_t_student_10.png>
-Package pdftex.def Info: q2d-plots/mse_x25_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_t_student_70.png, id=459, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_t_student_70.png, id=464, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_t_student_70.png Graphic file (type png)
 <use q2d-plots/mse_x25_t_student_70.png>
-Package pdftex.def Info: q2d-plots/mse_x25_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/mse_x25_t_student_150.png, id=460, 433.62pt x 289.08pt>
+<q2d-plots/mse_x25_t_student_150.png, id=465, 433.62pt x 289.08pt>
 File: q2d-plots/mse_x25_t_student_150.png Graphic file (type png)
 <use q2d-plots/mse_x25_t_student_150.png>
-Package pdftex.def Info: q2d-plots/mse_x25_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/mse_x25_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_gamma_1_1.png, id=461, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_gamma_1_1.png, id=466, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_gamma_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x25_gamma_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x25_gamma_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_gamma_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_gamma_3_2.png, id=462, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_gamma_3_2.png, id=467, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_gamma_3_2.png Graphic file (type png)
 <use q2d-plots/ci_x25_gamma_3_2.png>
-Package pdftex.def Info: q2d-plots/ci_x25_gamma_3_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_gamma_3_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_exponential.png, id=463, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_exponential.png, id=468, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_exponential.png Graphic file (type png)
 <use q2d-plots/ci_x25_exponential.png>
-Package pdftex.def Info: q2d-plots/ci_x25_exponential.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_exponential.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_log_normal_1_1.png, id=464, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_log_normal_1_1.png, id=469, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_log_normal_1_1.png Graphic file (type png)
 <use q2d-plots/ci_x25_log_normal_1_1.png>
-Package pdftex.def Info: q2d-plots/ci_x25_log_normal_1_1.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_log_normal_1_1.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_log_normal_1_2.png, id=465, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_log_normal_1_2.png, id=470, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_log_normal_1_2.png Graphic file (type png)
 <use q2d-plots/ci_x25_log_normal_1_2.png>
-Package pdftex.def Info: q2d-plots/ci_x25_log_normal_1_2.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_log_normal_1_2.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_normal.png, id=466, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_normal.png, id=471, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_normal.png Graphic file (type png)
 <use q2d-plots/ci_x25_normal.png>
-Package pdftex.def Info: q2d-plots/ci_x25_normal.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_normal.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_t_student_10.png, id=467, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_t_student_10.png, id=472, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_t_student_10.png Graphic file (type png)
 <use q2d-plots/ci_x25_t_student_10.png>
-Package pdftex.def Info: q2d-plots/ci_x25_t_student_10.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_t_student_10.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_t_student_70.png, id=468, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_t_student_70.png, id=473, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_t_student_70.png Graphic file (type png)
 <use q2d-plots/ci_x25_t_student_70.png>
-Package pdftex.def Info: q2d-plots/ci_x25_t_student_70.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_t_student_70.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
-<q2d-plots/ci_x25_t_student_150.png, id=469, 433.62pt x 289.08pt>
+<q2d-plots/ci_x25_t_student_150.png, id=474, 433.62pt x 289.08pt>
 File: q2d-plots/ci_x25_t_student_150.png Graphic file (type png)
 <use q2d-plots/ci_x25_t_student_150.png>
-Package pdftex.def Info: q2d-plots/ci_x25_t_student_150.png  used on input line 1366.
+Package pdftex.def Info: q2d-plots/ci_x25_t_student_150.png  used on input line 1386.
 (pdftex.def)             Requested size: 115.43167pt x 76.9543pt.
- [25 <./q2d-plots/variance_x25_gamma_1_1.png> <./q2d-plots/variance_x25_gamma_3_2.png> <./q2d-plots/variance_x25_exponential.png> <./q2d-plots/variance_x25_log_normal_1_1.png> <./q2d-plots/variance_x25_log_normal_1_2.png> <./q2d-plots/variance_x25_normal.png> <./q2d-plots/variance_x25_t_student_10.png> <./q2d-plots/variance_x25_t_student_70.png> <./q2d-plots/variance_x25_t_student_150.png> <./q2d-plots/mse_x25_gamma_1_1.png> <./q2d-plots/mse_x25_gamma_3_2.png> <./q2d-plots/mse_x25_exponential.png> <./q2d-plots/mse_x25_log_normal_1_1.png> <./q2d-plots/mse_x25_log_normal_1_2.png> <./q2d-plots/mse_x25_normal.png> <./q2d-plots/mse_x25_t_student_10.png> <./q2d-plots/mse_x25_t_student_70.png> <./q2d-plots/mse_x25_t_student_150.png>] [26 <./q2d-plots/ci_x25_gamma_1_1.png> <./q2d-plots/ci_x25_gamma_3_2.png> <./q2d-plots/ci_x25_exponential.png> <./q2d-plots/ci_x25_log_normal_1_1.png> <./q2d-plots/ci_x25_log_normal_1_2.png> <./q2d-plots/ci_x25_normal.png> <./q2d-plots/ci_x25_t_student_10.png> <./q2d-plots/ci_x25_t_student_70.png> <./q2d-plots/ci_x25_t_student_150.png>] [27] [28] [29] [30] [31]
+ [26 <./q2d-plots/variance_x25_gamma_1_1.png> <./q2d-plots/variance_x25_gamma_3_2.png> <./q2d-plots/variance_x25_exponential.png> <./q2d-plots/variance_x25_log_normal_1_1.png> <./q2d-plots/variance_x25_log_normal_1_2.png> <./q2d-plots/variance_x25_normal.png> <./q2d-plots/variance_x25_t_student_10.png> <./q2d-plots/variance_x25_t_student_70.png> <./q2d-plots/variance_x25_t_student_150.png> <./q2d-plots/mse_x25_gamma_1_1.png> <./q2d-plots/mse_x25_gamma_3_2.png> <./q2d-plots/mse_x25_exponential.png> <./q2d-plots/mse_x25_log_normal_1_1.png> <./q2d-plots/mse_x25_log_normal_1_2.png> <./q2d-plots/mse_x25_normal.png> <./q2d-plots/mse_x25_t_student_10.png> <./q2d-plots/mse_x25_t_student_70.png> <./q2d-plots/mse_x25_t_student_150.png>] [27 <./q2d-plots/ci_x25_gamma_1_1.png> <./q2d-plots/ci_x25_gamma_3_2.png> <./q2d-plots/ci_x25_exponential.png> <./q2d-plots/ci_x25_log_normal_1_1.png> <./q2d-plots/ci_x25_log_normal_1_2.png> <./q2d-plots/ci_x25_normal.png> <./q2d-plots/ci_x25_t_student_10.png> <./q2d-plots/ci_x25_t_student_70.png> <./q2d-plots/ci_x25_t_student_150.png>] [28] [29] [30] [31] [32]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1763.
+(hyperref)                removing `math shift' on input line 1793.
 
-[32] [33] [34]
+[33] [34] [35]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1961.
+(hyperref)                removing `math shift' on input line 1995.
 
-[35] [36] [37] (./q2m-data/simulations_f_x10_t_student_30_comp_h_n.tex) (./q2m-data/simulations_f_x10_t_student_50_comp_h_n.tex) (./q2m-data/simulations_f_x10_t_student_100_comp_h_n.tex) [38] (./q2m-data/simulations_f_x10_normal_0_1_comp_h_n.tex) (./q2m-data/simulations_f_x10_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x10_gamma_1_1_comp_h_n.tex) [39] (./q2m-data/simulations_f_x10_gamma_2_3_comp_h_n.tex) (./q2m-data/simulations_f_x10_log_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_t_student_30_comp_h_n.tex) [40] (./q2m-data/simulations_f_x5_t_student_50_comp_h_n.tex) (./q2m-data/simulations_f_x5_t_student_100_comp_h_n.tex) (./q2m-data/simulations_f_x5_normal_0_1_comp_h_n.tex) [41] (./q2m-data/simulations_f_x5_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_gamma_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_gamma_2_3_comp_h_n.tex) [42] (./q2m-data/simulations_f_x5_log_normal_1_1_comp_h_n.tex) [43] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
+[36] [37] [38] (./q2m-data/simulations_f_x10_t_student_30_comp_h_n.tex) (./q2m-data/simulations_f_x10_t_student_50_comp_h_n.tex) (./q2m-data/simulations_f_x10_t_student_100_comp_h_n.tex) [39] (./q2m-data/simulations_f_x10_normal_0_1_comp_h_n.tex) (./q2m-data/simulations_f_x10_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x10_gamma_1_1_comp_h_n.tex) [40] (./q2m-data/simulations_f_x10_gamma_2_3_comp_h_n.tex) (./q2m-data/simulations_f_x10_log_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_t_student_30_comp_h_n.tex) [41] (./q2m-data/simulations_f_x5_t_student_50_comp_h_n.tex) (./q2m-data/simulations_f_x5_t_student_100_comp_h_n.tex) (./q2m-data/simulations_f_x5_normal_0_1_comp_h_n.tex) [42] (./q2m-data/simulations_f_x5_normal_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_gamma_1_1_comp_h_n.tex) (./q2m-data/simulations_f_x5_gamma_2_3_comp_h_n.tex) [43] (./q2m-data/simulations_f_x5_log_normal_1_1_comp_h_n.tex) [44] (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang2.sty
 File: lstlang2.sty 2024/02/21 1.10 listings language file
 ) (/usr/local/texlive/2024/texmf-dist/tex/latex/listings/lstlang3.sty
 File: lstlang3.sty 2024/02/21 1.10 listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 2227.
- [44] [45] [46]
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 2266.
+ [45] [46] [47]
 Overfull \vbox (2.83717pt too high) has occurred while \output is active []
 
- [47] [48] [49
+ [48] [49] [50
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2522 \rule{\textwidth}{0.5pt}
-                               
+l.2565 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{table.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2522 \rule{\textwidth}{0.5pt}
-                               
+l.2565 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{table.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2522 \rule{\textwidth}{0.5pt}
-                               ] [50] [51] [52] [53] [54
+l.2565 
+       ] [51] [52] [53] [54] [55
 pdfTeX warning (ext4): destination with the same identifier (name{table.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2739 
+l.2785 
        
 pdfTeX warning (ext4): destination with the same identifier (name{table.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2739 
+l.2785 
        
 pdfTeX warning (ext4): destination with the same identifier (name{table.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.2739 
-       ] [55] [56] [57] [58] [59
+l.2785 
+       ] [56] [57] [58] [59] [60
 pdfTeX warning (ext4): destination with the same identifier (name{table.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3034 
+l.3081 
        
 pdfTeX warning (ext4): destination with the same identifier (name{table.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3034 
-       ] [60] [61] [62] [63
+l.3081 
+       ] [61] [62] [63] [64
 pdfTeX warning (ext4): destination with the same identifier (name{table.10}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3237 \subsection
-                  {Binsreg}
+l.3300 
+       
 pdfTeX warning (ext4): destination with the same identifier (name{table.11}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3237 \subsection
-                  {Binsreg}]
-<q3f-plots/best_binsreg_age_t1.png, id=1311, 526.8483pt x 325.4559pt>
+l.3300 
+       ]
+<q3f-plots/best_binsreg_age_t1.png, id=1315, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_age_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_age_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_age_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_age_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_age_t1.png, id=1312, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_age_t1.png, id=1316, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_age_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_age_t2.png, id=1313, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_age_t2.png, id=1317, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_age_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_age_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_age_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_age_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_age_t2.png, id=1314, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_age_t2.png, id=1318, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_age_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_age_t3.png, id=1315, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_age_t3.png, id=1319, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_age_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_age_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_age_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_age_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_age_t3.png, id=1316, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_age_t3.png, id=1320, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_age_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_age_t4.png, id=1317, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_age_t4.png, id=1321, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_age_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_age_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_age_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_age_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_age_t4.png, id=1318, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_age_t4.png, id=1322, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_age_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_number_of_kids_t1.png, id=1319, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_number_of_kids_t1.png, id=1323, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_number_of_kids_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_number_of_kids_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png, id=1320, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png, id=1324, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_number_of_kids_t2.png, id=1321, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_number_of_kids_t2.png, id=1325, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_number_of_kids_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_number_of_kids_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png, id=1322, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png, id=1326, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_number_of_kids_t3.png, id=1323, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_number_of_kids_t3.png, id=1327, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_number_of_kids_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_number_of_kids_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png, id=1324, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png, id=1328, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_number_of_kids_t4.png, id=1325, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_number_of_kids_t4.png, id=1329, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_number_of_kids_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_number_of_kids_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_number_of_kids_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png, id=1326, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png, id=1330, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
- [64]
-<q3f-plots/best_binsreg_bl_caser_total_norm_t1.png, id=1332, 526.8483pt x 325.4559pt>
+ [65]
+<q3f-plots/best_binsreg_bl_caser_total_norm_t1.png, id=1336, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png, id=1333, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png, id=1337, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_bl_caser_total_norm_t2.png, id=1334, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_bl_caser_total_norm_t2.png, id=1338, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png, id=1335, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png, id=1339, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_bl_caser_total_norm_t3.png, id=1336, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_bl_caser_total_norm_t3.png, id=1340, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png, id=1337, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png, id=1341, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_bl_caser_total_norm_t4.png, id=1338, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_bl_caser_total_norm_t4.png, id=1342, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_bl_caser_total_norm_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png, id=1339, 526.8483pt x 325.4559pt>
+<q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png, id=1343, 526.8483pt x 325.4559pt>
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png  used on input line 3332.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png  used on input line 3382.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
- [65 <./q3f-plots/best_binsreg_age_t1.png> <./q3f-plots/best_binsreg_lasso_control_age_t1.png> <./q3f-plots/best_binsreg_age_t2.png> <./q3f-plots/best_binsreg_lasso_control_age_t2.png> <./q3f-plots/best_binsreg_age_t3.png> <./q3f-plots/best_binsreg_lasso_control_age_t3.png> <./q3f-plots/best_binsreg_age_t4.png> <./q3f-plots/best_binsreg_lasso_control_age_t4.png>] [66 <./q3f-plots/best_binsreg_number_of_kids_t1.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png> <./q3f-plots/best_binsreg_number_of_kids_t2.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png> <./q3f-plots/best_binsreg_number_of_kids_t3.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png> <./q3f-plots/best_binsreg_number_of_kids_t4.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png>] [67 <./q3f-plots/best_binsreg_bl_caser_total_norm_t1.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t2.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t3.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t4.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png>]
-<q3g-plots/best_confidence_interval_binsreg_age_t1.png, id=1353, 526.8483pt x 325.4559pt>
+ [66 <./q3f-plots/best_binsreg_age_t1.png> <./q3f-plots/best_binsreg_lasso_control_age_t1.png> <./q3f-plots/best_binsreg_age_t2.png> <./q3f-plots/best_binsreg_lasso_control_age_t2.png> <./q3f-plots/best_binsreg_age_t3.png> <./q3f-plots/best_binsreg_lasso_control_age_t3.png> <./q3f-plots/best_binsreg_age_t4.png> <./q3f-plots/best_binsreg_lasso_control_age_t4.png>] [67 <./q3f-plots/best_binsreg_number_of_kids_t1.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png> <./q3f-plots/best_binsreg_number_of_kids_t2.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png> <./q3f-plots/best_binsreg_number_of_kids_t3.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png> <./q3f-plots/best_binsreg_number_of_kids_t4.png> <./q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png>] [68 <./q3f-plots/best_binsreg_bl_caser_total_norm_t1.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t2.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t3.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png> <./q3f-plots/best_binsreg_bl_caser_total_norm_t4.png> <./q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png>]
+<q3g-plots/best_confidence_interval_binsreg_age_t1.png, id=1357, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_age_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_age_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png, id=1354, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png, id=1358, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_age_t2.png, id=1355, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_age_t2.png, id=1359, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_age_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_age_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png, id=1356, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png, id=1360, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_age_t3.png, id=1357, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_age_t3.png, id=1361, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_age_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_age_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png, id=1358, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png, id=1362, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_age_t4.png, id=1359, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_age_t4.png, id=1363, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_age_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_age_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_age_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png, id=1360, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png, id=1364, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png, id=1361, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png, id=1365, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png, id=1362, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png, id=1366, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png, id=1363, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png, id=1367, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png, id=1364, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png, id=1368, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png, id=1365, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png, id=1369, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png, id=1366, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png, id=1370, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png, id=1367, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png, id=1371, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png, id=1368, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png, id=1372, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
- [68]
-<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png, id=1373, 526.8483pt x 325.4559pt>
+ [69]
+<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png, id=1377, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png, id=1374, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png, id=1378, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png, id=1375, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png, id=1379, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png, id=1376, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png, id=1380, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png, id=1377, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png, id=1381, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png, id=1378, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png, id=1382, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png, id=1379, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png, id=1383, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
-<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png, id=1380, 526.8483pt x 325.4559pt>
+<q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png, id=1384, 526.8483pt x 325.4559pt>
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png  used on input line 3428.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png  used on input line 3480.
 (pdftex.def)             Requested size: 170.63812pt x 105.4094pt.
- [69 <./q3g-plots/best_confidence_interval_binsreg_age_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png> <./q3g-plots/best_confidence_interval_binsreg_age_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png> <./q3g-plots/best_confidence_interval_binsreg_age_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png> <./q3g-plots/best_confidence_interval_binsreg_age_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png>] [70 <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png>] [71 <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png>] [72]
-<q3i-plots/variable_importance_t1.png, id=1403, 526.96875pt x 752.8125pt>
+ [70 <./q3g-plots/best_confidence_interval_binsreg_age_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png> <./q3g-plots/best_confidence_interval_binsreg_age_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png> <./q3g-plots/best_confidence_interval_binsreg_age_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png> <./q3g-plots/best_confidence_interval_binsreg_age_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png>] [71 <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png> <./q3g-plots/best_confidence_interval_binsreg_number_of_kids_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png>] [72 <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t1.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t2.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t3.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png> <./q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png> <./q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png>] [73]
+<q3i-plots/variable_importance_t1.png, id=1407, 526.96875pt x 752.8125pt>
 File: q3i-plots/variable_importance_t1.png Graphic file (type png)
 <use q3i-plots/variable_importance_t1.png>
-Package pdftex.def Info: q3i-plots/variable_importance_t1.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/variable_importance_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 200.75073pt x 286.7839pt.
-<q3i-plots/variable_importance_t2.png, id=1404, 526.96875pt x 752.8125pt>
+<q3i-plots/variable_importance_t2.png, id=1408, 526.96875pt x 752.8125pt>
 File: q3i-plots/variable_importance_t2.png Graphic file (type png)
 <use q3i-plots/variable_importance_t2.png>
-Package pdftex.def Info: q3i-plots/variable_importance_t2.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/variable_importance_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 200.75073pt x 286.7839pt.
-<q3i-plots/variable_importance_t3.png, id=1405, 526.96875pt x 752.8125pt>
+<q3i-plots/variable_importance_t3.png, id=1409, 526.96875pt x 752.8125pt>
 File: q3i-plots/variable_importance_t3.png Graphic file (type png)
 <use q3i-plots/variable_importance_t3.png>
-Package pdftex.def Info: q3i-plots/variable_importance_t3.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/variable_importance_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 200.75073pt x 286.7839pt.
-<q3i-plots/variable_importance_t4.png, id=1406, 526.96875pt x 752.8125pt>
+<q3i-plots/variable_importance_t4.png, id=1410, 526.96875pt x 752.8125pt>
 File: q3i-plots/variable_importance_t4.png Graphic file (type png)
 <use q3i-plots/variable_importance_t4.png>
-Package pdftex.def Info: q3i-plots/variable_importance_t4.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/variable_importance_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 200.75073pt x 286.7839pt.
- [73]
+ [74]
 Overfull \vbox (12.75502pt too high) has occurred while \output is active []
 
- [74 <./q3i-plots/variable_importance_t1.png> <./q3i-plots/variable_importance_t2.png> <./q3i-plots/variable_importance_t3.png> <./q3i-plots/variable_importance_t4.png>]
+ [75 <./q3i-plots/variable_importance_t1.png> <./q3i-plots/variable_importance_t2.png> <./q3i-plots/variable_importance_t3.png> <./q3i-plots/variable_importance_t4.png>]
 File: q3f-plots/best_binsreg_lasso_control_age_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t1.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_age_t1.png, id=1421, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_age_t1.png, id=1425, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_age_t1.png Graphic file (type png)
 <use q3i-plots/partial_dependence_age_t1.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_age_t1.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_age_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_age_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t2.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_age_t2.png, id=1422, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_age_t2.png, id=1426, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_age_t2.png Graphic file (type png)
 <use q3i-plots/partial_dependence_age_t2.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_age_t2.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_age_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_age_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t3.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_age_t3.png, id=1423, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_age_t3.png, id=1427, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_age_t3.png Graphic file (type png)
 <use q3i-plots/partial_dependence_age_t3.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_age_t3.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_age_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_age_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_age_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t4.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_age_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_age_t4.png, id=1424, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_age_t4.png, id=1428, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_age_t4.png Graphic file (type png)
 <use q3i-plots/partial_dependence_age_t4.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_age_t4.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_age_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_number_of_kids_t1.png, id=1425, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_number_of_kids_t1.png, id=1429, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_number_of_kids_t1.png Graphic file (type png)
 <use q3i-plots/partial_dependence_number_of_kids_t1.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t1.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_number_of_kids_t2.png, id=1426, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_number_of_kids_t2.png, id=1430, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_number_of_kids_t2.png Graphic file (type png)
 <use q3i-plots/partial_dependence_number_of_kids_t2.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t2.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_number_of_kids_t3.png, id=1427, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_number_of_kids_t3.png, id=1431, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_number_of_kids_t3.png Graphic file (type png)
 <use q3i-plots/partial_dependence_number_of_kids_t3.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t3.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_number_of_kids_t4.png, id=1428, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_number_of_kids_t4.png, id=1432, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_number_of_kids_t4.png Graphic file (type png)
 <use q3i-plots/partial_dependence_number_of_kids_t4.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t4.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_number_of_kids_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_bl_caser_total_norm_t1.png, id=1429, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_bl_caser_total_norm_t1.png, id=1433, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3i-plots/partial_dependence_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t1.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_bl_caser_total_norm_t2.png, id=1430, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_bl_caser_total_norm_t2.png, id=1434, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3i-plots/partial_dependence_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t2.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_bl_caser_total_norm_t3.png, id=1431, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_bl_caser_total_norm_t3.png, id=1435, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3i-plots/partial_dependence_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t3.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png  used on input line 3605.
+Package pdftex.def Info: q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
-<q3i-plots/partial_dependence_bl_caser_total_norm_t4.png, id=1432, 526.8483pt x 325.4559pt>
+<q3i-plots/partial_dependence_bl_caser_total_norm_t4.png, id=1436, 526.8483pt x 325.4559pt>
 File: q3i-plots/partial_dependence_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3i-plots/partial_dependence_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t4.png  used on input line 3605.
+Package pdftex.def Info: q3i-plots/partial_dependence_bl_caser_total_norm_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
 File: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png Graphic file (type png)
 <use q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png>
-Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png  used on input line 3605.
+Package pdftex.def Info: q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png  used on input line 3663.
 (pdftex.def)             Requested size: 140.52551pt x 86.80656pt.
- [75 <./q3i-plots/partial_dependence_age_t1.png> <./q3i-plots/partial_dependence_age_t2.png> <./q3i-plots/partial_dependence_age_t3.png> <./q3i-plots/partial_dependence_age_t4.png>] [76 <./q3i-plots/partial_dependence_number_of_kids_t1.png> <./q3i-plots/partial_dependence_number_of_kids_t2.png> <./q3i-plots/partial_dependence_number_of_kids_t3.png> <./q3i-plots/partial_dependence_number_of_kids_t4.png>] [77
+ [76 <./q3i-plots/partial_dependence_age_t1.png> <./q3i-plots/partial_dependence_age_t2.png> <./q3i-plots/partial_dependence_age_t3.png> <./q3i-plots/partial_dependence_age_t4.png>] [77 <./q3i-plots/partial_dependence_number_of_kids_t1.png> <./q3i-plots/partial_dependence_number_of_kids_t2.png> <./q3i-plots/partial_dependence_number_of_kids_t3.png> <./q3i-plots/partial_dependence_number_of_kids_t4.png>] [78
 pdfTeX warning (ext4): destination with the same identifier (name{table.12}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3649 
-        <./q3i-plots/partial_dependence_bl_caser_total_norm_t1.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t2.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t3.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t4.png>] (./q3j-results/summary_of_validation_loss_by_architecture.tex) [78]
-<q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png, id=1488, 433.62pt x 252.945pt>
+l.3707 
+        <./q3i-plots/partial_dependence_bl_caser_total_norm_t1.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t2.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t3.png> <./q3i-plots/partial_dependence_bl_caser_total_norm_t4.png>] (./q3j-results/summary_of_validation_loss_by_architecture.tex) [79]
+<q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png, id=1493, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png, id=1489, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png, id=1494, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_128_128.png, id=1490, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_128_128.png, id=1495, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_128_128.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_128_128.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_128.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_128.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png, id=1491, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png, id=1496, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png, id=1492, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png, id=1497, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png, id=1493, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png, id=1498, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png, id=1494, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png, id=1499, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png, id=1495, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png, id=1500, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_64_32.png, id=1496, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_64_32.png, id=1501, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_64_32.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_64_32.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_32.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_64_32.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
-<q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png, id=1497, 433.62pt x 252.945pt>
+<q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png, id=1502, 433.62pt x 252.945pt>
 File: q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png Graphic file (type png)
 <use q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png>
-Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png  used on input line 3686.
+Package pdftex.def Info: q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png  used on input line 3746.
 (pdftex.def)             Requested size: 170.63812pt x 99.53972pt.
- [79 <./q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_128.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png>] [80
+ [80 <./q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_128.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png> <./q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png> <./q3j-plots/training_validation_loss_by_epoch_arch_64_32.png> <./q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png>] [81
 pdfTeX warning (ext4): destination with the same identifier (name{table.13}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3742 \]
-         ] [81
+l.3806 \]
+         ] [82
 pdfTeX warning (ext4): destination with the same identifier (name{table.14}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3817 
-       ] [82
+l.3881 
+       ] [83
 pdfTeX warning (ext4): destination with the same identifier (name{table.15}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3886 \end{figure}
+l.3950 \end{figure}
                    
 pdfTeX warning (ext4): destination with the same identifier (name{table.16}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3886 \end{figure}
+l.3950 \end{figure}
                    
 pdfTeX warning (ext4): destination with the same identifier (name{table.17}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3886 \end{figure}
-                   ] [83
+l.3950 \end{figure}
+                   ] [84
 pdfTeX warning (ext4): destination with the same identifier (name{table.18}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.3892 \end{document}
+l.3953 \end{document}
                      ] (./hw3.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
@@ -1663,18 +1663,18 @@ Package rerunfilecheck Info: File `hw3.out' has not changed.
 (rerunfilecheck)             Checksum: 62ADBB990D1CD4FAE21FF5E8C7024855;7180.
  ) 
 Here is how much of TeX's memory you used:
- 16642 strings out of 474116
- 295507 string characters out of 5743682
+ 16643 strings out of 474116
+ 295514 string characters out of 5743682
  3680187 words of memory out of 5000000
  37926 multiletter control sequences out of 15000+600000
  570070 words of font info for 83 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,18n,79p,614b,2011s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on hw3.pdf (83 pages, 17550946 bytes).
+Output written on hw3.pdf (84 pages, 17550748 bytes).
 PDF statistics:
- 1819 PDF objects out of 2073 (max. 8388607)
- 1354 compressed objects within 14 object streams
- 821 named destinations out of 1000 (max. 500000)
+ 1823 PDF objects out of 2073 (max. 8388607)
+ 1357 compressed objects within 14 object streams
+ 822 named destinations out of 1000 (max. 500000)
  1183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

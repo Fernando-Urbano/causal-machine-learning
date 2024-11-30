@@ -1,0 +1,168 @@
+---
+title: "q1g"
+output: html_document
+date: "2024-11-14"
+---
+
+```{r}
+# Load necessary libraries
+library(torch)
+library(dplyr)
+library(ggplot2)
+library(coro)  # For asynchronous data loading
+
+# Read the data if not already loaded
+# banerji_raw <- read_csv("Banerji-Berry-Shotland_2017_AEJ.csv")
+
+# Ensure 'state' is a factor
+banerji_raw$state <- as.factor(banerji_raw$state)
+
+# Convert categorical variables to factors
+banerji_raw <- banerji_raw %>%
+  mutate(
+    boy = as.factor(boy),
+    mother_educ = as.factor(mother_educ),
+    factor_educ = as.factor(factor_educ),
+    mother_age30 = as.factor(mother_age30),
+    farmingIncome = as.factor(farmingIncome)
+  )
+
+# One-hot encode categorical variables
+banerji_raw <- banerji_raw %>%
+  mutate(across(where(is.factor), as.numeric))
+
+# List of predictor variables (X and W)
+predictors <- c('age', 'bl_caser_total_norm', 'number_of_kids',
+                'boy', 'mother_educ', 'factor_educ', 'mother_age30',
+                'farmingIncome', 'state')
+
+# Function to preprocess data
+preprocess_data <- function(data) {
+  # Scale continuous variables
+  continuous_vars <- c('age', 'bl_caser_total_norm', 'number_of_kids')
+  data[continuous_vars] <- scale(data[continuous_vars])
+  
+  # Remove any NA values
+  data <- na.omit(data)
+  
+  return(data)
+}
+
+# Define architectures to try
+architectures <- list(
+  list(layers = c(32, 16), activation = nn_relu),
+  list(layers = c(64, 32, 16), activation = nn_relu),
+  list(layers = c(128, 64, 32), activation = nn_relu),
+  list(layers = c(64, 64, 64), activation = nn_relu),
+  list(layers = c(32, 32), activation = nn_tanh)
+)
+
+# Function to create model using nn_sequential
+create_model <- function(input_size, architecture) {
+  layers <- list()
+  in_features <- input_size
+  for (out_features in architecture$layers) {
+    layers <- append(layers, nn_linear(in_features, out_features))
+    layers <- append(layers, architecture$activation())
+    in_features <- out_features
+  }
+  layers <- append(layers, nn_linear(in_features, 1))
+  model <- do.call(nn_sequential, layers)
+  return(model)
+}
+
+# Function to train model
+train_model <- function(model, train_dl, valid_dl, epochs = 50, lr = 0.001) {
+  optimizer <- optim_adam(model$parameters, lr = lr)
+  criterion <- nn_mse_loss()
+  train_losses <- c()
+  valid_losses <- c()
+  for (epoch in 1:epochs) {
+    model$train()
+    total_loss <- 0
+    coro::loop(for (b in train_dl) {
+      optimizer$zero_grad()
+      output <- model(b$x)
+      loss <- criterion(output, b$y)
+      loss$backward()
+      optimizer$step()
+      total_loss <- total_loss + loss$item()
+    })
+    train_losses <- c(train_losses, total_loss / length(train_dl))
+    
+    # Validation loss
+    model$eval()
+    valid_loss <- 0
+    coro::loop(for (b in valid_dl) {
+      output <- model(b$x)
+      loss <- criterion(output, b$y)
+      valid_loss <- valid_loss + loss$item()
+    })
+    valid_losses <- c(valid_losses, valid_loss / length(valid_dl))
+  }
+  return(list(model = model, train_losses = train_losses, valid_losses = valid_losses))
+}
+
+# Loop over each treatment group
+results <- list()
+
+for (t in 1:4) {
+  # Subset data for treatment t
+  data_t <- subset(banerji_raw, treatment == t)
+  
+  # Preprocess data
+  data_t <- preprocess_data(data_t)
+  
+  # Prepare features and target
+  X <- as.matrix(data_t[, predictors])
+  Y <- data_t$caser_total_norm
+  
+  # Convert to torch tensors
+  X_tensor <- torch_tensor(X, dtype = torch_float())
+  Y_tensor <- torch_tensor(matrix(Y, ncol = 1), dtype = torch_float())
+  
+  # Split into training and validation sets
+  set.seed(123)
+  n <- nrow(X)
+  idx <- sample(1:n)
+  train_idx <- idx[1:round(0.8 * n)]
+  valid_idx <- idx[(round(0.8 * n) + 1):n]
+  
+  train_X <- X_tensor[train_idx, ]
+  train_Y <- Y_tensor[train_idx, , drop = FALSE]
+  valid_X <- X_tensor[valid_idx, ]
+  valid_Y <- Y_tensor[valid_idx, , drop = FALSE]
+  
+  # Create dataloaders
+  train_ds <- tensor_dataset(train_X, train_Y)
+  valid_ds <- tensor_dataset(valid_X, valid_Y)
+  train_dl <- dataloader(train_ds, batch_size = 32, shuffle = TRUE)
+  valid_dl <- dataloader(valid_ds, batch_size = 32)
+  
+  # Try different architectures
+  architecture_results <- list()
+  for (i in seq_along(architectures)) {
+    architecture <- architectures[[i]]
+    model <- create_model(input_size = ncol(X), architecture = architecture)
+    fit <- train_model(model, train_dl, valid_dl, epochs = 50, lr = 0.001)
+    # Record validation loss at last epoch
+    final_valid_loss <- tail(fit$valid_losses, n = 1)
+    architecture_results[[i]] <- list(architecture = architecture,
+                                      model = fit$model,
+                                      valid_loss = final_valid_loss)
+  }
+  # Select the best architecture
+  valid_losses <- sapply(architecture_results, function(x) x$valid_loss)
+  best_idx <- which.min(valid_losses)
+  best_model <- architecture_results[[best_idx]]$model
+  best_architecture <- architecture_results[[best_idx]]$architecture
+  results[[t]] <- list(best_model = best_model, best_architecture = best_architecture,
+                       valid_loss = architecture_results[[best_idx]]$valid_loss)
+  
+  print(paste('Best architecture for treatment', t, ':'))
+  print(best_architecture)
+  print(paste('Validation loss:', architecture_results[[best_idx]]$valid_loss))
+}
+
+# The 'results' list now contains the best model and architecture for each treatment group
+```

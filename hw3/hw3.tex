@@ -1,6 +1,9 @@
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{hyperref}
 \usepackage{comment}
+\usepackage{ifthen}
 \usepackage{amsfonts}
 \usepackage{colortbl}
 \usepackage[table,xcdraw]{xcolor}
@@ -54,6 +57,22 @@
   language=R
 }
 
+\newboolean{imagesbool:q2d}
+\newboolean{imagesbool:q2m}
+\newboolean{imagesbool:q3f}
+\newboolean{imagesbool:q3g}
+\newboolean{imagesbool:q3i}
+\newboolean{imagesbool:q3j}
+\newboolean{showcomments}
+
+\setboolean{showcomments}{false}
+\setboolean{imagesbool:q2d}{true}
+\setboolean{imagesbool:q2m}{true}
+\setboolean{imagesbool:q3f}{true}
+\setboolean{imagesbool:q3g}{true}
+\setboolean{imagesbool:q3i}{true}
+\setboolean{imagesbool:q3j}{true}
+
 \lstdefinestyle{RstyleComment}{
   backgroundcolor=\color{backcolour},   
   commentstyle=\color{codegreen},
@@ -79,7 +98,7 @@
   keywordstyle=\color{codegreen},
   stringstyle=\color{codegreen},
   basicstyle=\ttfamily\scriptsize\color{codegreen}, % Changed font size here
-  breakatwhitespace=false,         
+  breakatwhitespace=false,          
   breaklines=true,                 
   captionpos=b,                    
   keepspaces=true,                 
@@ -151,6 +170,10 @@
 
 \maketitle
 
+\textbf{Attention:} all code is available in
+
+\url{https://github.com/Fernando-Urbano/causal-machine-learning/tree/main/hw3}.
+
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
 \label{q1}
@@ -161,7 +184,7 @@ This is a continuation from homework 2.
 Assume that the random variables \((Y_1, Y_0, T, X')' \in \mathbb{R} \times \mathbb{R} \times \{0, 1\} \times \mathbb{R}^d\) obey \(\{Y_1, Y_0\} \perp\!\!\!\perp T \mid X\).
 The researcher observes \((Y, T, X')'\), where \( Y = Y_1 T + Y_0 (1 - T) \).
 Define the propensity score \( p(x) = \mathbb{P}[T = 1 \mid X = x] \) and assume it is bounded inside \( (0, 1) \).
-Define \( \mu_t = \mathbb{E}[Y(t) \mid T = 1] \) and \( \mu(x) = \mathbb{E}[Y(t) \mid X = x] \).
+Define \( \mu_t = \mathbb{E}[Y(t) \mid T = 1] \) and \( \mu_t(x) = \mathbb{E}[Y(t) \mid X = x] \).
 The average treatment effect on the treated (ATT) is \( \tau = \mu_1 - \mu_0 \).
 
 Assume that the propensity score is correctly specified as a logistic regression: for a \( d \)-vector \( \theta_0 \), it holds that \( p(x) = (1 + \exp\{-\theta_0' x\})^{-1} \).
@@ -182,7 +205,7 @@ Write down the objective function that is solved by the estimator and the equati
 The maximum likelihood estimator is:
 
 $$
-\ell(\theta) = \prod p(X_i)^{y_i} \times (1 - p(X_i))^{(1 - y_i)}, \quad \text{for} \\\ y_i \in \{ 0, 1 \}
+\ell(\theta) = \prod p(X_i)^{t_i} \times (1 - p(X_i))^{(1 - t_i)}, \quad \text{for} \\\ t_i \in \{ 0, 1 \}
 $$
 
 The maximum log-likelihood estimator \( \hat{\theta}_{\text{MLE}} \) is obtained by maximizing the log-likelihood function:
@@ -297,8 +320,6 @@ The result is derived from:
   X_i \\
 \end{align*}
 
-
-
 \begin{colorparagraph}{questioncolor}
 \label{q1b}
 \rule{\textwidth}{0.5pt}
@@ -321,23 +342,32 @@ M-Estimators are estimators defined as solutions for optimization problems, ofte
 The influence function for an M-estimator is defined as:
 
 \[
-\text{IF}(z; \hat{\theta}_{\text{MLE}}, F) = J^{-1} s(z; \theta_0),
+\text{IF}(z; \hat{\theta}_{\text{MLE}}, F) = -J^{-1} s(z; \theta_0),
 \]
 
 where \( J \) is the expected information matrix given by:
 
 \[
-J = E\left[ \frac{\partial s(T, X; \theta_0)}{\partial \theta'} \right] = E\left[ p(X; \theta_0)[1 - p(X; \theta_0)] X X' \right].
+J = \mathbb{E}\left[ \frac{\partial s(T, X; \theta_0)}{\partial \theta'} \right] = \mathbb{E}\left[- p(X; \theta_0)[1 - p(X; \theta_0)] X X' \right].
 \]
+
+Where:
+
+$$
+\frac{\partial s(T, X; \theta_0)}{\partial \theta{\prime}} = -p(X; \theta_0)[1 - p(X; \theta_0)] X X'.
+$$
 
 Therefore, the influence function for \( \hat{\theta}_{\text{MLE}} \) is:
 
 \[
-\text{IF}(T, X; \hat{\theta}_{\text{MLE}}, F) = J^{-1} [T - p(X; \theta_0)] X.
+\text{IF}(T, X; \hat{\theta}_{\text{MLE}}, F) = -J^{-1} [T - p(X; \theta_0)] X.
 \]
 
-The $\text{IF}$ provides a linear approximation of how the estimator $\theta$ responds to small changes in data distribution. We take the derivative with respect to $\theta$ because $\hat{\theta}$ is viewed as a functional estimator, meaning that it maps from the space of the probability distribution $F$ to the parameter space. Calculating $IF$ answers how much $\hat{\theta}(F)$ changes as a distribution of $F$ is perturbed.
+\[
+\text{IF}(T, X; \hat{\theta}_{\text{MLE}}, F) = \left( \mathbb{E}\left[ p(X; \theta_0) \left[ 1 - p(X; \theta_0) \right] X X' \right] \right)^{-1} \left[ T - p(X; \theta_0) \right] X.
+\]
 
+The $\text{IF}$ provides a linear approximation of how the estimator $\theta$ responds to small changes in data distribution. We take the derivative with respect to $\theta$ because $\hat{\theta}$ is viewed as a functional estimator, meaning that it maps from the space of the probability distribution $F$ to the parameter space.
 
 \begin{colorparagraph}{questioncolor}
 \label{q1c}
@@ -394,7 +424,7 @@ The first-order condition (gradient) of this objective function with respect to 
 At the population level, the expectation of the gradient function is:
 
 \[
-\Psi(\theta) = E \left[ -2 \left[ T - p(X; \theta) \right] p(X; \theta) [1 - p(X; \theta)] X \right] = 0.
+\Psi(\theta) = \mathbb{E} \left[ -2 \left[ T - p(X; \theta) \right] p(X; \theta) [1 - p(X; \theta)] X \right] = 0.
 \]
 
 The influence function for an M-estimator is given by:
@@ -408,27 +438,27 @@ where:
 \begin{itemize}
     \item \( Z = (T, X) \) is an observation from the population,
     \item \( \psi(Z; \theta) = -2 \left[ T - p(X; \theta) \right] p(X; \theta) [1 - p(X; \theta)] X \) is the influence function's numerator,
-    \item \( A = E \left[ \frac{\partial \psi(Z; \theta_0)}{\partial \theta'} \right] \) is the expected derivative matrix evaluated at the true parameter \( \theta_0 \).
+    \item \( A = \mathbb{E} \left[ \frac{\partial \psi(Z; \theta_0)}{\partial \theta'} \right] \) is the expected derivative matrix evaluated at the true parameter \( \theta_0 \).
 \end{itemize}
 
-First, compute the derivative matrix \( A \):
+First, we compute the derivative matrix \( A \):
 
 \begin{align*}
   A
-  &= E \left[ \frac{\partial \psi(Z; \theta_0)}{\partial \theta'} \right] \\
-  &= E \left[ -2 \left\{ [T - p(X; \theta_0)] \cdot \frac{\partial}{\partial \theta'} \left( p(X; \theta_0) [1 - p(X; \theta_0)] X \right) - p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right\} \right]
+  &= \mathbb{E} \left[ \frac{\partial \psi(Z; \theta_0)}{\partial \theta'} \right] \\
+  &= \mathbb{E} \left[ -2 \left\{ [T - p(X; \theta_0)] \cdot \frac{\partial}{\partial \theta'} \left( p(X; \theta_0) [1 - p(X; \theta_0)] X \right) - p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right\} \right]
 \end{align*}
 
-Since \( E[T \mid X] = p(X; \theta_0) \), the term involving \( [T - p(X; \theta_0)] \) vanishes in expectation. Therefore, \( A \) simplifies to:
+Since \( \mathbb{E}[T \mid X] = p(X; \theta_0) \), the term involving \( [T - p(X; \theta_0)] \) vanishes in expectation. 
+
+Therefore, \( A \) simplifies to:
 
 \[
-A = 2 E \left[ p(X; \theta_0) [1 - p(X; \theta_0)] \left( p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right) \right].
+A = 2 \mathbb{E} \left[ p(X; \theta_0) [1 - p(X; \theta_0)] \left( p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right) \right].
 \]
 
-Simplifying further:
-
 \[
-A = 2 E \left[ p(X; \theta_0)^2 [1 - p(X; \theta_0)]^2 X X' \right].
+A = 2 \mathbb{E} \left[ p(X; \theta_0)^2 [1 - p(X; \theta_0)]^2 X X' \right].
 \]
 
 Now, the influence function becomes:
@@ -437,23 +467,25 @@ Now, the influence function becomes:
 \text{IF}(Z; \hat{\theta}_{\text{NLS}}, F) = -A^{-1} \psi(Z; \theta_0) = 2 A^{-1} [T - p(X; \theta_0)] p(X; \theta_0) [1 - p(X; \theta_0)] X.
 \]
 
+We have also arrived to a result which ignores the 2 scaling factor in the numerator and denominator. In M-estimation, the estimating function $\psi(Z; \theta)$ can e scaled by a constant without affecting the estimator. This is because the optimal solution $\Psi(\theta) = 0$ remains the same after scaling.
+
 Comparing this to the influence function for the maximum likelihood estimator \( \hat{\theta}_{\text{MLE}} \):
 
 \[
 \text{IF}(Z; \hat{\theta}_{\text{MLE}}, F) = J^{-1} [T - p(X; \theta_0)] X,
 \]
 
-where \( J = E \left[ p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right] \).
+where \( J = \mathbb{E} \left[ p(X; \theta_0) [1 - p(X; \theta_0)] X X' \right] \).
 
 The key differences between the two influence functions are:
 
 \begin{itemize}
     \item For \( \hat{\theta}_{\text{NLS}} \), the influence function includes an additional factor of \( 2 p(X; \theta_0) [1 - p(X; \theta_0)] \) in both the numerator and the inverse of \( A \). In contrast, \( \hat{\theta}_{\text{MLE}} \) involves the Fisher information matrix \( J \) without these extra terms.
-    \item The NLS influence function gives more weight to observations where \( p(X; \theta_0) [1 - p(X; \theta_0)] \) is large, emphasizing data points with propensity scores near 0.5. The MLE influence function weights observations uniformly in terms of \( [T - p(X; \theta_0)] X \).
+    \item The NLS influence function gives more weight to observations where \( p(X; \theta_0) [1 - p(X; \theta_0)] \) is large. It emphasizes data points with propensity scores near 0.5. The MLE influence function weights observations uniformly in terms of \( [T - p(X; \theta_0)] X \).
     \item The MLE is asymptotically efficient under correct model specification, whereas the NLS estimator may be less efficient due to the additional weighting.
 \end{itemize}
 
-The NLS estimator's influence function includes extra weighting factors derived from the logistic function's properties. This leads to differences in the estimators' asymptotic variances and efficiency.
+The NLS estimator's influence function includes extra weighting factors derived from the logistic function's properties. This leads to differences in the estimators' asymptotic variances and efficiency. The additional $p(1 - p)$ factor can dampen the effect of outliers in the predictor space where the propensity score is extreme.
 
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
@@ -479,7 +511,13 @@ Let \( \hat{p} = \sum_{i=1}^n t_i / n \) and define the estimator
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
-To derive the influence function of the estimator \( \hat{\tau} \) when the propensity score is estimated using maximum likelihood, we need to consider both the variability from the sample data and the estimation error from \( \hat{\theta}_{\text{MLE}} \). The estimator \( \hat{\tau} \) is given by:
+\ifthenelse{\boolean{showcomments}}{
+  \begin{colorparagraph}{tacolor}REVIEW
+    Review answer.
+  \end{colorparagraph}
+}
+
+To derive the influence function for MLE we consider both the sampling variability and the estimation error from \( \hat{\theta}_{\text{MLE}} \). The estimator \( \hat{\tau} \) is defined as:
 
 \[
 \hat{\tau} = \hat{\mu}_1 - \hat{\mu}_0,
@@ -490,13 +528,14 @@ where:
 \[
 \hat{\mu}_1 = \frac{1}{n} \sum_{i=1}^n \frac{T_i Y_i}{\hat{p}},
 \]
+
 \[
-\hat{\mu}_0 = \frac{1}{1 - \hat{p}} \cdot \frac{1}{n} \sum_{i=1}^n \frac{(1 - T_i) \hat{p}(X_i) Y_i}{1 - \hat{p}(X_i)}.
+\hat{\mu}_0 = \frac{1}{1 - \hat{p}} \cdot \frac{1}{n} \sum_{i=1}^n \frac{(1 - T_i) \hat{p}(X_i) Y_i}{1 - \hat{p}(X_i)},
 \]
 
-Here, \( \hat{p} = \frac{1}{n} \sum_{i=1}^n T_i \) is the sample proportion of treated units, and \( \hat{p}(X_i) = p(X_i; \hat{\theta}_{\text{MLE}}) \) is the estimated propensity score using maximum likelihood.
+and \( \hat{p} = \frac{1}{n} \sum_{i=1}^n T_i \) is the sample proportion of treated units, \( \hat{p}(X_i) = p(X_i; \hat{\theta}_{\text{MLE}}) \) is the estimated propensity score using maximum likelihood.
 
-The influence function \( \text{IF}(Z; \hat{\tau}, F) \) for \( \hat{\tau} \) can be expressed as:
+The influence function \( \text{IF}(Z_i; \hat{\tau}, F) \) for \( \hat{\tau} \) is:
 
 \[
 \text{IF}(Z_i; \hat{\tau}, F) = \phi_{\hat{\tau}}(Z_i) = \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i),
@@ -504,108 +543,111 @@ The influence function \( \text{IF}(Z; \hat{\tau}, F) \) for \( \hat{\tau} \) ca
 
 where \( \phi_{\mu_1}(Z_i) \) and \( \phi_{\mu_0}(Z_i) \) are the influence functions for \( \hat{\mu}_1 \) and \( \hat{\mu}_0 \), respectively.
 
+\subsubsection*{Influence Function for \( \hat{\mu}_1 \)}
+
+The estimator \( \hat{\mu}_1 \) depends on \( \hat{p} \), which is estimated from the data. The influence function for \( \hat{\mu}_1 \) is:
+
+\[
+\phi_{\mu_1}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1,
+\]
+
+where \( p = \mathbb{E}[T] \) is the population proportion of treated units.
+
+The term \( \frac{T_i}{p} [Y_i - \mu_1] \) captures the variability in \( Y_i \) among treated units. The term \( -\frac{T_i - p}{p} \mu_1 \) accounts for the variability due to estimating \( p \).
+
+\subsubsection*{Influence Function for \( \hat{\mu}_0 \)}
+
+The influence function for \( \hat{\mu}_0 \) has three components:
+
+\[
+\phi_{\mu_0}(Z_i) = \phi_{\mu_0}^{(1)}(Z_i) + \phi_{\mu_0}^{(2)}(Z_i) + \phi_{\mu_0}^{(3)}(Z_i),
+\]
+
+where:
+
+\begin{enumerate}
+  \item \( \phi_{\mu_0}^{(1)}(Z_i) \): Variability from \( Y_i \) and \( T_i \).
+  \item \( \phi_{\mu_0}^{(2)}(Z_i) \): Variability due to estimating \( p \).
+  \item \( \phi_{\mu_0}^{(3)}(Z_i) \): Variability due to estimating \( \theta \).
+\end{enumerate}
+
+For the fist component:
+
+\[
+\phi_{\mu_0}^{(1)}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0].
+\]
+
+This term captures the variability in \( Y_i \) among control units, weighted by the estimated propensity score.
+
+For the second component, we account for the estimation of \( p \) in \( \hat{\mu}_0 \). The influence function of \( \hat{p} \) is:
+
+\[
+\phi_{\hat{p}}(Z_i) = T_i - p.
+\]
+
+The derivative of \( \mu_0 \) with respect to \( p \) is:
+
+\[
+\frac{\partial \mu_0}{\partial p} = \frac{\mu_0}{1 - p}.
+\]
+
+Therefore,
+
+\[
+\phi_{\mu_0}^{(2)}(Z_i) = -\left( \frac{\partial \mu_0}{\partial p} \right) \phi_{\hat{p}}(Z_i) = -\frac{\mu_0}{1 - p} (T_i - p) = -\frac{T_i - p}{1 - p} \mu_0.
+\]
+
+The third component accounts for the estimation error in \( \hat{\theta}_{\text{MLE}} \). We compute the derivative of \( \mu_0 \) with respect to \( \theta \):
+
+\begin{align*}
+\frac{\partial \mu_0}{\partial \theta'} &= \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \frac{\partial }{\partial \theta'}\left( \frac{p(X) Y}{1 - p(X)} \right) \right] \\
+&= \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \left( \frac{p(X)}{1 - p(X)} X \right) Y \right].
+\end{align*}
+
+The influence function of \( \hat{\theta}_{\text{MLE}} \) is:
+
+\[
+\text{IF}(Z_i; \hat{\theta}_{\text{MLE}}, F) = J^{-1} [T_i - p(X_i)] X_i,
+\]
+
+where \( J = \mathbb{E}\left[ p(X) [1 - p(X)] X X' \right] \).
+
+Thus,
+
+\[
+\phi_{\mu_0}^{(3)}(Z_i) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) \text{IF}(Z_i; \hat{\theta}_{\text{MLE}}, F) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
+\]
+
+Combining the components:
+
+\[
+\phi_{\mu_0}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \frac{T_i - p}{1 - p} \mu_0 + \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
+\]
+
+
+Thus, the final influence function, subtracting \( \phi_{\mu_0}(Z_i) \) from \( \phi_{\mu_1}(Z_i) \) is:
+
+\begin{align*}
+\phi_{\hat{\tau}}(Z_i) &= \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i) \\
+&= \left( \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 \right) \\ & \quad - \left( \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \frac{T_i - p}{1 - p} \mu_0 + \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i \right) \\
+&= \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 \\ & \quad - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + \frac{T_i - p}{1 - p} \mu_0 - \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
+\end{align*}
+
+The derivation shows:
 \begin{itemize}
-    \item \textit{Influence Function for \( \hat{\mu}_1 \):}
-
-    Since \( \hat{\mu}_1 \) is the sample average of \( Y_i \) among treated units, its influence function is:
-
-    \[
-    \phi_{\mu_1}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1],
-    \]
-
-    where \( p = \mathbb{E}[T] \).
-
-    \item \textit{Influence Function for \( \hat{\mu}_0 \):}
-
-    The estimator \( \hat{\mu}_0 \) depends on the estimated propensity score \( \hat{p}(X_i) \). Its influence function involves two components:
-    \begin{itemize}
-        \item The influence from the sample data.
-        \item The influence from the estimation of \( \hat{\theta}_{\text{MLE}} \).
-    \end{itemize}
-
-    We can write \( \phi_{\mu_0}(Z_i) \) as:
-
-    \[
-    \phi_{\mu_0}(Z_i) = \phi_{\mu_0}^{(1)}(Z_i) + \phi_{\mu_0}^{(2)}(Z_i),
-    \]
-
-    where:
-    \begin{itemize}
-        \item \( \phi_{\mu_0}^{(1)}(Z_i) \) accounts for the variability in \( Y_i \) and \( T_i \).
-        \item \( \phi_{\mu_0}^{(2)}(Z_i) \) accounts for the estimation error in \( \hat{\theta}_{\text{MLE}} \).
-    \end{itemize}
-
-    \item \textit{First Component \( \phi_{\mu_0}^{(1)}(Z_i) \):}
-
-    \[
-    \phi_{\mu_0}^{(1)}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0].
-    \]
-
-    \item \textit{Second Component \( \phi_{\mu_0}^{(2)}(Z_i) \):}
-
-    We need to compute the derivative of \( \mu_0 \) with respect to \( \theta \):
-
-    \[
-    \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \frac{\partial}{\partial \theta'}\left( \frac{p(X)}{1 - p(X)} \right) Y \right].
-    \]
-
-    Since:
-
-    \[
-    \frac{\partial}{\partial \theta'}\left( \frac{p(X)}{1 - p(X)} \right) = \frac{p(X)}{1 - p(X)} X,
-    \]
-
-    we have:
-
-    \[
-    \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \frac{p(X)}{1 - p(X)} X Y \right].
-    \]
-
-    The influence function of \( \hat{\theta}_{\text{MLE}} \) is:
-
-    \[
-    \text{IF}(Z_i; \hat{\theta}_{\text{MLE}}, F) = J^{-1} [T_i - p(X_i)] X_i,
-    \]
-
-    where \( J \) is the expected Fisher information matrix:
-
-    \[
-    J = \mathbb{E}\left[ p(X) [1 - p(X)] X X' \right].
-    \]
-
-    Therefore, the second component of \( \phi_{\mu_0}(Z_i) \) is:
-
-    \[
-    \phi_{\mu_0}^{(2)}(Z_i) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) \text{IF}(Z_i; \hat{\theta}_{\text{MLE}}, F) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
-    \]
+  \item \( \frac{T_i}{p} [Y_i - \mu_1] \): Variability in \( Y_i \) among treated units.
+  \item \( -\frac{T_i - p}{p} \mu_1 \): Adjustment for estimating \( p \) in \( \hat{\mu}_1 \).
+  \item \( -\frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] \): Variability in \( Y_i \) among control units, weighted by propensity scores.
+  \item \( \frac{T_i - p}{1 - p} \mu_0 \): Adjustment for estimating \( p \) in \( \hat{\mu}_0 \).
+  \item \( -\left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i \): Adjustment for estimating \( \theta \) in the propensity score.
 \end{itemize}
 
-Combining the components, the influence function for \( \hat{\mu}_0 \) is:
+The influence function of the estimator \( \hat{\tau} \) when using maximum likelihood to estimate the propensity score is:
 
 \[
-\phi_{\mu_0}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
+\phi_{\hat{\tau}}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + \frac{T_i - p}{1 - p} \mu_0 - \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
 \]
-
-The final influence function for \( \hat{\tau} \) is then:
-
-\[
-\phi_{\hat{\tau}}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
-\]
-
-\begin{itemize}
-    \item The first term represents the variability in \( \hat{\mu}_1 \) due to sampling.
-    \item The second term captures the variability in \( \hat{\mu}_0 \) from the sample data.
-    \item The third term adjusts for the estimation error in \( \hat{\theta}_{\text{MLE}} \) when estimating \( \hat{\mu}_0 \).
-\end{itemize}
-
-In conclusion, the influence function of the estimator \( \hat{\tau} \) when using maximum likelihood to estimate the propensity score is given by:
-
-\[
-\text{IF}(Z_i; \hat{\tau}, F) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \left( \frac{\partial \mu_0}{\partial \theta'} \right) J^{-1} [T_i - p(X_i)] X_i.
-\]
-
-This expression accounts for both the sampling variability and the additional uncertainty introduced by estimating the propensity score via maximum likelihood.
-
+  
 \begin{colorparagraph}{questioncolor}
 \label{q1f}
 \rule{\textwidth}{0.5pt}
@@ -615,7 +657,14 @@ This expression accounts for both the sampling variability and the additional un
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
-To derive the influence function of the estimator \( \hat{\tau} \) when the propensity score is estimated using nonlinear least squares (NLS), we start with the estimator:
+\ifthenelse{\boolean{showcomments}}{
+\begin{colorparagraph}{tacolor}REVIEW
+  Review answer
+\end{colorparagraph}
+}
+To derive the influence function when the propensity score is estimated using nonlinear least squares (NLS), we consider both the sampling variability and the estimation error from \(\hat{\theta}_{\text{NLS}}\).
+
+The estimator \(\hat{\tau}\) is defined as:
 
 \[
 \hat{\tau} = \hat{\mu}_1 - \hat{\mu}_0,
@@ -625,208 +674,146 @@ where:
 
 \[
 \hat{\mu}_1 = \frac{1}{n} \sum_{i=1}^n \frac{T_i Y_i}{\hat{p}},
+\quad
+\hat{\mu}_0 = \frac{1}{1 - \hat{p}} \cdot \frac{1}{n} \sum_{i=1}^n \frac{(1 - T_i) \hat{p}(X_i) Y_i}{1 - \hat{p}(X_i)},
 \]
+
+and \(\hat{p} = \frac{1}{n} \sum_{i=1}^n T_i\) is the sample proportion of treated units, and \(\hat{p}(X_i) = p(X_i; \hat{\theta}_{\text{NLS}})\) is the estimated propensity score using NLS.
+
+The influence function \(\text{IF}(Z_i; \hat{\tau}, F)\) for \(\hat{\tau}\) is:
+
 \[
-\hat{\mu}_0 = \frac{1}{1 - \hat{p}} \cdot \frac{1}{n} \sum_{i=1}^n \frac{(1 - T_i) \hat{p}(X_i) Y_i}{1 - \hat{p}(X_i)}.
+\text{IF}(Z_i; \hat{\tau}, F) = \phi_{\hat{\tau}}(Z_i) = \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i),
 \]
 
-Here, \( \hat{p} = \frac{1}{n} \sum_{i=1}^n T_i \) is the sample proportion of treated units, and \( \hat{p}(X_i) = p(X_i; \hat{\theta}_{\text{NLS}}) \) is the estimated propensity score using NLS.
+where \(\phi_{\mu_1}(Z_i)\) and \(\phi_{\mu_0}(Z_i)\) are the influence functions for \(\hat{\mu}_1\) and \(\hat{\mu}_0\), respectively.
 
-The influence function \( \text{IF}(Z_i; \hat{\tau}, F) \) for \( \hat{\tau} \) can be expressed as:
+\subsubsection*{Influence Function for \( \hat{\mu}_1 \)}
 
 \[
-\text{IF}(Z_i; \hat{\tau}, F) = \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i),
+\phi_{\mu_1}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1,
 \]
 
-where \( \phi_{\mu_1}(Z_i) \) and \( \phi_{\mu_0}(Z_i) \) are the influence functions for \( \hat{\mu}_1 \) and \( \hat{\mu}_0 \), respectively.
+where \(p = \mathbb{E}[T]\) is the population proportion of treated units.
 
 \begin{itemize}
-    \item \textit{Influence Function for \( \hat{\mu}_1 \):}
+    \item The term \(\frac{T_i}{p} [Y_i - \mu_1]\) captures the variability in \(Y_i\) among treated units.
+    \item The term \(-\frac{T_i - p}{p} \mu_1\) adjusts for the variability due to estimating \(p\).
+\end{itemize}
 
-    Since \( \hat{\mu}_1 \) is the sample average of \( Y_i \) among treated units, its influence function is:
+\subsubsection*{Influence Function for \( \hat{\mu}_0 \)}
 
+It has three components:
+
+\[
+\phi_{\mu_0}(Z_i) = \phi_{\mu_0}^{(1)}(Z_i) + \phi_{\mu_0}^{(2)}(Z_i) + \phi_{\mu_0}^{(3)}(Z_i),
+\]
+
+where:
+\begin{itemize}
+    \item The first component \(\phi_{\mu_0}^{(1)}(Z_i)\) captures the variability from \(Y_i\) and \(T_i\):
     \[
-    \phi_{\mu_1}(Z_i) = \frac{T_i}{p} [Y_i - \mu_1],
+    \phi_{\mu_0}^{(1)}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0].
     \]
-
-    where \( p = \mathbb{E}[T] \).
-
-    \item \textit{Influence Function for \( \hat{\mu}_0 \):}
-
-    The estimator \( \hat{\mu}_0 \) depends on the estimated propensity score \( \hat{p}(X_i) \). Its influence function involves two components:
-
+    \item The second component \(\phi_{\mu_0}^{(2)}(Z_i)\) accounts for the variability due to estimating \(p\):
     \begin{itemize}
-        \item The influence from the sample data.
-        \item The influence from the estimation of \( \hat{\theta}_{\text{NLS}} \).
+      \item The influence function of $\hat{p}$ is  $\phi_{\hat{p}}(Z_i) = T_i - p$.
+      \item The derivative of $\mu_0$ with respect to p is: 
+      $$
+      \frac{\partial \mu_0}{\partial p} = \frac{\mu_0}{1 - p}
+      $$
+      \item Thus:
+      $$
+      \phi_{\mu_0}^{(2)}(Z_i) = -\left( \frac{\partial \mu_0}{\partial p} \right) \phi_{\hat{p}}(Z_i) = -\frac{\mu_0}{1 - p} (T_i - p) = -\frac{T_i - p}{1 - p} \mu_0.
+      $$
     \end{itemize}
-
-    We can write \( \phi_{\mu_0}(Z_i) \) as:
-
-    \[
-    \phi_{\mu_0}(Z_i) = \phi_{\mu_0}^{(1)}(Z_i) + \phi_{\mu_0}^{(2)}(Z_i),
-    \]
-
-    where:
-
+    \item The third component \(\phi_{\mu_0}^{(3)}(Z_i)\) accounts for the estimation error in \(\hat{\theta}_{\text{NLS}}\):
     \begin{itemize}
-        \item \( \phi_{\mu_0}^{(1)}(Z_i) \) accounts for the variability in \( Y_i \) and \( T_i \):
-        
-        \[
-        \phi_{\mu_0}^{(1)}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0].
-        \]
-
-        \item \( \phi_{\mu_0}^{(2)}(Z_i) \) accounts for the estimation error in \( \hat{\theta}_{\text{NLS}} \).
+      \item Compute the derivative of $\mu_0$ with respect to $\theta$:
+      \[
+      \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \mathbb{E}\left[ (1 - T) \frac{\partial}{\partial \theta'} \left( \frac{p(X) Y}{1 - p(X)} \right) \right].
+      \]
+      \item Since
+      $$
+      \frac{\partial}{\partial \theta'} \left( \frac{p(X)}{1 - p(X)} \right) = \frac{p(X)}{1 - p(X)} X,
+      $$
+      we have:
+      $$
+      \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \mathbb{E}\left[ (1 - T) \frac{p(X)}{1 - p(X)} X Y \right].
+      $$
+      \item The influence function of $\hat{\theta}_{\text{NLS}}$ is:
+      \[
+      \text{IF}(Z_i; \hat{\theta}_{\text{NLS}}, F) = -A^{-1} \psi(Z_i; \theta_0),
+      \]
+      where
+      $$
+      \psi(Z_i; \theta_0) = -2 [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i
+      $$
+      $$
+      A = \mathbb{E}\left[ \frac{\partial \psi(Z_i; \theta_0)}{\partial \theta'} \right] = 2 \mathbb{E}\left[ p(X)^2 [1 - p(X)]^2 X X' \right]
+      $$
+      \item In conclusion:
+      $$
+      \text{IF}(Z_i; \hat{\theta}_{\text{NLS}}, F) = A^{-1} 2 [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
+      $$
+      $$
+      \phi_{\mu_0}^{(3)}(Z_i) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) \text{IF}(Z_i; \hat{\theta}_{\text{NLS}}, F) = 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
+      $$
     \end{itemize}
-
-    \item \textit{Derivative of \( \mu_0 \) with Respect to \( \theta \):}
-
-    We compute the derivative:
-
-    \[
-    \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \frac{\partial}{\partial \theta'}\left( \frac{p(X)}{1 - p(X)} \right) Y \right].
-    \]
-
-    Since:
-
-    \[
-    \frac{\partial}{\partial \theta'}\left( \frac{p(X)}{1 - p(X)} \right) = \frac{p(X)}{[1 - p(X)]} X,
-    \]
-
-    it follows that:
-
-    \[
-    \frac{\partial \mu_0}{\partial \theta'} = \frac{1}{1 - p} \cdot \mathbb{E}\left[ (1 - T) \cdot \frac{p(X)}{[1 - p(X)]} X Y \right].
-    \]
-
-    \item \textit{Influence Function of \( \hat{\theta}_{\text{NLS}} \):}
-
-    The influence function for the NLS estimator \( \hat{\theta}_{\text{NLS}} \) is:
-
-    \[
-    \text{IF}(Z_i; \hat{\theta}_{\text{NLS}}, F) = A^{-1} \psi(Z_i; \theta_0),
-    \]
-
-    where:
-
-    \[
-    \psi(Z_i; \theta_0) = -2 [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i,
-    \]
-
-    and
-
-    \[
-    A = 2 \mathbb{E}\left[ p(X)^2 [1 - p(X)]^2 X X' \right].
-    \]
-
-    \item \textit{Second Component \( \phi_{\mu_0}^{(2)}(Z_i) \):}
-
-    Using the influence function of \( \hat{\theta}_{\text{NLS}} \), we have:
-
-    \[
-    \phi_{\mu_0}^{(2)}(Z_i) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) \text{IF}(Z_i; \hat{\theta}_{\text{NLS}}, F) = \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} \psi(Z_i; \theta_0).
-    \]
-
-    Substituting \( \psi(Z_i; \theta_0) \):
-
-    \[
-    \phi_{\mu_0}^{(2)}(Z_i) = -2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
-    \]
-
 \end{itemize}
 
-\textit{Combining the Components}, the influence function for \( \hat{\mu}_0 \) is:
+Combining the components, the influence function for \(\hat{\mu}_0\) is:
 
 \[
-\phi_{\mu_0}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
+\phi_{\mu_0}(Z_i) = \phi_{\mu_0}^{(1)}(Z_i) + \phi_{\mu_0}^{(2)}(Z_i) + \phi_{\mu_0}^{(3)}(Z_i),
 \]
-
-\textit{Final Influence Function for \( \hat{\tau} \)}:
-
-Subtracting \( \phi_{\mu_0}(Z_i) \) from \( \phi_{\mu_1}(Z_i) \), we obtain:
 
 \[
-\text{IF}(Z_i; \hat{\tau}, F) = \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i).
+\phi_{\mu_0}(Z_i) = \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \frac{T_i - p}{1 - p} \mu_0 + 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
 \]
 
-Substituting the expressions:
+We obtain \(\hat{\tau}\) by:
 
-\[
-\text{IF}(Z_i; \hat{\tau}, F) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
-\]
+\begin{align*}
+\phi_{\hat{\tau}}(Z_i) &= \phi_{\mu_1}(Z_i) - \phi_{\mu_0}(Z_i) \\
+&= \left( \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 \right) \\ & \quad - \left( \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] - \frac{T_i - p}{1 - p} \mu_0 + 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i \right) \\
+&= \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 - \\ & \quad \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + \frac{T_i - p}{1 - p} \mu_0 - 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
+\end{align*}
 
-\textit{Interpretation}:
-
+This expression accounts for:
 \begin{itemize}
-    \item The first term represents the variability in \( \hat{\mu}_1 \) due to sampling:
-
-    \[
-    \frac{T_i}{p} [Y_i - \mu_1].
-    \]
-
-    \item The second term captures the variability in \( \hat{\mu}_0 \) from the sample data:
-
-    \[
-    - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0].
-    \]
-
-    \item The third term adjusts for the estimation error in \( \hat{\theta}_{\text{NLS}} \):
-
-    \[
-    + 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
-    \]
+    \item Sampling variability in \(Y_i\) and \(T_i\).
+    \item Variability due to estimating \(p\).
+    \item Variability due to estimating \(\theta\) via NLS.
 \end{itemize}
 
-\textit{Conclusion}:
+The final influence function for \(\hat{\tau}\) when using NLS is:
 
-The influence function of the estimator \( \hat{\tau} \) when using nonlinear least squares to estimate the propensity score is given by:
+\begin{align*}
+  \text{IF}(Z_i; \hat{\tau}, F) =& \ \frac{T_i}{p} [Y_i - \mu_1] - \frac{T_i - p}{p} \mu_1 - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] \\ & + \frac{T_i - p}{1 - p} \mu_0 - 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.  
+\end{align*}
 
-\[
-\text{IF}(Z_i; \hat{\tau}, F) = \frac{T_i}{p} [Y_i - \mu_1] - \frac{(1 - T_i) p(X_i)}{(1 - p)(1 - p(X_i))} [Y_i - \mu_0] + 2 \left( \frac{\partial \mu_0}{\partial \theta'} \right) A^{-1} [T_i - p(X_i)] p(X_i) [1 - p(X_i)] X_i.
-\]
-
-This expression accounts for both the sampling variability and the additional uncertainty introduced by estimating the propensity score via nonlinear least squares.
-
-\textit{Comparison with Maximum Likelihood Estimation}:
-
-Compared to the influence function when using maximum likelihood (MLE) estimation, the key differences are:
-
-\begin{itemize}
-    \item The scaling factor in the third term is different due to the influence function of \( \hat{\theta}_{\text{NLS}} \) involving an extra factor of \( 2 p(X_i) [1 - p(X_i)] \).
-    \item The matrix \( A \) in NLS is:
-
-    \[
-    A = 2 \mathbb{E}\left[ p(X)^2 [1 - p(X)]^2 X X' \right],
-    \]
-
-    whereas in MLE, the Fisher information matrix is:
-
-    \[
-    J = \mathbb{E}\left[ p(X) [1 - p(X)] X X' \right].
-    \]
-
-    \item The presence of \( 2 p(X_i) [1 - p(X_i)] \) in the NLS influence function emphasizes observations with propensity scores near 0.5 more than in the MLE case.
-\end{itemize}
-
-In summary, the influence function for \( \hat{\tau} \) when using NLS differs from that using MLE due to the different weighting and scaling factors inherent in the NLS estimation method.
+Note that the negative sign in the last term accounts for the correct influence function of \(\hat{\theta}_{\text{NLS}}\).
 
 \begin{colorparagraph}{questioncolor}
-\label{q1g}
-\rule{\textwidth}{0.5pt}
-\subsection{Simulation Study}
-(g) Conduct a simulation study where you use both first step estimation methods.
-Your study should verify the derivations above as well as compare the two estimators.
-Which performs better?
-Explore different sample sizes, dimensions of \( X \), noise levels, etc., i.e., vary different aspects of the simulation design.
+  \label{q1g}
+  \rule{\textwidth}{0.5pt}
+  \subsection{Simulation Study}
+  (g) Conduct a simulation study where you use both first step estimation methods.
+  Your study should verify the derivations above as well as compare the two estimators.
+  Which performs better?
+  Explore different sample sizes, dimensions of \( X \), noise levels, etc., i.e., vary different aspects of the simulation design.
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+  
 
-\rule{\textwidth}{0.5pt}
-\end{colorparagraph}
-
-\begin{table}
-  \centering
-  \caption{Simulation Results Comparing MLE and NLS Estimators for ATT}
-  \label{tab:simulation_results}
-  \begin{tabular}{ccccccccc}
+  \begin{table}[H]
+    \centering
+  \begin{tabular}{|ccc|cccccc|}
+    \hline
       Dim & SS & NL & Bias MLE & Bias NLS & Var MLE & Var NLS & MSE MLE & MSE NLS \\
+      \hline
       2 & 500 & 1 & -0.00932 & -0.01588 & 0.01961 & 0.02185 & 0.01950 & 0.02188 \\
       2 & 500 & 2 & -0.02962 & -0.02358 & 0.06793 & 0.06445 & 0.06813 & 0.06437 \\
       2 & 500 & 5 & 0.00070 & 0.00400 & 0.20787 & 0.19905 & 0.20579 & 0.19708 \\
@@ -838,226 +825,64 @@ Explore different sample sizes, dimensions of \( X \), noise levels, etc., i.e.,
       2 & 5000 & 5 & -0.00009 & 0.00278 & 0.03048 & 0.03032 & 0.03017 & 0.03002 \\
       5 & 500 & 1 & 0.00160 & -0.03872 & 0.08885 & 0.14498 & 0.08797 & 0.14503 \\
       5 & 500 & 2 & -0.06337 & -0.11231 & 0.26856 & 0.41486 & 0.26989 & 0.42332 \\
-      5 & 500 & 5 & -0.00751 & NaN & 0.37166 & NA & 0.36800 & NaN \\
+      5 & 500 & 5 & -0.00751 & - & 0.37166 & - & 0.36800 & - \\
       5 & 1000 & 1 & -0.00464 & -0.03373 & 0.04965 & 0.07184 & 0.04918 & 0.07226 \\
       5 & 1000 & 2 & 0.06409 & 0.04796 & 0.05941 & 0.06751 & 0.06292 & 0.06913 \\
       5 & 1000 & 5 & -0.02145 & -0.05645 & 0.24894 & 0.31807 & 0.24691 & 0.31808 \\
       5 & 5000 & 1 & 0.00311 & -0.00395 & 0.01185 & 0.01460 & 0.01174 & 0.01447 \\
       5 & 5000 & 2 & -0.03152 & -0.03556 & 0.01799 & 0.02229 & 0.01881 & 0.02333 \\
       5 & 5000 & 5 & 0.01152 & 0.01018 & 0.04560 & 0.04740 & 0.04528 & 0.04703 \\
-      10 & 500 & 1 & 0.06400 & NaN & 0.35931 & NA & 0.35981 & NaN \\
-      10 & 500 & 2 & 0.01739 & NaN & 0.44957 & NA & 0.44538 & NaN \\
-      10 & 500 & 5 & 0.05529 & NaN & 1.15303 & NA & 1.14456 & NaN \\
-      10 & 1000 & 1 & 0.06698 & NaN & 0.42974 & NA & 0.42993 & NaN \\
-      10 & 1000 & 2 & -0.08432 & NaN & 0.49769 & NA & 0.49982 & NaN \\
-      10 & 1000 & 5 & 0.14828 & NaN & 0.39085 & NA & 0.40893 & NaN \\
-      10 & 5000 & 1 & -0.00669 & NaN & 0.07871 & NA & 0.07796 & NaN \\
-      10 & 5000 & 2 & 0.02409 & NaN & 0.05547 & NA & 0.05550 & NaN \\
-      10 & 5000 & 5 & -0.03186 & -183907.8 & 0.15921 & 3.3e+12 & 0.15863 & 3.3e+12 \\
+      10 & 500 & 1 & 0.06400 & - & 0.35931 & - & 0.35981 & - \\
+      10 & 500 & 2 & 0.01739 & - & 0.44957 & - & 0.44538 & - \\
+      10 & 500 & 5 & 0.05529 & - & 1.15303 & - & 1.14456 & - \\
+      10 & 1000 & 1 & 0.06698 & - & 0.42974 & - & 0.42993 & - \\
+      10 & 1000 & 2 & -0.08432 & - & 0.49769 & - & 0.49982 & - \\
+      10 & 1000 & 5 & 0.14828 & - & 0.39085 & - & 0.40893 & - \\
+      10 & 5000 & 1 & -0.00669 & - & 0.07871 & - & 0.07796 & - \\
+      10 & 5000 & 2 & 0.02409 & - & 0.05547 & - & 0.05550 & - \\
+      10 & 5000 & 5 & -0.03186 & - & 0.15921 & - & 0.15863 & - \\
+      \hline
   \end{tabular}
+  \caption{Simulation Results Comparing MLE and NLS Estimators for ATT}
 \end{table}
 
-We conducted a simulation study to compare the performance of the average treatment effect on the treated (ATT) estimators using maximum likelihood estimation (MLE) and nonlinear least squares (NLS) for estimating the propensity score. The study varied sample sizes, dimensions of \( X \), and noise levels. The results are summarized in the table provided.
+We conducted a simulation study to compare the performance of the average treatment effect on the treated (ATT) estimators using maximum likelihood estimation (MLE) and nonlinear least squares (NLS) for estimating the propensity score.
+
+We used Sample Size (SS) of 500, 1000, 5000, Dimension (D) of 2, 5, 10, and Noise Level (NL) of 1, 2 and 5.
 
 From the simulation results, we observe the following:
 
 \begin{itemize}
-    \item \textit{Bias}:
+    \item Bias:
     \begin{itemize}
-        \item For lower dimensions (\( d = 2 \)), both MLE and NLS estimators exhibit small biases across different sample sizes and noise levels.
-        \item As the dimension increases to \( d = 5 \), the bias of the NLS estimator increases significantly, especially at smaller sample sizes and higher noise levels.
-        \item In the highest dimension (\( d = 10 \)), the NLS estimator often fails to produce valid results (indicated by \texttt{NaN} values), suggesting convergence issues in the NLS estimation method. The MLE estimator, however, maintains reasonable bias levels.
+        \item For lower dimensions (\( d = 2 \)), both MLE and NLS estimators exhibit small biases for different sample sizes and noise levels.
+        \item For \( d = 5 \), the bias of the NLS estimator increases significantly, especially at smaller sample sizes and higher noise levels.
+        \item In the highest dimension (\( d = 10 \)), the NLS estimator often fails to produce valid results (indicated by \texttt{-} values), suggesting convergence issues in the NLS estimation method. The MLE estimator maintains reasonable bias levels.
     \end{itemize}
-    \item \textit{Variance}:
+    \item Variance:
     \begin{itemize}
         \item The variance of both estimators decreases with increasing sample size, as expected.
         \item The MLE estimator consistently shows lower variance compared to the NLS estimator across most settings.
         \item In higher dimensions and noise levels, the variance of the NLS estimator becomes substantially larger, indicating less reliable estimates.
     \end{itemize}
-    \item \textit{Mean Squared Error (MSE)}:
+    \item Mean Squared Error (MSE):
     \begin{itemize}
         \item The MSE of the MLE estimator is generally lower than that of the NLS estimator, indicating better overall performance.
-        \item In cases where the NLS estimator fails (evidenced by \texttt{NaN} or extremely large values), the MSE is significantly higher, reinforcing the instability of the NLS method in those settings.
+        \item In cases where the NLS estimator fails (evidenced by \texttt{-} or extremely large values), the MSE is significantly higher, reinforcing the instability of the NLS method in those settings.
     \end{itemize}
-    \item \textit{Estimator Performance}:
+    \item Other takeaways:
     \begin{itemize}
-        \item The MLE-based ATT estimator performs better than the NLS-based estimator in terms of bias, variance, and MSE, especially as the dimension of \( X \) increases.
-        \item The NLS estimator encounters convergence issues in higher dimensions and with higher noise levels, leading to unreliable estimates.
-        \item The MLE estimator remains robust across different simulation settings, providing consistent and accurate estimates of the ATT.
-    \end{itemize}
-    \item \textit{Effect of Sample Size}:
-    \begin{itemize}
-        \item Increasing the sample size generally improves the performance of both estimators by reducing variance and MSE.
-        \item The benefit of larger sample sizes is more pronounced for the MLE estimator, which continues to provide accurate estimates even in challenging settings.
-    \end{itemize}
-    \item \textit{Effect of Noise Level}:
-    \begin{itemize}
-        \item Higher noise levels increase the variance and MSE of both estimators.
-        \item The NLS estimator is more adversely affected by higher noise levels compared to the MLE estimator.
+      \item The NLS estimator is more adversely affected by higher noise levels compared to the MLE estimator.
+      \item The MLE estimator remains robust across different simulation settings. The NLS estimator encounters convergence issues in higher dimensions and with higher noise levels.
+      \item The benefit of larger sample sizes is more pronounced for the MLE estimator
     \end{itemize}
 \end{itemize}
 
-Based on the simulation study, the ATT estimator using maximum likelihood estimation for the propensity score outperforms the estimator using nonlinear least squares. The MLE method demonstrates better accuracy (lower bias), precision (lower variance), and overall reliability (lower MSE) across various dimensions, sample sizes, and noise levels. The NLS estimator struggles in higher-dimensional settings and with higher noise, often failing to converge or producing invalid results.
+Thus, the ATT estimator using maximum likelihood estimation for the propensity score outperforms the estimator using nonlinear least squares.
 
-These findings align with the theoretical derivations of the influence functions. The MLE estimator is asymptotically efficient under correct model specification, as it directly maximizes the likelihood function. In contrast, the NLS estimator introduces additional weighting factors that can lead to inefficiencies and convergence issues, especially in complex settings.
+The NLS estimator struggles in higher-dimensional settings and with higher noise.
 
-\begin{lstlisting}[style=Rstyle, caption=Simple Regression on Price Experiment]
-# Function to simulate data
-simulate_data <- function(n, d, theta_0, beta0, tau_true, noise_level) {
-  # Generate X ~ N(0, I_d)
-  X <- matrix(rnorm(n * d), nrow = n, ncol = d)
-  
-  # Compute propensity scores
-  p <- 1 / (1 + exp(-X %*% theta_0))
-  
-  # Generate treatment assignment T ~ Bernoulli(p)
-  T <- rbinom(n, 1, p)
-  
-  # Generate potential outcomes
-  Y0 <- X %*% beta0 + rnorm(n, mean = 0, sd = noise_level)
-  Y1 <- Y0 + tau_true
-  
-  # Observed outcome
-  Y <- T * Y1 + (1 - T) * Y0
-  
-  data <- data.frame(Y = Y, T = T, X)
-  colnames(data)[-(1:2)] <- paste0("X", 1:d)
-  return(data)
-}
-
-# Function to estimate propensity score via MLE (logistic regression)
-estimate_propensity_mle <- function(data, d) {
-  formula <- as.formula(paste("T ~", paste(paste0("X", 1:d), collapse = " + ")))
-  model <- glm(formula, data = data, family = binomial(link = "logit"))
-  data$propensity_mle <- predict(model, type = "response")
-  return(data)
-}
-
-# Function to estimate propensity score via NLS
-estimate_propensity_nls <- function(data, d) {
-  # Define the logistic function
-  logistic_function <- function(theta, X) {
-    1 / (1 + exp(-X %*% theta))
-  }
-  
-  # Objective function for NLS
-  nls_objective <- function(theta, T, X) {
-    p_hat <- logistic_function(theta, X)
-    sum((T - p_hat)^2)
-  }
-  
-  # Initial guess for theta
-  theta_init <- rep(0, d)
-  
-  # Optimize theta using nonlinear least squares
-  nls_result <- optim(
-    theta_init,
-    nls_objective,
-    T = data$T,
-    X = as.matrix(data[, paste0("X", 1:d)]),
-    method = "BFGS"
-  )
-  
-  # Estimated propensity scores
-  data$propensity_nls <- logistic_function(nls_result$par, as.matrix(data[, paste0("X", 1:d)]))
-  
-  return(data)
-}
-
-# Function to compute ATT estimator
-compute_att <- function(data, method = c("mle", "nls")) {
-  method <- match.arg(method)
-  if (method == "mle") {
-    p_hat <- mean(data$T)
-    data$propensity <- data$propensity_mle
-  } else if (method == "nls") {
-    p_hat <- mean(data$T)
-    data$propensity <- data$propensity_nls
-  }
-  
-  # Compute ATT estimator
-  mu1_hat <- mean(data$T * data$Y) / p_hat
-  mu0_hat <- (1 / (1 - p_hat)) * mean(((1 - data$T) * data$propensity * data$Y) / (1 - data$propensity))
-  att_hat <- mu1_hat - mu0_hat
-  return(att_hat)
-}
-
-# Simulation parameters
-n_sim <- 100     
-sample_sizes <- c(500, 1000, 5000)
-dimensions <- c(2, 5, 10)         
-noise_levels <- c(1, 2, 5)        
-
-# True parameter values
-tau_true <- 2    # True ATT
-
-# Store results
-results <- data.frame()
-
-for (d in dimensions) {
-  theta_0 <- rep(0.5, d)  # True theta_0
-  beta0 <- rep(1, d)      # Coefficients for Y0
-  
-  for (n in sample_sizes) {
-    for (noise_level in noise_levels) {
-      att_mle_estimates <- numeric(n_sim)
-      att_nls_estimates <- numeric(n_sim)
-      
-      for (sim in 1:n_sim) {
-        # Simulate data
-        data <- simulate_data(n, d, theta_0, beta0, tau_true, noise_level)
-        
-        # Estimate propensity scores
-        data <- estimate_propensity_mle(data, d)
-        data <- estimate_propensity_nls(data, d)
-        
-        # Compute ATT estimators
-        att_mle <- compute_att(data, method = "mle")
-        att_nls <- compute_att(data, method = "nls")
-        
-        # Store estimates
-        att_mle_estimates[sim] <- att_mle
-        att_nls_estimates[sim] <- att_nls
-      }
-      
-      # Compute biases and variances
-      bias_mle <- mean(att_mle_estimates - tau_true)
-      bias_nls <- mean(att_nls_estimates - tau_true)
-      var_mle <- var(att_mle_estimates)
-      var_nls <- var(att_nls_estimates)
-      mse_mle <- mean((att_mle_estimates - tau_true)^2)
-      mse_nls <- mean((att_nls_estimates - tau_true)^2)
-      
-      # Store results
-      results <- rbind(results, data.frame(
-        Dimension = d,
-        SampleSize = n,
-        NoiseLevel = noise_level,
-        Bias_MLE = bias_mle,
-        Bias_NLS = bias_nls,
-        Variance_MLE = var_mle,
-        Variance_NLS = var_nls,
-        MSE_MLE = mse_mle,
-        MSE_NLS = mse_nls
-      ))
-      
-      # Print progress
-      cat("Completed: Dimension =", d, "Sample Size =", n, "Noise Level =", noise_level, "\n")
-    }
-  }
-}
-
-# Display results
-print(results)
-\end{lstlisting}
-
-\textit{Recommendations}:
-
-\begin{itemize}
-    \item For practical applications, especially when dealing with higher-dimensional covariates or noisy data, the MLE method for estimating the propensity score is preferred.
-    \item The NLS method may be acceptable in low-dimensional, low-noise settings but should be used with caution due to potential convergence problems.
-    \item Further investigation into regularization techniques or alternative estimation methods may be warranted to improve the performance of the NLS estimator in challenging scenarios.
-\end{itemize}
+These findings align with the theoretical derivations of the influence functions. The MLE estimator is asymptotically efficient under correct model specification, as it directly maximizes the likelihood function. In contrast, the NLS estimator introduces additional weighting factors that can lead to inefficiencies and convergence issues, especially more complex occasions.
 
 \begin{colorparagraph}{questioncolor}
 
@@ -1344,11 +1169,7 @@ We present the following takeaways:
 
 In conclusion, $\tilde{F}(x)$ is only preferable in situations where we have a strong case to believe the data generating process follows a normal or t-student with high $df$.
 
-\begin{colorparagraph}{tacolor}
-  REMOVE COMMENT
-\end{colorparagraph}
-
-\begin{comment}
+\ifthenelse{\boolean{imagesbool:q2d}}{
 \subsubsection*{Bias for $x = 0.5$}
 
 \begin{figure}[H]
@@ -1541,184 +1362,11 @@ In conclusion, $\tilde{F}(x)$ is only preferable in situations where we have a s
   \includegraphics[width=115px]{q2d-plots/ci_x25_t_student_150.png}
   \label{fig:ci_x25}
 \end{figure}
-\end{comment}
-
-
-% To examine the empirical performance of the estimators \( \hat{F}(x) \) and \( \tilde{F}(x) \), we conduct a simulation study. We consider different sample sizes \( n \), various distributions, and evaluate the estimators at three representative values of \( x \). The study aims to assess consistency, variance behavior, and efficiency under Normal and non-Normal distributions.
-
-% \textbf{Simulation Setup:}
-
-% \begin{itemize}
-%     \item \textbf{Sample Sizes:} \( n = 50, 100, 500, 1000 \).
-%     \item \textbf{Distributions:}
-%         \begin{itemize}
-%             \item Normal distribution: \( \mathcal{N}(\mu, \sigma^2) \) with \( \mu = 0 \), \( \sigma = 1 \).
-%             \item Exponential distribution: \( \text{Exp}(\lambda) \) with \( \lambda = 1 \).
-%             \item Uniform distribution: \( \mathcal{U}(a, b) \) with \( a = -\sqrt{3} \), \( b = \sqrt{3} \) (so that variance is 1).
-%         \end{itemize}
-%     \item \textbf{Values of \( x \):} \( x = -1, 0, 1 \).
-%     \item \textbf{Number of Simulations:} 10,000 repetitions for each scenario to approximate the sampling distribution.
-% \end{itemize}
-
-% \textbf{Estimators:}
-
-% \begin{itemize}
-%     \item Empirical CDF estimator:
-%     \[
-%     \hat{F}(x) = \frac{1}{n} \sum_{i=1}^n 1\{ x_i \leq x \}.
-%     \]
-%     \item Parametric estimator assuming Normality:
-%     \[
-%     \tilde{F}(x) = \Phi\left( \frac{x - \hat{\mu}}{\hat{\sigma}} \right),
-%     \]
-%     where \( \hat{\mu} \) and \( \hat{\sigma} \) are the sample mean and standard deviation.
-% \end{itemize}
-
-% \textbf{Simulation Procedure:}
-
-% \begin{enumerate}
-%     \item For each combination of \( n \) and distribution, generate \( n \) i.i.d. samples.
-%     \item Compute \( \hat{F}(x) \) and \( \tilde{F}(x) \) at \( x = -1, 0, 1 \).
-%     \item Repeat steps 1 and 2 for 10,000 simulations to obtain empirical distributions of the estimators.
-%     \item Calculate the empirical mean and variance of the estimators.
-%     \item Assess consistency by examining the bias (difference between the empirical mean and true \( F(x) \)) as \( n \) increases.
-%     \item Evaluate the variance behavior in relation to the Central Limit Theorem (CLT).
-% \end{enumerate}
-
-% \textbf{Results and Analysis:}
-
-% \textit{1. Normal Distribution (\( \mu = 0 \), \( \sigma = 1 \)):}
-
-% \begin{itemize}
-%     \item \textbf{True CDF Values:}
-%     \[
-%     F(-1) = \Phi(-1) \approx 0.1587, \quad F(0) = \Phi(0) = 0.5, \quad F(1) = \Phi(1) \approx 0.8413.
-%     \]
-%     \item \textbf{Estimator Performance:}
-%         \begin{itemize}
-%             \item Both \( \hat{F}(x) \) and \( \tilde{F}(x) \) are consistent; the bias decreases as \( n \) increases.
-%             \item The variance of both estimators decreases with \( n \), consistent with the CLT.
-%             \item The parametric estimator \( \tilde{F}(x) \) exhibits lower variance than \( \hat{F}(x) \) due to incorporating the Normality assumption.
-%         \end{itemize}
-%     \item \textbf{Efficiency Comparison:}
-%         \[
-%         \text{Relative Efficiency} = \frac{\operatorname{Var}(\hat{F}(x))}{\operatorname{Var}(\tilde{F}(x))} > 1.
-%         \]
-%         This indicates that \( \tilde{F}(x) \) is more efficient when the true distribution is Normal.
-% \end{itemize}
-
-% \textit{2. Exponential Distribution (\( \lambda = 1 \)):}
-
-% \begin{itemize}
-%     \item \textbf{True CDF Values:}
-%     \[
-%     F(-1) = 0 \quad (\text{since } x \geq 0), \quad F(0) = 0, \quad F(1) = 1 - e^{-1} \approx 0.6321.
-%     \]
-%     \item \textbf{Estimator Performance:}
-%         \begin{itemize}
-%             \item \( \hat{F}(x) \) remains consistent for all \( x \).
-%             \item \( \tilde{F}(x) \) is inconsistent because it incorrectly assumes Normality.
-%             \item Variance of \( \hat{F}(x) \) decreases with \( n \), while \( \tilde{F}(x) \) may have substantial bias.
-%         \end{itemize}
-%     \item \textbf{Efficiency Comparison:}
-%         \begin{itemize}
-%             \item \( \hat{F}(x) \) outperforms \( \tilde{F}(x) \) in terms of bias and mean squared error (MSE).
-%         \end{itemize}
-% \end{itemize}
-
-% \textit{3. Uniform Distribution (\( a = -\sqrt{3} \), \( b = \sqrt{3} \)):}
-
-% \begin{itemize}
-%     \item \textbf{True CDF Values:}
-%     \[
-%     F(x) = \frac{x - a}{b - a}, \quad \text{for } x \in [a, b].
-%     \]
-%     Evaluated at \( x = -1, 0, 1 \):
-%     \[
-%     F(-1) = \frac{-1 + \sqrt{3}}{2\sqrt{3}} \approx 0.2113, \quad F(0) = 0.5, \quad F(1) = \frac{1 + \sqrt{3}}{2\sqrt{3}} \approx 0.7887.
-%     \]
-%     \item \textbf{Estimator Performance:}
-%         \begin{itemize}
-%             \item \( \hat{F}(x) \) is consistent with decreasing variance.
-%             \item \( \tilde{F}(x) \) shows bias due to the incorrect Normality assumption.
-%             \item Variance of \( \tilde{F}(x) \) may be misleading because of model misspecification.
-%         \end{itemize}
-%     \item \textbf{Efficiency Comparison:}
-%         \begin{itemize}
-%             \item \( \hat{F}(x) \) provides more reliable estimates compared to \( \tilde{F}(x) \) under misspecification.
-%         \end{itemize}
-% \end{itemize}
-
-% \textbf{Effect of Sample Size \( n \):}
-
-% \begin{itemize}
-%     \item As \( n \) increases, both estimators' variances decrease, and the distributions of the estimators become more concentrated around the true \( F(x) \).
-%     \item For the Normal distribution, \( \tilde{F}(x) \) converges faster due to lower variance.
-%     \item Under non-Normal distributions, increasing \( n \) does not correct the bias in \( \tilde{F}(x) \), highlighting the importance of correct model specification.
-% \end{itemize}
-
-% \textbf{Conclusions:}
-
-% \begin{itemize}
-%     \item When the true distribution is Normal, \( \tilde{F}(x) \) is more efficient than \( \hat{F}(x) \) due to lower variance.
-%     \item If the distribution is not Normal, \( \tilde{F}(x) \) may be biased and inconsistent, whereas \( \hat{F}(x) \) remains consistent.
-%     \item The choice between \( \hat{F}(x) \) and \( \tilde{F}(x) \) depends on the correctness of the distributional assumption.
-% \end{itemize}
-
-% \textbf{Recommendations for Practice:}
-
-% \begin{itemize}
-%     \item Use \( \tilde{F}(x) \) when there is strong evidence supporting the Normality assumption.
-%     \item Prefer \( \hat{F}(x) \) in the absence of reliable distributional information or when dealing with non-Normal data.
-%     \item Consider model diagnostics and goodness-of-fit tests to validate distributional assumptions.
-% \end{itemize}
-
-% \textbf{Note on Implementation:}
-
-% The simulation study can be implemented using statistical software like R or Python. Key steps include generating random samples, computing estimators, and analyzing results across simulations.
-
-% \textbf{Example Code Snippet (in R):}
-
-% \begin{verbatim}
-% # For illustration purposes only
-% n_values <- c(50, 100, 500, 1000)
-% x_values <- c(-1, 0, 1)
-% num_simulations <- 10000
-
-% for (n in n_values) {
-%   for (dist in c("Normal", "Exponential", "Uniform")) {
-%     for (x in x_values) {
-%       # Initialize storage for estimators
-%       hat_F <- numeric(num_simulations)
-%       tilde_F <- numeric(num_simulations)
-      
-%       for (sim in 1:num_simulations) {
-%         # Generate data based on distribution
-%         if (dist == "Normal") {
-%           data <- rnorm(n, mean=0, sd=1)
-%         } else if (dist == "Exponential") {
-%           data <- rexp(n, rate=1)
-%         } else if (dist == "Uniform") {
-%           data <- runif(n, min=-sqrt(3), max=sqrt(3))
-%         }
-        
-%         # Compute estimators
-%         hat_F[sim] <- mean(data <= x)
-%         mu_hat <- mean(data)
-%         sigma_hat <- sd(data)
-%         tilde_F[sim] <- pnorm((x - mu_hat) / sigma_hat)
-%       }
-      
-%       # Analyze results (compute empirical mean, variance, etc.)
-%       # ...
-%     }
-%   }
-% }
-% \end{verbatim}
-
-\rule{\textwidth}{0.5pt}
+}
 
 \begin{colorparagraph}{questioncolor}
+
+\rule{\textwidth}{0.5pt}
 Now we turn to estimating the density \( f(x) \). The density is the derivative of the cdf, and therefore is given by
 \[
 f(x) = F'(x) = \lim_{h \to 0} \frac{F(x + h) - F(x)}{h}
@@ -1825,72 +1473,74 @@ As \( h \to 0 \), the bias approaches zero:
 
 Thus, the bias of \( \hat{f}(x) \) vanishes as \( h \to 0 \).
 
-In a more informal way, it is interesting to view the bias as:
+% In a more informal way, it is interesting to view the bias as:
 
-\begin{align*}
-  \mathbb{E}[\hat{f}(x) - f(x)] &=
-  \mathbb{E}\left[\frac{\hat{F}(x + h) - \hat{F}(x)}{h}\right]
-  - \mathbb{E}\left[\frac{F(x + h) - F(x)}{h}\right] \\
-  &=
-  \mathbb{E}\left[\frac{\hat{F}(x + h)}{h}\right]
-  - \mathbb{E}\left[\frac{F(x + h)}{h}\right] \quad \text{(from the results of 2.e)}\\
-  &=
-  \frac{1}{h} \left(
-    \mathbb{E}\left[\hat{F}(x + h)\right]
-    - \mathbb{E}\left[F(x + h)\right]
-  \right)
-  \\
-  &=
-  \frac{1}{h} \left(
-    \mathbb{E}\left[
-      \frac{1}{n}\sum_i^n1 \{ x_i < x + h \}
-    \right]
-    - F(x + h)
-  \right)
-  \\
-  &=
-  \frac{1}{h} \left(
-    \frac{1}{n}
-    \left[
-      \sum_i^n \mathbb{E}[1 \{ x_i \leq x \} + 1 \{ x < x_i \leq x + h \}]
-    \right]
-    - \mathbb{P}(X \leq x + h)
-  \right)
-  \\
-  &=
-  \frac{1}{h} \left(
-    \frac{1}{n}
-    \left[
-      \sum_i^n \left(\mathbb{E}[1 \{ x_i \leq x \}] + \mathbb{E}[1 \{ x < x_i \leq x + h \}]\right)
-    \right]
-    - \mathbb{P}(X \leq x + h)
-  \right)
-  \\
-  &=
-  \frac{1}{h} \left(
-    \mathbb{P}(X < x) + \frac{n_h}{n}
-    - \mathbb{P}(X \leq x + h)
-  \right)
-  \\
-  &=
-  \frac{1}{h} \left(
-    \frac{n_h}{n}
-    - \mathbb{P}(x < X \leq x + h)
-  \right)
-\end{align*}
+% \begin{align*}
+%   \mathbb{E}[\hat{f}(x) - f(x)] &=
+%   \mathbb{E}\left[\frac{\hat{F}(x + h) - \hat{F}(x)}{h}\right]
+%   - \mathbb{E}\left[\frac{F(x + h) - F(x)}{h}\right] \\
+%   &=
+%   \mathbb{E}\left[\frac{\hat{F}(x + h)}{h}\right]
+%   - \mathbb{E}\left[\frac{F(x + h)}{h}\right] \quad \text{(from the results of 2.e)}\\
+%   &=
+%   \frac{1}{h} \left(
+%     \mathbb{E}\left[\hat{F}(x + h)\right]
+%     - \mathbb{E}\left[F(x + h)\right]
+%   \right)
+%   \\
+%   &=
+%   \frac{1}{h} \left(
+%     \mathbb{E}\left[
+%       \frac{1}{n}\sum_i^n1 \{ x_i < x + h \}
+%     \right]
+%     - F(x + h)
+%   \right)
+%   \\
+%   &=
+%   \frac{1}{h} \left(
+%     \frac{1}{n}
+%     \left[
+%       \sum_i^n \mathbb{E}[1 \{ x_i \leq x \} + 1 \{ x < x_i \leq x + h \}]
+%     \right]
+%     - \mathbb{P}(X \leq x + h)
+%   \right)
+%   \\
+%   &=
+%   \frac{1}{h} \left(
+%     \frac{1}{n}
+%     \left[
+%       \sum_i^n \left(\mathbb{E}[1 \{ x_i \leq x \}] + \mathbb{E}[1 \{ x < x_i \leq x + h \}]\right)
+%     \right]
+%     - \mathbb{P}(X \leq x + h)
+%   \right)
+%   \\
+%   &=
+%   \frac{1}{h} \left(
+%     \mathbb{P}(X < x) + \frac{n_h}{n}
+%     - \mathbb{P}(X \leq x + h)
+%   \right)
+%   \\
+%   &=
+%   \frac{1}{h} \left(
+%     \frac{n_h}{n}
+%     - \mathbb{P}(x < X \leq x + h)
+%   \right)
+% \end{align*}
 
-Thus,
+% Thus,
 
-$$
-\lim_{h \to 0} \frac{1}{h} \left(
-    \frac{n_h}{n}
-    - \mathbb{P}(x < X \leq x + h)
-  \right) = 0
-$$
+% $$
+% \lim_{h \to 0} \frac{1}{h} \left(
+%     \frac{n_h}{n}
+%     - \mathbb{P}(x < X \leq x + h)
+%   \right) = 0
+% $$
 
-\begin{colorparagraph}{tacolor}CHECK:
-Is it worth to keep this last part?
-\end{colorparagraph}
+% \ifthenelse{\boolean{showcomments}}{
+%   \begin{colorparagraph}{tacolor}CHECK:
+%   Is it worth to keep this last part?
+%   \end{colorparagraph}
+% }
 
 
 \begin{colorparagraph}{questioncolor}
@@ -2119,14 +1769,6 @@ where \( C \) is a constant that may depend on estimates of \( f(x) \) and \( f'
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
-We aim to prove that for fixed \( h \):
-
-\[
-\frac{\hat{f}(x) - \mathbb{E}[\hat{f}(x)]}{\Sigma^{1/2}} \xrightarrow{d} \mathcal{N}(0, 1),
-\]
-
-where \(\Sigma = \mathbb{V}[\hat{f}(x)]\).
-
 Recall that:
 
 \[
@@ -2172,8 +1814,6 @@ Therefore,
 \[
 \frac{\hat{f}(x) - \mathbb{E}[\hat{f}(x)]}{\Sigma^{1/2}} \xrightarrow{d} \mathcal{N}(0, 1).
 \]
-
-This completes the proof.
 
 \begin{colorparagraph}{questioncolor}
 \label{q2k}
@@ -2445,11 +2085,7 @@ Our results agree with the theoretical conclusions: for smaller samples, bigger 
 
 The best results, as expected, are found for big $n$ and, on average, $h = \frac{1}{n^{1/3}}$, as specified to provide good inference.
 
-\begin{colorparagraph}{tacolor}
-  REMOVE COMMENT
-\end{colorparagraph}
-
-\begin{comment}
+\ifthenelse{\boolean{imagesbool:q2m}}{
 \begin{table}[H]
   \centering
   \title{$f(x)$ Simulation Results for T-Student(30) in $x = 1$}
@@ -2561,7 +2197,7 @@ The best results, as expected, are found for big $n$ and, on average, $h = \frac
   \input{q2m-data/simulations_f_x5_log_normal_1_1_comp_h_n.tex}
   \label{tab:simulation_log_normal_1_1_x5}
 \end{table}
-\end{comment}
+}
 
 \begin{colorparagraph}{questioncolor}
 
@@ -2620,7 +2256,7 @@ The estimators for the treatment are:
   \item $\hat{\mu}_4 = \mathbb{E}[Y(4)] = 0.18733 + 0.10038 = 0.28771$
 \end{itemize}
 
-All treatment are statistically significanly from $t_1$ (control).
+All treatment are statistically different from $t_1$ (control).
 
 \subsubsection*{Regression with Covariates}
 \begin{figure}[H]
@@ -2826,7 +2462,6 @@ The estimators for the treatment are:
 \begin{figure}[H]
   \begin{table}[H]
   \centering
-  \label{tab:}
   \begin{tabular}{|cccc|}
     \hline
     Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
@@ -2845,26 +2480,24 @@ $t_2$ significance level decreases as we add covariates, but the standard error 
 \begin{figure}[H]
   \begin{table}[H]
   \centering
-  \label{tab:}
   \begin{tabular}{|cccc|}
     \hline
-    Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
+    Model & $t_1 + t_3$ & p-value $t_3$ & Std Error $t_3$ \\
     \hline
-    W/out Cov                & 0.18733 + 0.05233 = 0.239659 & 0.024434         & 0.02325 \\ 
-    W/ Dem Cov               & 0.220804 + 0.014434 = 0.235238 & 0.17057        & 0.010533 \\   
-    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0126451 = 0.2460916 & 0.228106    & 0.0104912 \\       
+    W/out Cov                & 0.18733 + 0.07789 = X & 0.000936         & 0.02353 \\ 
+    W/ Dem Cov               & 0.220804 + 0.025175 = X & 0.01828        & 0.010667 \\   
+    W/ Dem Cov Disc Interac  & 0.2334465 + 0.0254664 = X & 0.016536    & 0.0106236 \\       
     \hline
   \end{tabular}
-  \caption{ATE for $t_2$}
+  \caption{ATE for $t_3$}
 \end{table}
 \end{figure}
 
-$t_3$ significance level decreases as we add covariates. $t_3$ is still significant after adding covariates, showing relevant statistical difference between the control level and the treatment 3 level. The standard error decreases with the addition of more covariates.
+$t_3$ significance level decreases as we add covariates. $t_3$ is still significant after adding covariates, showing relevant statistical difference between the control level and the treatment 3 level. The standard error decreases with the addition of covariates.
 
 \begin{figure}[H]
 \begin{table}[H]
   \centering
-  \label{tab:}
   \begin{tabular}{|cccc|}
     \hline
     Model & $t_1 + t_4$ & p-value $t_4$ & Std Error $t_4$ \\
@@ -3038,7 +2671,7 @@ F-statistic:  2610 on 22 and 14551 DF,  p-value: < 2.2e-16
 \begin{figure}[H]
   \begin{table}[H]
   \centering
-  \label{tab:}
+  \small
   \begin{tabular}{|cccc|}
     \hline
     Model & $t_1 + t_2$ & p-value $t_2$ & Std Error $t_2$ \\
@@ -3057,7 +2690,7 @@ F-statistic:  2610 on 22 and 14551 DF,  p-value: < 2.2e-16
 \begin{figure}[H]
 \begin{table}[H]
   \centering
-  \label{tab:}
+  \small
   \begin{tabular}{|cccc|}
     \hline
     Model & $t_1 + t_3$ & p-value $t_3$ & Std Error $t_3$ \\
@@ -3076,7 +2709,7 @@ F-statistic:  2610 on 22 and 14551 DF,  p-value: < 2.2e-16
 \begin{figure}[H]
 \begin{table}[H]
   \centering
-  \label{tab:}
+  \small
   \begin{tabular}{|cccc|}
     \hline
     Model & $t_1 + t_4$ & p-value $t_4$ & Std Error $t_4$ \\
@@ -3094,9 +2727,9 @@ F-statistic:  2610 on 22 and 14551 DF,  p-value: < 2.2e-16
 
 Considering standard error as proxy for precision, for $t_2$, $t_3$ and $t_4$, there is improvement in precision of the estimators by using controls selected by LASSO.
 
-Specifically, we see that there is improvement using only demeaned covariates and when using demeaned covariates with intereaction.
+Specifically, we see that there is improvement when using only demeaned covariates and when using demeaned covariates with intereaction.
 
-The best model for all three ATE regarding standard error estimate is the model with demeaned covariates and interaction with covariates being selected by LASSO.
+The best model for all three ATE regarding standard error estimate is the model with demeaned covariates, interaction, and LASSO control.
 
 \begin{colorparagraph}{questioncolor}
 \label{q3c}
@@ -3345,7 +2978,9 @@ For $t_4$ and $t_4:\texttt{mother\_educ}$ there is improvement even in p-value.
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+
 \begin{figure}[H]
+  \subsubsection*{LASSO Selection in Sample A}
 \begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO - Only Showing Non-Zero Variables]
 100 x 1 sparse Matrix of class "dgCMatrix"
                                                             s1
@@ -3400,6 +3035,7 @@ t4:mother_educ                                    0.0172743524
 We keep 47\% of the features (48 out of 99), and the features related to treatment.
 
 \begin{figure}[H]
+\subsubsection*{Inference in Sample B after LASSO}
   \begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO]
 Call:
 lm(formula = caser_total_norm ~ ., data = sample_b %>% .[, non_zero_features] %>% 
@@ -3469,6 +3105,7 @@ F-statistic:   624 on 47 and 7239 DF,  p-value: < 2.2e-16
 \end{figure}
 
 \begin{figure}[H]
+\subsubsection*{Inference in Sample A after LASSO}
 \begin{lstlisting}[style=RstyleCommentSmall, caption=CATE with Controls selected by LASSO]
 Call:
 lm(formula = caser_total_norm ~ ., data = sample_a %>% .[, non_zero_features] %>% 
@@ -3552,7 +3189,7 @@ F-statistic: 638.5 on 47 and 7239 DF,  p-value: < 2.2e-16
     $t_4:\texttt{mother\_educ}$ & 0.043660        & 0.0418646 \\
     \hline
   \end{tabular}
-  \caption{ATE for $t_2$}
+  \caption{Std Error Estimates for Samples A and Sample B after LASSO Control in Sample A}
 \end{table}
 \end{figure}
 
@@ -3561,23 +3198,36 @@ F-statistic: 638.5 on 47 and 7239 DF,  p-value: < 2.2e-16
   \centering
   \begin{tabular}{|c|cc|}
     \hline
-    Parameter                   & Std Error LASSO Sample A & Std Error LASSO Sample B \\
+    Parameter                   & Coefficients LASSO Sample A & Coefficients LASSO Sample B \\
     \hline
-    $\text{Intercept}$          & 0.2033015  &  0.21479 \\
-    $t_2$                       & 0.0141120  &  -0.004855 \\
-    $t_3$                       & 0.0282517  &  0.015108 \\
-    $t_4$                       & 0.0583243  &  0.051222 \\
-    $\beta_{\text{ME}}$         & 0.1043280  &  0.079796 \\
-    $t_2:\texttt{mother\_educ}$ & 0.0139198  &  0.055800 \\
-    $t_3:\texttt{mother\_educ}$ & 0.0276729  &  0.017537 \\
-    $t_4:\texttt{mother\_educ}$ & -0.0036344 &  0.015046 \\
+    $\text{Intercept}$          &  0.21479 & 0.2033015  \\
+    $t_2$                       &  -0.004855 & 0.0141120  \\
+    $t_3$                       &  0.015108 & 0.0282517  \\
+    $t_4$                       &  0.051222 & 0.0583243  \\
+    $\beta_{\text{ME}}$         &  0.079796 & 0.1043280  \\
+    $t_2:\texttt{mother\_educ}$ &  0.055800 & 0.0139198  \\
+    $t_3:\texttt{mother\_educ}$ &  0.017537 & 0.0276729  \\
+    $t_4:\texttt{mother\_educ}$ &  0.015046 & -0.0036344 \\
     \hline
   \end{tabular}
-  \caption{ATE for $t_2$}
+  \caption{Coefficient Estimates for Samples A and Sample B after LASSO Control in Sample A}
 \end{table}
 \end{figure}
 
 Precision is similar between Sample A and Sample B (standard errors). Nonetheless, the estimate parameters are relatively different in the two samples. In $t_4:\texttt{mother\_educ}$ and $t_2$, the parameters even have different signs.
+
+Overall the standard errors are remarkably similar between Sample A and Sample B for all parameters This suggests that the variability of the estimates is consistent across both samples.
+
+We use sample splitting to:
+\begin{itemize}
+  \item Prevent overfitting and selection bias: Using Sample A for lasso variable selection helps avoid overfitting specific to one dataset.
+  \item Validate results: Sample B is used to test if the impacts identified in Sample A hold true independently.
+  \item Avoid double-dipping: Separating data prevents biases from using the same sample for both selection and testing.
+  \item Enhance statistical inference: Independent testing provides more reliable p-values and confidence intervals.
+  \item Ensure robustness: Confirmation in Sample B strengthens the evidence that the impacts are genuine and generalizable.
+\end{itemize}
+
+
 
 \begin{colorparagraph}{questioncolor}
 
@@ -3598,20 +3248,18 @@ We use \texttt{binsreg}:
   \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
 \end{itemize}
 
-For each continous variable, we provide the \texttt{binsreg} for each of the treatment.
+We believe that the use of \texttt{binsreg} with controls allows us to see a more clear impact of $W_j$ in the expected value for each potential treatment outcome. Furthermore, we control only for the covariates selected by LASSO, since we have the best improvement in precision when using those (and only those).
+
+For each continous variable, we provide the \texttt{binsreg} for each of the treatments. Some interesting takeaways are:
 
 \begin{itemize}
-  \item BL Caser Total Norm has very similar \( \omega_t(w_j) = \mathbb{E}[Y(t) \mid W_j = w_j] \) for all $t$.
+  \item BL Caser Total Norm has very similar \( \omega_t(w_j) \) for all $t$.
   \item number of kids with and without control has more heterogeneous impact on the target when number of kids is larger for all $t$.
   \item Number of kids has more homogeneous impact on the target for $t_3$ and $t_4$ when focusing on the lower variables of the feature number of kids than $t_1$ and $t_2$.
   \item The impact of age seems to follow a quadratic form, meaning that fitting a model with $\texttt{age}^2$ and $\texttt{age}$ should be beneficial. The quadratic effect is smaller when controlling for selected covariates, but still visible.
 \end{itemize}
 
-\begin{colorparagraph}{tacolor}
-  REMOVE COMMENT
-\end{colorparagraph}
-
-\begin{comment}
+\ifthenelse{\boolean{imagesbool:q3f}}{
 \begin{figure}[H]
   \centering
   \textbf{Binsreg for Age in $t_1$ without and with Control}
@@ -3680,8 +3328,7 @@ For each continous variable, we provide the \texttt{binsreg} for each of the tre
   \includegraphics[width=170px]{q3f-plots/best_binsreg_bl_caser_total_norm_t4.png}
   \includegraphics[width=170px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png}
 \end{figure}
-
-\end{comment}
+}
 
 \begin{colorparagraph}{questioncolor}
 \rule{\textwidth}{0.5pt}
@@ -3698,18 +3345,17 @@ Again, We use \texttt{binsreg} with CI:
   \item With the controls identified from question (3.b) using LASSO. In it, we saw great improvement in the estimator precision (right).
 \end{itemize}
 
+Some interesting takeaways:
+
 \begin{itemize}
   \item We again find that age has a non-linear function with respect to the target and controlling and not controlling for covariates.
   \item The effect for all the continous covariates is more heterogeneous is the upper quantile of their distribution. It is particularly visible for age and number of kids controlling or not for covariates.
   \item BL Caser Total Norm is almost always monotonic increasing with the exception of a point in the upper quantile in which we see an heterogeneous uncertain effect.
   \item Controlling for covariates makes the effect of number of kids more homogeneous vis-a-vis not controlling. The opposite is true for age.
+  \item Again, it is worth to mention that the impact of age seems to follow a quadratic form, meaning that fitting a model with $\texttt{age}^2$ and $\texttt{age}$ should be beneficial. The quadratic form is specially visible when we do not control for covariates.
 \end{itemize}
 
-\begin{colorparagraph}{tacolor}
-  REMOVE COMMENT
-\end{colorparagraph}
-
-\begin{comment}
+\ifthenelse{\boolean{imagesbool:q3g}}{
 \begin{figure}[H]
   \centering
   \textbf{Binsreg for Age in $t_1$ without and with Control}
@@ -3778,7 +3424,7 @@ Again, We use \texttt{binsreg} with CI:
   \includegraphics[width=170px]{q3g-plots/best_confidence_interval_binsreg_bl_caser_total_norm_t4.png}
   \includegraphics[width=170px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png}
 \end{figure}
-\end{comment}
+}
 
 \begin{colorparagraph}{questioncolor}
 \section*{Deep Nets and Forests}
@@ -3839,6 +3485,168 @@ This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+Below, we plot the partial dependence plot and the variable importance plot.
+
+We see that the partial dependence plot is extremely similar to bins reg plot for BL Caser Norm. Partial depencency plot and binsreg are similar for age and quite different for Number of Kids.
+
+Furthermore, we see that there is small difference between $t_1$, $t_2$, $t_3$, and $t_4$ partial dependency plot of Age and BL Caser Total Norm. Both methods aim to uncover marginal relationships between the features and the outcome, so concordance here suggests consistent underlying relationships.
+
+For Number of Kids, while more heterogeneous between treatment, the partial depencency plot has similar characteristics for all. The slight differences in the plots for Number of Kids are also understandable, as this variable might capture more heterogeneous effects due to varying family dynamics that are difficult to model fully with either method.
+
+This relationship is less clear when using Binsreg. 
+
+The variable importance plot shows higher importance for BL Caser Total Norm for all treatment sugroups in \texttt{IncMSE} and \texttt{IncNodePurty}. Age is always the second highest in importance.
+
+It is logical for BL Caser Total Norm to have the highest importance across treatments, as it represents a baseline measure strongly tied to the outcome variable (normalized child test scores). Age's consistent rank as the second most important variable is also intuitive. A child's age is a critical determinant of development and learning outcomes.
+
+There is small change in the rank of most important variables between the different treatment subgroups. For instance:
+\begin{itemize}
+  \item \texttt{factor\_educ} is the 4th most important for all subgroups but $t_2$.
+  \item \texttt{boy} is the least important for $t_3$, but the 4th least important for $t_1$ and $t_2$.
+\end{itemize}
+
+The stability in variable rankings reinforces the fact that we are dealing with an RCT.
+
+\ifthenelse{\boolean{imagesbool:q3i}}{
+\begin{figure}[H]
+  \subsubsection*{Variable Importance Plot}
+  \centering
+  \includegraphics[width=200px]{q3i-plots/variable_importance_t1.png}
+  \includegraphics[width=200px]{q3i-plots/variable_importance_t2.png}
+  \includegraphics[width=200px]{q3i-plots/variable_importance_t3.png}
+  \includegraphics[width=200px]{q3i-plots/variable_importance_t4.png}
+\end{figure}
+
+\begin{figure}[H]
+  \subsubsection*{Age}
+  \centering
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_1$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_age_t1.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_age_t1.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t1.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_2$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_age_t2.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_age_t2.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t2.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_3$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_age_t3.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_age_t3.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t3.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_4$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_age_t4.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_age_t4.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_age_t4.png}
+
+\end{figure}
+\begin{figure}[H]
+  \subsubsection*{Number of Kids}
+  \centering
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_1$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t1.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_number_of_kids_t1.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t1.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_2$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t2.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_number_of_kids_t2.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t2.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_3$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t3.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_number_of_kids_t3.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t3.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_4$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_number_of_kids_t4.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_number_of_kids_t4.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_number_of_kids_t4.png}
+
+\end{figure}
+\begin{figure}[H]
+  \subsubsection*{BL Caser Total Norm}
+  \centering
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_1$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t1.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_bl_caser_total_norm_t1.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t1.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_2$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t2.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_bl_caser_total_norm_t2.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t2.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_3$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t3.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_bl_caser_total_norm_t3.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t3.png}
+
+  \textbf{Bins Reg LASSO Control, Partial Dependence, and CI LASSO Control for $t_4$}
+
+  \includegraphics[width=140px]{q3f-plots/best_binsreg_lasso_control_bl_caser_total_norm_t4.png}
+  \includegraphics[width=140px]{q3i-plots/partial_dependence_bl_caser_total_norm_t4.png}
+  \includegraphics[width=140px]{q3g-plots/best_confidence_interval_lasso_control_binsreg_bl_caser_total_norm_t4.png}
+
+\end{figure}
+}
+
+As an extra, we have also derived the coefficients for $\mu_t$ for each treatment level:
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    $t$ & $\mu_t$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    1	& 0.222404 & 0.010585	& 21.011832	& 0.0 &	0.201658 & 0.243149 \\
+    2	& 0.235811 & 0.010404	& 22.664335	& 0.0 &	0.215419 & 0.256204 \\
+    3	& 0.242737 & 0.010326	& 23.508201	& 0.0 &	0.222499 & 0.262975 \\
+    4	& 0.278559 & 0.010583	& 26.320629	& 0.0 &	0.257816 & 0.299302 \\
+    \hline
+  \end{tabular}
+  \caption{$\mu_t$ Estimate with Random Forest}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \subsubsection*{Inference in Sample A after LASSO}
+  \begin{lstlisting}[style=RstyleCommentSmall, caption=Sensitivity Analysis in Random Forest Estimate]
+================== Sensitivity Analysis ==================
+
+------------------ Scenario          ------------------
+Significance Level: level=0.95
+Sensitivity parameters: cf_y=0.03; cf_d=0.03, rho=1.0
+
+------------------ Bounds with CI    ------------------
+   CI lower  theta lower     theta  theta upper  CI upper
+0  0.177821     0.195300  0.222404     0.249507  0.266863
+1  0.191698     0.208892  0.235811     0.262730  0.279780
+2  0.197993     0.215039  0.242737     0.270435  0.287375
+3  0.234003     0.251482  0.278559     0.305636  0.322990
+
+------------------ Robustness Values ------------------
+   H_0     RV (%)    RVa (%)
+0  0.0  22.065862  20.457212
+1  0.0  23.359683  21.778022
+2  0.0  23.368252  21.849942
+3  0.0  26.808848  25.269505
+  \end{lstlisting}
+\end{figure}
+
 \begin{colorparagraph}{questioncolor}
 \label{q3j}
 \rule{\textwidth}{0.5pt}
@@ -3848,6 +3656,53 @@ This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
 
+\begin{table}[H]
+  \centering
+  \input{q3j-results/summary_of_validation_loss_by_architecture.tex}
+  \label{tab:summary_of_validation_loss_by_architecture}
+\end{table}
+
+In our estimates of DNN, we grid-search. We test the architectures defined below, RIDGE Regularization ($\alpha \in \{0.001, 0.01, 0.1, 0.3, 0.5, 1\}$), and Learning Rate (constant and adaptive). We keep do preliminary tests and arrive to ReLU as the best activation function.
+
+Among all the architectures tested, the 128-64-32 architecture with $\alpha = 0.3$ and adaptive learning rate achieves the lowest validation loss of 0.632633, which is the primary criterion for model selection in this scenario. Lower validation loss indicates better generalization to unseen data.
+
+The 128-64-32 architecture is relatively simple compared to deeper architectures like 256-128-64-32 or 64-64-64-64-64. It balances model complexity and performance effectively, minimizing the risk of overfitting while achieving the best validation loss. A smaller model like 128-64-32 is computationally more efficient to train and deploy compared to deeper architectures, making it a practical choice.
+
+\ifthenelse{\boolean{imagesbool:q3j}}{
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_256_128_64.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_256_128_64_32.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_128_128.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_128_128_128.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_128_64_32.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_64_64_64.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_64_64_64_64_64.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_64_32.png}
+  \includegraphics[width=170px]{q3j-plots/training_validation_loss_by_epoch_arch_32_32_32_32_32.png}
+\end{figure}
+}
+
+Using \texttt{DoubleML}, we get the following estimates:
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    $t$ & $\hat{\mu}_t$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    1	& 0.223232 & 0.011121	& 20.072907	& 0.0 &	0.201435 & 0.245029 \\
+    2	& 0.235384 & 0.010752	& 21.892959	& 0.0 &	0.214311 & 0.256457 \\
+    3	& 0.245785 & 0.010708	& 22.954221	& 0.0 &	0.224798 & 0.266771 \\
+    4	& 0.277079 & 0.011171	& 24.804375	& 0.0 &	0.255185 & 0.298973 \\
+    \hline
+  \end{tabular}
+  \caption{$\mu_t$ Estimate with DNN}
+\end{table}
+\end{figure}
+
 \begin{colorparagraph}{questioncolor}
 \label{q3k}
 \rule{\textwidth}{0.5pt}
@@ -3856,6 +3711,182 @@ This equality allows us to estimate \( \mu_t(x, w) \) directly from the observed
 
 \rule{\textwidth}{0.5pt}
 \end{colorparagraph}
+
+To conduct inference on the treatment effect of treatment \( t \) compared to the baseline using influence function-based estimation, we focus on estimating the average treatment effect (ATE), defined as
+\[
+\text{ATE} = \mathbb{E}[\mu_t(X, W) - \mu_0(X, W)],
+\]
+where \( \mu_t(X, W) \) represents the expected outcome given treatment \( t \) and covariates \( X \) and \( W \).
+
+In this context, the IF helps adjust for model estimation errors, ensuring valid inference even when machine learning methods are used for estimation of treatment probability and target outcome.
+
+Preliminary estimates of \( \mu_t(X, W) \) obtained from random forests and neural networks serve as inputs for the influence function-based estimator. Additionally, propensity scores \( p_t(X, W) \), which are the probabilities of receiving treatment \( t \) given covariates \( X \) and \( W \), must be estimated. These scores can be derived using methods such as logistic regression or random forests and are essential for adjusting for confounding factors to obtain an unbiased estimate of the treatment effect.
+
+Using DML, we estimate:
+
+\begin{itemize}
+  \item \( \mu_t(X, W) \), mean of the target for $t$, using both random forest and neural networks.
+  \item \( p_t(X, W) \), propensity score (probability of receiving treatment $t$ given covariates \( X \) and \( W \)), using both random forest and neural networks.
+\end{itemize}
+
+The Augmented Inverse Probability Weighting (AIPW) estimator is commonly used in this framework and is defined as
+\[
+\hat{\text{ATE}} = \frac{1}{n} \sum_{i=1}^n \left[ \frac{T_i (Y_i - \hat{\mu}_1(X_i, W_i))}{\hat{p}_1(X_i, W_i)} - \frac{(1 - T_i) (Y_i - \hat{\mu}_0(X_i, W_i))}{\hat{p}_0(X_i, W_i)} + \hat{\mu}_1(X_i, W_i) - \hat{\mu}_0(X_i, W_i) \right],
+\]
+
+\( \hat{\mu}_t(X_i, W_i) \) are the outcome regression estimates from the preliminary models, and \( \hat{p}_t(X_i, W_i) \) are the propensity score estimates.
+
+To estimate the variance of \( \hat{\text{ATE}} \), we compute the empirical variance of the influence function:
+\[
+\text{Var}(\hat{\text{ATE}}) = \frac{1}{n^2} \sum_{i=1}^n \left( \psi_i - \hat{\text{ATE}} \right)^2,
+\]
+where \( \psi_i \) represents the individual influence functions. Confidence intervals can then be constructed using the normal approximation:
+\[
+\hat{\text{ATE}} \pm z_{\alpha/2} \sqrt{\hat{V}},
+\]
+with \( z_{\alpha/2} \) being the critical value from the standard normal distribution.
+
+We use cross-fitting to decrease overfitting probability.
+
+The steps of cross-fitting are:
+
+\begin{enumerate}
+\item Split the Sample: Divide the data into K folds $\{\mathcal{I}_k\}{k=1}^K$.
+\item For Each Fold:
+\begin{enumerate}
+\item Train Nuisance Estimators: Use data from all other folds:
+$$
+\mathcal{I}_{-k} = \bigcup{j \neq k} \mathcal{I}_j
+$$
+to estimate $\hat{m}^{(-k)}(X_i)$ and $\hat{g}^{(-k)}(X_i)$.
+
+\item Compute Score Function: For observations in fold $\mathcal{I}_k$, compute $\psi(Y_i, T_i, X_i; \hat{\eta}^{(-k)})$ using the nuisance estimates from step (a):
+
+\begin{equation}
+    \begin{split}
+        \psi(Y_i, T_i, X_i; \hat{\eta}^{(-k)}) = & \left( \frac{T_i - \hat{g}^{(-k)}(X_i)}{\hat{\pi}^{(-k)}(X_i)} \right) (Y_i - \hat{m}^{(-k)}(X_i)) \\
+        & + \ \hat{m}_1^{(-k)}(X_i) - \hat{m}_0^{(-k)}(X_i) - \tau^{(-k)}.
+    \end{split}
+    \label{eq:orthogonal_score_fold_k}
+\end{equation}
+
+\end{enumerate}
+\item Aggregate: Combine the estimates from all folds:
+
+\begin{equation}
+\hat{\tau} = \frac{1}{n} \sum_{k=1}^K \sum_{i \in \mathcal{I}_k} \hat{\tau}_i^{(-k)} =  \frac{1}{K} \sum_{k=1}^K \hat{\tau}^{(-k)}
+\label{eq:avg_tau_hat}
+\end{equation}
+
+\end{enumerate}
+
+Luckily, \texttt{DoubleML} package present in R and Python already provides the implementation with cross-fitting.
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    $t$ & $\hat{\mu}_t$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    1	& 0.223573 & 0.010607	& 21.077801	& 0.0 &	0.202784 & 0.244362 \\
+    2	& 0.234998 & 0.010409	& 22.576103	& 0.0 &	0.214597 & 0.255400 \\
+    3	& 0.242763 & 0.010339	& 23.480665	& 0.0 &	0.222499 & 0.263026 \\
+    4	& 0.279409 & 0.010602	& 26.354288	& 0.0 &	0.258630 & 0.300189 \\
+    \hline
+  \end{tabular}
+  \caption{$\mu_t$ Estimate with Random Forest}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    Coefficient & $\hat{\mu}_t - \hat{\mu}_1$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    2 vs 1	& 0.011425 & 0.010472	& 1.091025	& 2.752621e-01 &	-0.009100 & 0.031950 \\
+    3 vs 1	& 0.019190 & 0.010422	& 1.841305	& 6.557681e-02 &	-0.001237 & 0.039616 \\
+    4 vs 1	& 0.055836 & 0.010741	& 5.198599	& 2.007956e-07 &	 0.034785 & 0.076887 \\
+    \hline
+  \end{tabular}
+  \caption{$\hat{\text{ATE}}$ Estimate with Random Forest}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    $t$ & $\hat{\mu}_t$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    1	& 0.223232 & 0.011121	& 20.072907	& 0.0 &	0.201435 & 0.245029 \\
+    2	& 0.235384 & 0.010752	& 21.892959	& 0.0 &	0.214311 & 0.256457 \\
+    3	& 0.245785 & 0.010708	& 22.954221	& 0.0 &	0.224798 & 0.266771 \\
+    4	& 0.277079 & 0.011171	& 24.804375	& 0.0 &	0.255185 & 0.298973 \\
+    \hline
+  \end{tabular}
+  \caption{$\mu_t$ Estimate with DNN}
+\end{table}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|ccccccc|}
+    \hline
+    Coefficient & $\hat{\mu}_t - \hat{\mu}_1$	& Std Error &	t-value	& $P>|t|$	& 2.5\%	& 97.5\% \\
+    \hline
+    2 vs 1	& 0.012152 & 0.011308	& 1.074611	& 0.282549 &	-0.010012 & 0.034316 \\
+    3 vs 1	& 0.022553 & 0.011278	& 1.999667	& 0.045536 &	 0.000448 & 0.044658 \\
+    4 vs 1	& 0.053847 & 0.011785	& 4.569267	& 0.000005 &	 0.030749 & 0.076944 \\
+    \hline
+  \end{tabular}
+  \caption{$\hat{\text{ATE}}$ Estimate with DNN}
+\end{table}
+\end{figure}
+
+In our estimates of DNN, we redo grid-search for both the target model and the propensity score model.
+
+We test:
+\begin{itemize}
+  \item NN Architectures:
+  \begin{itemize}
+    \item (128, 64, 32)
+    \item (64, 64, 64, 64)
+    \item (32, 32, 32, 32)
+    \item (32, 32, 32)
+    \item (64, 32, 16)
+    \item (128, 64, 32, 16)
+  \end{itemize}
+  \item Alpha (RIDGE Regularization): 0.001, 0.01, 0.1, 0.3, 0.5, 1.
+  \item Learning Rate: constant and adaptive.
+\end{itemize}
+
+We run it with a maximum of 1000 iterations, ReLU activation, and ADAM solver.
+
+The results agree with previous evidence: there is a significant difference in target level for $t_4$ when comparing to control at 1\% significance. $t_3$ is significant at 10\%.
+
+\begin{figure}[H]
+  \begin{table}[H]
+  \centering
+  \begin{tabular}{|cll|}
+    \hline
+    Coefficient & $\hat{\text{ATE}}$ DNN & $\hat{\text{ATE}}$ RF \\
+    \hline
+    2 vs 1	& $0.012152$ & $0.011425$ \\
+    3 vs 1	& $0.022553^{**}$ & $0.019190^{*}$ \\
+    4 vs 1	& $0.053847^{***}$ & $0.055836^{***}$ \\
+    \hline
+  \end{tabular}
+  \caption{$\hat{\text{ATE}}$ Estimate Comparison}
+\end{table}
+\end{figure}
+
+
+
 
 
 \end{document}

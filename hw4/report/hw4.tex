@@ -1,0 +1,1742 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{booktabs}      % For enhanced table lines
+\usepackage{longtable}     % For tables that span multiple pages
+\usepackage{caption}       % For table captions
+\usepackage{float}         % For table placement options
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{comment}
+\usepackage{ifthen}
+\usepackage{amsfonts}
+\usepackage{colortbl}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{mathtools}
+\usepackage{changepage}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{amssymb}
+\usepackage{color}
+\usepackage{lscape}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+% Define the header
+\fancyfoot[R]{Fernando Urbano}
+\renewcommand{\footrulewidth}{0.2pt}
+
+\fancyhead[L]{ECMA 31380 - Causal Machine Learning}
+\fancyhead[R]{Homework 4}
+
+\usepackage{graphicx}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+\renewcommand{\thesubsection}{\thesection.\alph{subsection}}
+\newcommand{\divider}{\vspace{1em}\hrule\vspace{1em}}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{Rstyle}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{blue},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\newboolean{imagesbool:q2d}
+\newboolean{imagesbool:q2m}
+\newboolean{imagesbool:q3f}
+\newboolean{imagesbool:q3g}
+\newboolean{imagesbool:q3i}
+\newboolean{imagesbool:q3j}
+\newboolean{showplots}
+
+\setboolean{showplots}{true}
+\setboolean{imagesbool:q2d}{true}
+\setboolean{imagesbool:q2m}{true}
+\setboolean{imagesbool:q3f}{true}
+\setboolean{imagesbool:q3g}{true}
+\setboolean{imagesbool:q3i}{true}
+\setboolean{imagesbool:q3j}{true}
+
+\lstdefinestyle{RstyleComment}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\footnotesize\color{codegreen},
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\lstdefinestyle{RstyleCommentSmall}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\scriptsize\color{codegreen}, % Changed font size here
+  breakatwhitespace=false,          
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\lstdefinestyle{RstyleCommentTiny}{
+  backgroundcolor=\color{backcolour},   
+  commentstyle=\color{codegreen},
+  keywordstyle=\color{codegreen},
+  stringstyle=\color{codegreen},
+  basicstyle=\ttfamily\tiny\color{codegreen}, % Changed to \tiny
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=true,                  
+  tabsize=2,
+  language=R
+}
+
+\title{ECMA 31380 - Causal Machine Learning - Homework 4}
+\author{Fernando Rocha Urbano}
+\date{Autumn 2024}
+
+% Define colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+% Setup the listings package
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\newenvironment{colorparagraph}[1]{\par\color{#1}}{\par}
+\definecolor{questioncolor}{RGB}{20, 40, 150}
+\definecolor{tacolor}{RGB}{200, 0, 0}
+
+\lstset{style=mystyle}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Attention:} all code is available in
+
+\url{https://github.com/Fernando-Urbano/causal-machine-learning/tree/main/hw4}.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1}
+  \section{Conditions on Nonparametric Estimators}
+  
+  We are studying the impact of a multi-valued treatment \( T \in \{0, 1, \dots, T\} \), for some integer \( T \), on an outcome \( Y \). We observe \( Z = (Y, T, \mathbf{X}')' \in \mathbb{R} \times \{0, 1, \dots, T\} \times \mathbb{R}^d \). Define the potential outcomes as \( Y(t) \), the propensity score \( p_t(\mathbf{x}) := \mathbb{P}[T = t \mid \mathbf{X} = \mathbf{x}] \), and the regression functions \( \mu_t(x) = \mathbb{E}[Y(t) \mid \mathbf{X} = \mathbf{x}] \).
+  
+  Interesting estimands can be built from averages of \( \mu_t(\mathbf{x}) \). For example: the ATE of treatment level \( t \) is \( \tau_t = \mathbb{E}[\mu_t(\mathbf{X}) - \mu_0(\mathbf{X})] \). If the treatment is a dose, then the effect of increasing the dose from \( t \) to \( t+1 \) is \( \mathbb{E}[\mu_{t+1}(\mathbf{X}) - \mu_t(\mathbf{X})] \). And so on. So we will study \( \mu_t = \mathbb{E}[\mu_t(\mathbf{X})] = \mathbb{E}[Y(t)] \).
+  
+  Suppose that \( p_t(x) = p_t \) is constant over \( x \), so that this is a randomized experiment.
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+  
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1a}
+  \subsection{Linear Regression Model and Assumptions}
+  
+  Provide a single linear regression model that yields identification of all \( \mu_t \), \( t \in \{0, \dots, T\} \). What assumptions do you need? Describe the estimators \( \hat{\mu} \). Provide regularity conditions so that the vector \( \hat{\mu} \) is asymptotically Normal, asymptotically unbiased, and characterize the asymptotic variance.
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\[
+\text{Consider the linear model: } Y = \sum_{t=0}^T \alpha_t \mathbb{1}\{T=t\} + \varepsilon,
+\]
+where \(\mathbb{1}\{T=t\}\) is the indicator function that takes the value 1 if \(T=t\) and 0 otherwise, and \(\varepsilon\) is a random error term.
+
+Identification of the parameters \(\mu_t\) follows from:
+\[
+\mu_t = \mathbb{E}[Y(t)] = \alpha_t.
+\]
+Since we assume that the treatment assignment is independent of \(\mathbf{X}\) (i.e., \(p_t(\mathbf{x})=p_t\) is constant), this implies that
+\[
+\mathbb{E}[\varepsilon \mid T=t, \mathbf{X}] = 0.
+\]
+
+Under these assumptions, the OLS estimators
+\[
+\hat{\alpha}_t = \frac{1}{n_t} \sum_{i: T_i=t} Y_i, 
+\]
+where \(n_t = \sum_{i=1}^n \mathbb{1}\{T_i=t\}\), are unbiased and consistent for \(\alpha_t\). Hence,
+\[
+\hat{\mu}_t = \hat{\alpha}_t.
+\]
+
+To characterize the asymptotic behavior, let \(\hat{\mu} = (\hat{\mu}_0, \hat{\mu}_1, \dots, \hat{\mu}_T)'\) and \(\mu = (\mu_0, \mu_1, \dots, \mu_T)'\). Under standard regularity conditions, including:
+\begin{itemize}
+\item Finite second moments: \(\mathbb{E}[Y(t)^2] < \infty\) for all \(t\).
+\item The proportions \(p_t = \mathbb{P}(T=t)\) are fixed and strictly positive.
+\item Independence of treatment and potential outcomes: \( (Y(t))_{t=0}^T \perp T \).
+\end{itemize}
+we have by the Central Limit Theorem:
+\[
+\sqrt{n} (\hat{\mu} - \mu) \xrightarrow{d} N(0, \Sigma),
+\]
+where \(\Sigma\) is a \((T+1)\times(T+1)\) diagonal matrix given by
+\[
+\Sigma = \mathrm{diag}\left(\frac{\sigma_0^2}{p_0}, \frac{\sigma_1^2}{p_1}, \dots, \frac{\sigma_T^2}{p_T}\right),
+\]
+and \(\sigma_t^2 = \mathrm{Var}(Y(t))\). Thus, each \(\hat{\mu}_t\) is asymptotically Normal and asymptotically unbiased with asymptotic variance \(\sigma_t^2 / p_t\).
+
+In summary, the linear model above combined with the given assumptions and regularity conditions ensures that the estimators \(\hat{\mu}_t\) are consistent, asymptotically Normal, and asymptotically unbiased, and that the asymptotic variance is as described.
+  
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1b}
+  \subsection{Sufficient Conditions for Identification}
+  
+  Now suppose that \( p_t(\mathbf{x}) \) is not constant. Provide sufficient conditions so that \( \mu_t \) is identified. Compare these conditions to what you found above.
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\[
+\text{Consider the following assumptions:}
+\]
+
+\[
+1.\; (Y(0), Y(1), \dots, Y(T)) \perp T \mid \mathbf{X}.
+\]
+This condition, sometimes called unconfoundedness or conditional independence, ensures that the treatment assignment is independent of the potential outcomes once we condition on the covariates \(\mathbf{X}\). Formally, for all measurable sets \(\mathcal{Y}_0, \dots, \mathcal{Y}_T\),
+\[
+\mathbb{P}(Y(0) \in \mathcal{Y}_0, \dots, Y(T) \in \mathcal{Y}_T \mid T, \mathbf{X}) = \mathbb{P}(Y(0) \in \mathcal{Y}_0, \dots, Y(T) \in \mathcal{Y}_T \mid \mathbf{X}).
+\]
+
+\[
+2.\; 0 < p_t(\mathbf{x}) = \mathbb{P}(T=t \mid \mathbf{X}=\mathbf{x}) < 1 \; \text{for all } t \in \{0,\dots,T\} \text{ and almost every } \mathbf{x}.
+\]
+This positivity (overlap) condition ensures that every treatment arm has a nonzero probability of being assigned at each value of \(\mathbf{X}\). It rules out degenerate cases where certain treatments never occur for some subsets of \(\mathbf{X}\).
+
+Given these assumptions, we have that
+\[
+\mu_t = \mathbb{E}[Y(t)] = \int \mathbb{E}[Y \mid T=t, \mathbf{X}=\mathbf{x}] f_{\mathbf{X}}(\mathbf{x}) \, d\mathbf{x}.
+\]
+By the unconfoundedness assumption,
+\[
+\mathbb{E}[Y(t) \mid \mathbf{X}=\mathbf{x}] = \mathbb{E}[Y \mid T=t, \mathbf{X}=\mathbf{x}],
+\]
+and by the law of total expectation,
+\[
+\mu_t = \int \mathbb{E}[Y \mid T=t, \mathbf{X}=\mathbf{x}] f_{\mathbf{X}}(\mathbf{x}) \, d\mathbf{x}.
+\]
+
+Since both \(\mathbb{E}[Y \mid T=t, \mathbf{X}=\mathbf{x}]\) and \(f_{\mathbf{X}}(\mathbf{x})\) can be identified from the data (with a sufficiently rich dataset and given the positivity condition), \(\mu_t\) is identified.
+
+Comparing this to the case where \(p_t(\mathbf{x})=p_t\) is constant, we previously needed only unconditional independence of treatment assignment. In that case, the identification was straightforward since no conditioning on \(\mathbf{X}\) was required. Here, when \(p_t(\mathbf{x})\) is not constant, we rely on conditional independence and overlap conditions to ensure that each \(\mu_t\) is identified by integrating out the covariates \(\mathbf{X}\). This means the identification no longer comes from a simple randomization structure alone; rather, it comes from controlling for observable differences across treatment groups through conditioning on \(\mathbf{X}\).
+  
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  In class, we studied nonparametric regression using piecewise polynomials of degree \( p \) (fixed) and \( J = J_n \to \infty \) pieces and proved that the \( L_2 \) convergence rate is (using the notation of the present context)
+  \[
+  \|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left( \frac{J^d}{n} + J^{-2(p+1)} \right).
+  \]
+
+  Let the number of bins be \( J = C n^\gamma \) for some constants (positive) \( C \) and \( \gamma \). We will ignore \( C \) and focus on rates here.
+
+  First we study nonparametric estimation and inference.
+
+  \label{q1c}
+  \subsection{Range of \(\gamma\) for Consistency}
+
+  For what range of \( \gamma \) is \( \hat{\mu}_t(\mathbf{x}) \) consistent? How does this range depend on the dimension and the polynomial order? Are there values of \( p \) and \( d \) such that this interval is empty?
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+For the given rate
+\[
+\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left( \frac{J^d}{n} + J^{-2(p+1)} \right),
+\]
+we substitute \( J = n^\gamma \) (ignoring the constant \(C\)). Thus the rate becomes
+\[
+\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left( n^{\gamma d - 1} + n^{-2\gamma(p+1)} \right).
+\]
+
+For consistency, the entire expression should go to zero as \( n \to \infty \). This requires that each exponent be negative:
+\[
+\gamma d - 1 < 0 \implies \gamma < \frac{1}{d},
+\]
+and
+\[
+-2\gamma(p+1) < 0 \implies \gamma > 0.
+\]
+
+Combining these two conditions, the parameter \(\gamma\) must lie in the interval
+\[
+0 < \gamma < \frac{1}{d}.
+\]
+
+This shows that the dimension \( d \) directly affects the range for \(\gamma\). As \( d \) increases, the upper bound \( 1/d \) decreases, making it harder to find a \(\gamma\) that achieves consistency. The polynomial order \( p \) affects the rate at which the second term vanishes but does not influence the existence of the interval \((0, 1/d)\). In particular, as long as \(\gamma > 0\), the term \( n^{-2\gamma(p+1)} \) goes to zero. Hence, no matter the polynomial order \( p \), there will always be some \(\gamma\) in \((0, 1/d)\) for consistency. Thus the interval is never empty for any fixed positive integer \( d \).
+  
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1d}
+  \subsection{Optimal Value of \(\gamma\)}
+  
+  What value of \( \gamma \) is optimal in the sense that the rate is the fastest? Call this \( \gamma^\star_{\text{mse}} \). How does \( \gamma^\star_{\text{mse}} \) vary with the dimension and the polynomial order?
+  
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+Consider the rate
+\[
+\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left( n^{\gamma d - 1} + n^{-2\gamma(p+1)} \right).
+\]
+To find the optimal rate in terms of order, we choose \(\gamma\) to balance the two terms. Set
+\[
+n^{\gamma d - 1} = n^{-2\gamma(p+1)}.
+\]
+Taking logs, we have
+\[
+\gamma d - 1 = -2\gamma(p+1).
+\]
+Rearranging this equation,
+\[
+\gamma d + 2\gamma(p+1) = 1,
+\]
+\[
+\gamma (d + 2(p+1)) = 1,
+\]
+\[
+\gamma = \frac{1}{d + 2(p+1)}.
+\]
+
+Call this value \(\gamma^\star_{\text{mse}}\). It is the \(\gamma\) that equates the rates of the bias and variance terms, thereby optimizing the mean squared error rate.
+
+This \(\gamma^\star_{\text{mse}}\) depends on both the dimension \( d \) and the polynomial order \( p \) as follows:
+\[
+\gamma^\star_{\text{mse}} = \frac{1}{d + 2(p+1)}.
+\]
+
+As the dimension \( d \) increases, the denominator increases, making \(\gamma^\star_{\text{mse}}\) smaller. Similarly, increasing the polynomial order \( p \) also increases the denominator, leading to a smaller \(\gamma^\star_{\text{mse}}\). Thus, higher dimensionality or smoother approximations (larger \( p \)) both lead to a smaller optimal \(\gamma\).
+  
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1e}
+  \subsection{Asymptotic Normality of \(\hat{\mu}_t(x)\)}
+  
+  For what range of \( \gamma \) is \( \hat{\mu}_t(\mathbf{x}) \) asymptotically Normal when properly centered and scaled? That is, determine the range for \( \gamma \) such that
+  \[
+  \sqrt{n / J^d} (\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})) \overset{d}{\to} \mathcal{N}(0, V).
+  \]
+  
+  \rule{\textwidth}{0.5pt}
+
+  (Don't worry about quantifying $V$). How does this range depend on the dimension and the polynomial order? Are there values of $p$ and $d$ such that this interval is empty?
+  \end{colorparagraph}
+\end{figure}
+
+We have the scaling
+\[
+\sqrt{\frac{n}{J^d}} (\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})),
+\]
+and we want this quantity to be asymptotically Normal. Substituting \( J = n^\gamma \), we have \( J^d = n^{\gamma d} \) and thus
+\[
+\sqrt{\frac{n}{J^d}} = n^{\frac{1}{2}-\frac{\gamma d}{2}}.
+\]
+
+The asymptotic Normality with a non-degenerate limit requires that the bias be negligible relative to the chosen scaling. The bias is of order
+\[
+J^{-(p+1)} = n^{-\gamma(p+1)},
+\]
+so under the scaling we have
+\[
+n^{-\gamma(p+1)} \cdot n^{\frac{1}{2}-\frac{\gamma d}{2}} = n^{\frac{1-\gamma d}{2} - \gamma(p+1)}.
+\]
+
+For the bias to vanish under this scaling, we need
+\[
+\frac{1-\gamma d}{2} - \gamma(p+1) < 0.
+\]
+Rearranging,
+\[
+1 - \gamma d < 2\gamma (p+1) \implies 1 < \gamma(d+2(p+1)) \implies \gamma > \frac{1}{d+2(p+1)}.
+\]
+
+Additionally, for a central limit theorem to apply to the binned means, the number of observations per bin \( n/J^d = n^{1-\gamma d} \) must tend to infinity. This gives
+\[
+1-\gamma d > 0 \implies \gamma < \frac{1}{d}.
+\]
+
+Combining these two inequalities, we obtain the range for \(\gamma\):
+\[
+\frac{1}{d+2(p+1)} < \gamma < \frac{1}{d}.
+\]
+
+As the dimension \( d \) or the polynomial order \( p \) increases, the lower bound \( 1/(d+2(p+1)) \) moves closer to zero, and the upper bound \( 1/d \) decreases. Thus, the interval becomes narrower when either \( d \) or \( p \) is large, but it does not vanish. For all positive \( p \) and \( d \), the interval for \(\gamma\) is never empty because \( d+2(p+1) > d \) always.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1f}
+  \subsection{Range of \(\gamma\) for Optimal Rate \(\gamma^\star_{\text{mse}}\)}
+
+  Is \( \gamma^\star_{\text{mse}} \) in this range?
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+Recall that 
+\[
+\gamma^\star_{\text{mse}} = \frac{1}{d+2(p+1)},
+\]
+and the range for asymptotic Normality was found to be
+\[
+\frac{1}{d+2(p+1)} < \gamma < \frac{1}{d}.
+\]
+
+Since \(\gamma^\star_{\text{mse}} = \frac{1}{d+2(p+1)}\) is exactly at the lower boundary, it is not strictly within the interval. Thus, \(\gamma^\star_{\text{mse}}\) is not in the open range required for asymptotic Normality.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  
+  Now we study semiparametric estimation and inference.
+  
+  \rule{\textwidth}{0.5pt}
+  \label{q1g}
+  \subsection{Semiparametric Estimation and Inference}
+
+  In class, we showed that there was a problem with the two-step plug-in estimator \( \tilde{\mu}_t = \frac{1}{n} \sum_{i=1}^n \hat{\mu}(\mathbf{x}_i) \) and that it did not have the same influence function as the parametric regression-based plug-in estimator. However, Cattaneo and Farrell (2011) showed that it does in fact obtain an influence function representation, with the familiar influence function. That paper shows that if
+  \[
+  \sqrt{n} \left( \frac{J^d}{n} + J^{-(p+1)} \right) \to 0
+  \]
+  then
+  \[
+  \sqrt{n} (\tilde{\mu}_t - \mathbb{E}[Y(t)]) = \frac{1}{\sqrt{n}} \sum_{i=1}^n \psi_i + o_p(1) \overset{d}{\to} \mathcal{N}(0, \mathbb{E}[\psi_t(Z)^2]),
+  \]
+  where \( \psi_t(\mathbf{z}_i) = \mu(\mathbf{x}_i) - \mathbb{E}[Y(t)] + \mathbb{I}\{t_i = t\}(y_i - \mu(\mathbf{x}_i)) / p_t(\mathbf{x}_i) \).
+
+  \begin{itemize}
+      \item[(i)] For what range of \( \gamma \) is inference on the \( \mathbb{E}[Y(t)] \) possible? How does this range depend on \( p \) and \( d \)? Are there values of \( p \) and \( d \) such that this interval is empty?
+      \item[(ii)] Is \( \gamma^\star_{\text{mse}} \) in this range?
+  \end{itemize}
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+From the given condition,
+\[
+\sqrt{n}\left(\frac{J^d}{n} + J^{-(p+1)}\right) \to 0,
+\]
+substitute \( J = n^\gamma \). Then \( J^d = n^{\gamma d} \) and \( J^{-(p+1)} = n^{-\gamma(p+1)} \), giving
+\[
+\sqrt{n}\left(n^{\gamma d - 1} + n^{-\gamma(p+1)}\right) = n^{\gamma d - \frac{1}{2}} + n^{\frac{1}{2} - \gamma(p+1)}.
+\]
+
+For these terms to vanish as \( n \to \infty \), each exponent must be negative:
+\[
+\gamma d - \tfrac{1}{2} < 0 \implies \gamma < \frac{1}{2d},
+\]
+and
+\[
+\tfrac{1}{2} - \gamma(p+1) < 0 \implies \gamma > \frac{1}{2(p+1)}.
+\]
+
+Combining these inequalities, we find that for inference on \(\mathbb{E}[Y(t)]\) to be possible via the plug-in estimator,
+\[
+\frac{1}{2(p+1)} < \gamma < \frac{1}{2d}.
+\]
+
+The range for \(\gamma\) depends on both \( p \) and \( d \). As \( d \) increases, the upper bound \(1/(2d)\) decreases, while as \( p \) increases, the lower bound \(1/(2(p+1))\) decreases. If the dimension \( d \) is large compared to the polynomial order \( p \), it is possible for the interval
+\[
+\left(\frac{1}{2(p+1)}, \frac{1}{2d}\right)
+\]
+to be empty. Specifically, the interval is non-empty if and only if
+\[
+\frac{1}{2(p+1)} < \frac{1}{2d} \implies d < p+1.
+\]
+
+Hence, when \( p \) is sufficiently large relative to \( d \) (i.e., \( p \ge d \)), there will always be some values of \(\gamma\) for which inference is possible. When \( p \) is too small relative to \( d \), the interval may be empty, and no such \(\gamma\) will exist.
+
+Recall that 
+\[
+\gamma^\star_{\text{mse}} = \frac{1}{d + 2(p+1)},
+\]
+and from the previous part, the range of \(\gamma\) that allows inference on \(\mathbb{E}[Y(t)]\) is
+\[
+\frac{1}{2(p+1)} < \gamma < \frac{1}{2d}.
+\]
+
+Compare \(\gamma^\star_{\text{mse}}\) to the lower bound \( 1/(2(p+1)) \):
+\[
+\gamma^\star_{\text{mse}} = \frac{1}{d + 2(p+1)} \quad \text{and} \quad \frac{1}{2(p+1)}.
+\]
+
+Since \(d>0\), we have \(d+2(p+1) > 2(p+1)\). Thus,
+\[
+\frac{1}{d + 2(p+1)} < \frac{1}{2(p+1)},
+\]
+which means
+\[
+\gamma^\star_{\text{mse}} < \frac{1}{2(p+1)}.
+\]
+
+Because the allowed range for inference is \(\gamma > 1/(2(p+1))\), and \(\gamma^\star_{\text{mse}}\) is strictly less than \(1/(2(p+1))\), it follows that \(\gamma^\star_{\text{mse}}\) does not lie in the interval \((1/(2(p+1)), 1/(2d))\). Therefore, \(\gamma^\star_{\text{mse}}\) is not in the range that allows for inference on \(\mathbb{E}[Y(t)]\).
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q1h}
+  \subsection{Influence Function-Based Estimator}
+
+  Now consider the influence function-based estimator. Let \( \hat{\mu}_t(\mathbf{x}) \) and \( \hat{p}_t(\mathbf{x}) \) be partitioning-based estimators of the respective functions, which both have the rate of Equation (1). Define
+  \[
+  \hat{\mu}_t = \frac{1}{n} \sum_{i=1}^n \left\{ \hat{\mu}_t(x_i) + \frac{\mathbb{I}\{t_i = t\}(y_i - \hat{\mu}_t(x_i))}{\hat{p}_t(x_i)} \right\}.
+  \]
+
+  In class, we proved that the linear representation and asymptotic normality of Equation (3) holds (with \( \tilde{\mu}_t \) replaced by \( \hat{\mu}_t \)) if
+  \[
+  \|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 \to 0, \quad \|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 \to 0, \quad \text{and} \quad \sqrt{n} \|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 \|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 \to 0.
+  \]
+
+  \begin{itemize}
+      \item[(i)] For what range of \( \gamma \) is inference on the \( \mathbb{E}[Y(t)] \) possible? How does this range depend on \( p \) and \( d \)? Are there values of \( p \) and \( d \) such that this interval is empty?
+      \item[(ii)] Is \( \gamma^\star_{\text{mse}} \) in this range?
+      \item[(iii)] In terms of the allowed \( \gamma \), compare your findings to the previous part.
+  \end{itemize}
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+\[
+\text{(i)} \quad \text{Consider the conditions for the influence function-based estimator. Both } \hat{\mu}_t(\mathbf{x}) \text{ and } \hat{p}_t(\mathbf{x})
+\text{ have the same rate: } \|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left(\frac{J^d}{n} + J^{-2(p+1)}\right).
+\]
+
+Substitute \( J = n^\gamma \). Then
+\[
+\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2^2 = O_p\left(n^{\gamma d - 1} + n^{-2\gamma(p+1)}\right).
+\]
+The same rate holds for \(\|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2^2\). Thus,
+\[
+\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 = O_p\left(\sqrt{n^{\gamma d - 1} + n^{-2\gamma(p+1)}}\right),
+\]
+and similarly for \(\|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2\).
+
+The conditions for the asymptotic normality of the influence function-based estimator require:
+1. \(\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 \to 0\) and \(\|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 \to 0\). As before, this implies
+\[
+0 < \gamma < \frac{1}{d}.
+\]
+
+2. The key additional requirement is \(\sqrt{n}\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 \|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 \to 0.\) Since both norms share the same order, let \(\delta_n = \|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2\). Then \(\|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 = O_p(\delta_n)\) and
+\[
+\sqrt{n}\|\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})\|_2 \|\hat{p}_t(\mathbf{x}) - p_t(\mathbf{x})\|_2 = \sqrt{n}\delta_n^2.
+\]
+From above,
+\[
+\delta_n^2 = O_p(n^{\gamma d - 1} + n^{-2\gamma(p+1)}).
+\]
+Thus
+\[
+\sqrt{n}\delta_n^2 = O_p(n^{\gamma d - \tfrac{1}{2}} + n^{\tfrac{1}{2} - 2\gamma(p+1)}).
+\]
+
+For this to vanish, each exponent must be negative:
+\[
+\gamma d - \tfrac{1}{2} < 0 \implies \gamma < \frac{1}{2d},
+\]
+and
+\[
+\tfrac{1}{2} - 2\gamma(p+1) < 0 \implies \gamma > \frac{1}{4(p+1)}.
+\]
+
+Combining all conditions, we have
+\[
+\frac{1}{4(p+1)} < \gamma < \frac{1}{2d}
+\]
+and also \(\gamma < 1/d\). Since \(1/(2d) < 1/d,\) the effective upper bound is \(1/(2d).\) Therefore, the range of \(\gamma\) for which inference is possible is
+\[
+\frac{1}{4(p+1)} < \gamma < \frac{1}{2d}.
+\]
+
+The interval depends on \(p\) and \(d\). As \(d\) increases, \(1/(2d)\) decreases, and as \(p\) increases, \(1/(4(p+1))\) decreases. The interval is non-empty if and only if
+\[
+\frac{1}{4(p+1)} < \frac{1}{2d} \implies d < 2(p+1).
+\]
+If \(d \ge 2(p+1)\), the interval is empty, and no \(\gamma\) satisfies the conditions.
+
+\[
+\text{(ii)} \quad \text{Recall } \gamma^\star_{\text{mse}} = \frac{1}{d+2(p+1)}.
+\]
+We want to check if \(\gamma^\star_{\text{mse}}\) lies in \((1/(4(p+1)), 1/(2d))\).
+
+Compare \(\gamma^\star_{\text{mse}}\) with \(1/(4(p+1))\):
+\[
+\frac{1}{d+2(p+1)} > \frac{1}{4(p+1)} \iff 4(p+1) > d+2(p+1) \iff d<2(p+1).
+\]
+If \(d<2(p+1)\), then \(\gamma^\star_{\text{mse}} > 1/(4(p+1))\).
+
+Next, compare \(\gamma^\star_{\text{mse}}\) with \(1/(2d)\):
+Since \(d+2(p+1) > 2d\) if and only if \(2(p+1) > d\), and we are in the case \(d<2(p+1)\), we have
+\[
+\frac{1}{d+2(p+1)} < \frac{1}{2d}.
+\]
+Thus, if \(d<2(p+1)\), \(\gamma^\star_{\text{mse}}\) also satisfies \(\gamma^\star_{\text{mse}} < 1/(2d)\).
+
+Therefore, when \(d<2(p+1)\),
+\[
+\frac{1}{4(p+1)} < \gamma^\star_{\text{mse}} < \frac{1}{2d},
+\]
+meaning \(\gamma^\star_{\text{mse}}\) is inside the allowed range for inference. If \(d \ge 2(p+1)\), then no \(\gamma\) satisfies the conditions, including \(\gamma^\star_{\text{mse}}\).
+
+\[
+\text{(iii)} \quad \text{Previously, for the two-step plug-in estimator, the condition for inference was } \frac{1}{2(p+1)} < \gamma < \frac{1}{2d}.
+\text{ Now, for the influence function-based estimator, the condition is } \frac{1}{4(p+1)} < \gamma < \frac{1}{2d}.
+\]
+
+The influence function-based estimator relaxes the lower bound from \(1/(2(p+1))\) to \(1/(4(p+1))\). This enlarged feasible range makes it easier to satisfy the asymptotic normality conditions. In particular, for given \(p\) and \(d\), it may now be possible to select a \(\gamma\) that achieves both optimal MSE and valid inference, a scenario that was more restrictive under the two-step plug-in approach.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q2}
+  \section{Propensity Score Weighting \& ATT Estimation}
+
+  \textit{This is a continuation from homeworks 2 \& 3.}
+
+  Assume that the random variables \( (Y_1, Y_0, T, \mathbf{X}')' \in \mathbb{R} \times \mathbb{R} \times \{0, 1\} \times \mathbb{R}^d \) obey \( \{Y_1, Y_0\} \perp T \mid \mathbf{X} \). The researcher observes \( (Y, T, \mathbf{X}')' \), where \( Y = Y_1 T + Y_0 (1 - T) \). Define the propensity score \( p(\mathbf{x}) = \mathbb{P}[T = 1 \mid \mathbf{X} = \mathbf{x}] \) and assume it is bounded inside \( (0, 1) \). Define \( \mu_t = \mathbb{E}[Y(t) \mid T = 1] \) and \( \mu_t(\mathbf{x}) = \mathbb{E}[Y(t) \mid \mathbf{X} = \mathbf{x}] \). The average treatment effect on the treated (ATT) is \( \tau = \mu_1 - \mu_0 \).
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+
+  In homework 3, you studied a “plug-in” estimator of the ATT given by
+  \[
+  \hat{\tau}_{\text{PI}} = \hat{\mu}_1 - \hat{\mu}_0 = \frac{1}{n} \sum_{i=1}^n \frac{t_i y_i}{\hat{p}} - \frac{1}{n} \sum_{i=1}^n \frac{(1 - t_i) \hat{p}(\mathbf{x}_i) y_i}{(1 - \hat{p}(\mathbf{x}_i))}.
+  \]
+
+  In homework 2, you proved that
+  \[
+  \mu_0 = \frac{1}{\mathbb{E}[T]} \mathbb{E}\left[ T \mu_0(\mathbf{X}) + \frac{(1 - T) p(\mathbf{X}) (Y - \mu_0(\mathbf{X}))}{(1 - p(\mathbf{X}))} \right]
+  \]
+  and that this moment condition is doubly robust. This motivates a doubly robust estimator of the ATT given by
+  \[
+  \hat{\tau}_{\text{DR}}
+  = \hat{\mu}_1 - \hat{\mu}_0
+  = \frac{1}{n} \sum_{i=1}^n \left\{
+      \frac{t_i y_i}{\hat{p}}
+    \right\}
+    - \frac{1}{\hat{p}} \frac{1}{n} \sum_{i=1}^n
+    \left\{
+      t_i \hat{\mu}_0(\mathbf{x}_i)
+      + \frac{(1 - t_i) \hat{p}(\mathbf{x}_i) y_i}{(1 - \hat{p}(\mathbf{x}_i))}
+    \right\}.
+  \]
+
+  We will conduct a simulation study to examine various properties of these estimators. Make sure your simulation study obeys the data-generating process assumptions, including overlap. In this case, we know from theory that cross-fitting is not necessary, so we’ll skip it unless specifically asked for.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q2a}
+  \subsection{High-Dimensional Parametric Case}
+
+  (a) First, we study the high-dimensional parametric case. Suppose that \( \mu_0(\mathbf{x}) = \boldsymbol{\beta}_0' \mathbf{x} \) and \( p(\mathbf{x}) = (1 + \exp\{-\boldsymbol{\theta}_0' \mathbf{x} \})^{-1} \). Use a penalized linear model for \( \hat{\mu}_0(\mathbf{x}_i) \) and a penalized logistic regression for \( \hat{p}(\mathbf{x}) \). Try both LASSO and ridge regression.
+
+  Find the sampling distribution of both estimators $\hat{\tau}_{\text{PI}}$ and $\hat{\tau}_{\text{DR}}$ as the data-generating process varies. In particular, try all combinations of the following:
+  
+  \begin{itemize}
+      \item Sample size \( n = 1000 \) and \( 5000 \),
+      \item Dimension \( d = \dim(\mathbf{x}) = \{10, 50, 500, 5000\} \), and
+      \item Sparsity levels \( s_\beta = \| \boldsymbol{\beta_0} \|_0 = \{d / 10, d / 2, d\} \) and \( s_0 = \| \boldsymbol{\theta_0} \|_0 = \{d / 10, d / 2, d\} \).
+  \end{itemize}
+
+  \begin{itemize}
+      \item[(i)] What happens as \( n \) grows but \( d, s_\beta, s_0 \) are fixed?
+      \item[(ii)] What happens to \( \hat{\tau}_{\text{PI}} \) as \( d \) and \( s_0 \) change for fixed \( n \)?
+      \item[(iii)] How does \( s_\beta \) impact \( \hat{\tau}_{\text{PI}} \)?
+      \item[(iv)] Verify the doubly robust property of \( \hat{\tau}_{\text{DR}} \).
+      \item[(v)] What happens if you do not penalize in the first stage, but just use plain OLS and logistic regression?
+      \item[(vi)] Discuss what your results mean for applied practice. When would you recommend the different estimators and why?
+  \end{itemize}
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\ifthenelse{\boolean{showplots}}{
+\begin{figure}[H]
+  \input{q2a_simulations_summary_part1.tex}
+\end{figure}
+
+\begin{figure}[H]
+  \input{q2a_simulations_summary_part2.tex}
+\end{figure}
+
+\begin{figure}[H]
+  \input{q2a_simulations_summary_part3.tex}
+\end{figure}
+
+\begin{figure}[H]
+  \input{q2a_simulations_summary_part4.tex}
+\end{figure}
+}{}
+
+\ifthenelse{\boolean{showplots}}{
+% Group 1: Average Error by n_div_d and Penalty
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_across_n_div_d_by_penalty.png}
+  \caption{Average Error Across n / d by Penalty}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png}
+  \caption{Average Error Across n / d by Penalty Filter $\frac{N}{D} > 2$}
+\end{figure}
+
+% Group 2: Average Error by sBeta and sTheta
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_by_sBeta_sTheta.png}
+  \caption{Average Error by sBeta and sTheta}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png}
+  \caption{Average Error by sBeta and sTheta Filter $\frac{N}{D} > 2$}
+\end{figure}
+
+% Group 3: Average Error by Estimator and Penalty
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_of_estimators_by_penalty.png}
+  \caption{Average Error of Estimators by Penalty}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png}
+  \caption{Average Error of Estimators by Penalty Filter $\frac{N}{D} > 2$}
+\end{figure}
+
+% Group 4: Average Error of Estimators per n / d
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png}
+  \caption{Average Error of the Estimator per n / d}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png}
+  \caption{Average Error of the Estimator per n / d Filtering N / D > 2}
+\end{figure}
+
+% Group 5: Heatmap of Errors by Estimator and n / d
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/heatmap_avg_error_estimator_n_div_d.png}
+  \caption{Heatmap of Average Error by Estimator and n / d}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png}
+  \caption{Heatmap of Average Error by Estimator and n / d Filter $\frac{N}{D} > 2$}
+\end{figure}
+
+% Group 6: Standard Errors by Penalty and Estimators
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/std_error_of_estimators_by_penalty.png}
+  \caption{Standard Error of Estimators by Penalty}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2a-plots/std_error_of_estimators_by_penalty_filter2.png}
+  \caption{Standard Error of Estimators by Penalty Filter $\frac{N}{D} > 2$}
+\end{figure}
+
+}{}
+
+\textbf{(i) What happens as \( n \) grows but \( d, s_\beta, s_0 \) are fixed?}
+
+As the sample size \( n \) increases from 1,000 to 5,000 while keeping the dimensionality \( d \) and sparsity levels \( s_\beta \) and \( s_0 \) constant, the simulation results indicate that both the doubly robust (DR) and plug-in estimators generally improve in performance. Specifically, the average error for the DR estimator decreases, demonstrating enhanced accuracy with larger \( n \). For example, with \( d = 10 \) and \( s_\beta = s_0 = d/10 \), the average error drops from 0.1515 at \( n = 1,000 \) to 0.09798 at \( n = 5,000 \). Similarly, the plug-in estimator shows a reduction in average error from 0.0897 to 0.07325 under the same conditions. Additionally, the standard error for both estimators tends to decrease as \( n \) increases, indicating more stable estimates. For instance, when \( d = 50 \) and \( s_\beta = s_0 = d/10 \), the DR estimator's standard error decreases from 0.21999 at \( n = 1,000 \) to 0.15911 at \( n = 5,000 \), and the plug-in estimator's standard error reduces from 0.2265 to 0.17704. However, in high sparsity settings (\( s_\beta = s_0 = d \)), the improvements are less pronounced, suggesting that high-dimensional parameter spaces may limit the benefits of increasing \( n \).
+
+\textbf{(ii) What happens to \( \hat{\tau}_{\text{PI}} \) as \( d \) and \( s_0 \) change for fixed \( n \)?}
+
+Examining the plug-in estimator \( \hat{\tau}_{\text{PI}} \) with varying dimensionality \( d \) and sparsity levels \( s_0 \) while keeping the sample size \( n \) fixed, the results reveal that increasing \( d \) leads to higher average errors and greater variability in the estimates. For example, with \( n = 1,000 \), increasing \( d \) from 10 to 5,000 while maintaining \( s_\beta = s_0 = d \) results in the average error rising from 1.3654 to 46.5889 and the standard error increasing from 0.7662 to 2.2537. Additionally, higher sparsity levels \( s_0 \) exacerbate the performance decline of the plug-in estimator. Lowering \( s_0 \) (i.e., reducing the number of non-zero coefficients in \( \boldsymbol{\theta}_0 \)) improves the estimator's accuracy and reduces variability. For instance, with \( n = 1,000 \) and \( d = 500 \), decreasing \( s_0 \) from \( d \) to \( d/10 \) lowers the average error from 13.6075 to 4.29599 and the standard error from 1.5162 to 1.5011. The combination of high dimensionality and high sparsity significantly worsens the plug-in estimator's performance, highlighting its limitations in such settings. These findings suggest that the plug-in estimator is less reliable in high-dimensional, highly sparse environments, emphasizing the need for more robust estimation methods like the doubly robust estimator \( \hat{\tau}_{\text{DR}} \) in practical applications.
+
+\textbf{(iii) How does \( s_\beta \) impact \( \hat{\tau}_{\text{PI}} \)?}
+
+The sparsity level \( s_\beta \), representing the number of non-zero coefficients in \( \boldsymbol{\beta}_0 \), significantly influences the performance of the plug-in estimator \( \hat{\tau}_{\text{PI}} \). As \( s_\beta \) increases, indicating a less sparse model with more non-zero coefficients, the plug-in estimator generally exhibits higher average error and greater variability. This trend can be observed across different dimensional settings:
+
+
+For instance, consider the case where \( n = 1,000 \) and \( d = 10 \):
+\begin{itemize}
+  \item When \( s_\beta = d/10 \) and \( s_\theta = d \), the plug-in estimator has an average error of **0.0897** and a standard error of **0.1131**.
+  \item Increasing \( s_\beta \) to \( d/2 \) with the same \( s_\theta \), the average error rises to **0.1507** and the standard error to **0.1668**.
+  \item Further increasing \( s_\beta \) to \( d \), the average error escalates to **1.3654** and the standard error to **0.7662**.
+\end{itemize}
+
+A similar pattern is observed with higher dimensionality. For \( n = 1,000 \) and \( d = 500 \):
+\begin{itemize}
+  \item With \( s_\beta = d/10 \) and \( s_\theta = d \), the plug-in estimator records an average error of **4.29599** and a standard error of **1.5011**.
+  \item Increasing \( s_\beta \) to \( d/2 \), the average error increases to **9.03286** and the standard error to **1.7917**.
+  \item When \( s_\beta = d \), the average error reaches **13.6075** with a standard error of **1.5162**.
+\end{itemize}
+
+Furthermore, in the high-dimensional scenario where \( d = 5,000 \) and \( n = 1,000 \):
+\begin{itemize}
+  \item For \( s_\beta = d/10 \) and \( s_\theta = d \), the plug-in estimator shows an average error of **1.7632** and a standard error of **0.6547**.
+  \item Increasing \( s_\beta \) to \( d/2 \), the average error grows to **25.5902** and the standard error to **1.4226**.
+  \item At \( s_\beta = d \), the average error soars to **46.5889** with a standard error of **2.2537**.
+\end{itemize}
+
+These examples consistently demonstrate that higher \( s_\beta \) levels degrade the performance of the plug-in estimator by increasing both the bias (average error) and the estimator's variability (standard error). This degradation occurs because a less sparse \( \boldsymbol{\beta}_0 \) makes the outcome model more complex and harder to estimate accurately, thereby impairing the plug-in estimator's ability to reliably estimate the ATT. Consequently, in settings with higher \( s_\beta \), the plug-in estimator becomes less reliable, underscoring the importance of model sparsity for its effective application.
+
+\textbf{(iv) Verify the doubly robust property of \( \hat{\tau}_{\text{DR}} \).}
+
+The doubly robust (DR) property of \( \hat{\tau}_{\text{DR}} \) implies that the estimator remains consistent for the ATT if either the outcome model \( \mu_0(\mathbf{x}) \) or the propensity score model \( p(\mathbf{x}) \) is correctly specified, but not necessarily both. To verify this property using the simulation results, we examine scenarios where one of the models is correctly specified (i.e., low sparsity) while the other is misspecified (i.e., high sparsity).
+
+\begin{enumerate}
+  \item \textbf{Scenario 1: Correct Outcome Model (\( s_\beta \) Low) and Misspecified Propensity Score Model (\( s_\theta \) High)}
+    \begin{itemize}
+      \item \textbf{Example 1:} For \( n = 1000 \), \( d = 10 \), \( s_\beta = d/10 \), and \( s_\theta = d \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 0.1515, Standard error = 0.1671
+          \item Plug-in Estimator: Average error = 0.0897, Standard error = 0.1131
+          \item \textbf{Interpretation:} Despite the propensity score model being highly sparse (potentially misspecified), the DR estimator maintains a low average error, indicating consistency due to the correctly specified outcome model.
+        \end{itemize}
+      \item \textbf{Example 2:} For \( n = 1000 \), \( d = 500 \), \( s_\beta = d/10 \), and \( s_\theta = d \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 4.29599, Standard error = 1.5011
+          \item Plug-in Estimator: Average error = 4.29599, Standard error = 1.5011
+          \item \textbf{Interpretation:} Both estimators perform similarly, but the DR estimator remains consistent as the outcome model is correctly specified.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Scenario 2: Misspecified Outcome Model (\( s_\beta \) High) and Correct Propensity Score Model (\( s_\theta \) Low)}
+    \begin{itemize}
+      \item \textbf{Example 1:} For \( n = 1000 \), \( d = 10 \), \( s_\beta = d \), and \( s_\theta = d/10 \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 0.1752, Standard error = 0.2254
+          \item Plug-in Estimator: Average error = 0.1507, Standard error = 0.1668
+          \item \textbf{Interpretation:} Even with a highly sparse outcome model, the DR estimator maintains a relatively low average error due to the correctly specified propensity score model, demonstrating its robustness.
+        \end{itemize}
+      \item \textbf{Example 2:} For \( n = 1000 \), \( d = 500 \), \( s_\beta = d \), and \( s_\theta = d/10 \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 1.38976, Standard error = 1.24876
+          \item Plug-in Estimator: Average error = 1.30143, Standard error = 0.56792
+          \item \textbf{Interpretation:} The DR estimator continues to provide consistent estimates despite the misspecification in the outcome model, owing to the accurate propensity score model.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Scenario 3: Both Models Correctly Specified (\( s_\beta \) Low and \( s_\theta \) Low)}
+    \begin{itemize}
+      \item \textbf{Example 1:} For \( n = 1000 \), \( d = 10 \), \( s_\beta = d/10 \), and \( s_\theta = d/10 \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 0.1515, Standard error = 0.1671
+          \item Plug-in Estimator: Average error = 0.0897, Standard error = 0.1131
+          \item \textbf{Interpretation:} Both estimators perform well, with the DR estimator benefiting from the correct specification of both models, although its primary advantage is observed when only one model is correctly specified.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Scenario 4: Both Models Misspecified (\( s_\beta \) High and \( s_\theta \) High)}
+    \begin{itemize}
+      \item \textbf{Example 1:} For \( n = 1000 \), \( d = 10 \), \( s_\beta = d \), and \( s_\theta = d \):
+        \begin{itemize}
+          \item DR Estimator: Average error = 0.82896, Standard error = 1.0536
+          \item Plug-in Estimator: Average error = 1.3654, Standard error = 0.7662
+          \item \textbf{Interpretation:} When both models are misspecified, the DR estimator does not maintain consistency, as expected. The average error increases significantly, reflecting the breakdown of the doubly robust property when both models are incorrect.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Additional Observations Across Different Dimensions and Sparsity Levels:}
+    \begin{itemize}
+      \item \textbf{High Dimensionality (e.g., \( d = 5000 \)):} The DR estimator consistently shows lower average errors compared to the plug-in estimator when either \( s_\beta \) or \( s_\theta \) is low, reinforcing the doubly robust property in high-dimensional settings.
+      \item \textbf{Varying Sparsity Levels:} Across various dimensions (\( d = 10, 50, 500, 5000 \)), the DR estimator maintains low average errors when at least one of the models is correctly specified (i.e., low \( s_\beta \) or low \( s_\theta \)), while the plug-in estimator's performance deteriorates more rapidly under model misspecification.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Conclusion:}
+The simulation results validate the doubly robust property of \( \hat{\tau}_{\text{DR}} \). The DR estimator consistently provides accurate and stable estimates of the ATT when either the outcome model or the propensity score model is correctly specified, even in high-dimensional and varying sparsity settings. This robustness is not observed in the plug-in estimator, which relies solely on the correct specification of both models. Consequently, the DR estimator offers a reliable alternative in practical scenarios where model specifications may be uncertain or partially misspecified.
+
+\textbf{(v) What happens if you do not penalize in the first stage, but just use plain OLS and logistic regression?}
+
+When opting to forego penalization in the first stage and instead utilize plain Ordinary Least Squares (OLS) for estimating \( \hat{\mu}_0(\mathbf{x}) \) and standard logistic regression for estimating \( \hat{p}(\mathbf{x}) \), the performance of both the plug-in estimator \( \hat{\tau}_{\text{PI}} \) and the doubly robust estimator \( \hat{\tau}_{\text{DR}} \) is notably affected. The simulation results illustrate several key impacts of this approach:
+
+\begin{enumerate}
+  \item \textbf{Increased Bias and Variability in High-Dimensional Settings:}
+    \begin{itemize}
+      \item \textbf{Higher Dimensionality (\( d \)) with Limited Sample Size (\( n \)):} Without penalization, OLS and logistic regression are prone to overfitting, especially when \( d \) is large relative to \( n \). This overfitting leads to unstable estimates of \( \hat{\mu}_0(\mathbf{x}) \) and \( \hat{p}(\mathbf{x}) \), which in turn inflate both the average error and the standard error of the ATT estimators.
+        \begin{itemize}
+          \item \textit{Example:} For \( n = 1,000 \), \( d = 5,000 \), \( s_\beta = s_\theta = d \), the plug-in estimator exhibits an average error of **46.5889** and a standard error of **2.2537**, indicating substantial bias and variability due to the high dimensionality and lack of regularization.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Degradation of Estimator Performance Across Sparsity Levels:}
+    \begin{itemize}
+      \item \textbf{Varying Sparsity (\( s_\beta \) and \( s_\theta \)):} In scenarios where the sparsity levels are high (i.e., \( s_\beta = s_\theta = d \)), the absence of penalization exacerbates the estimation challenges. Plain OLS and logistic regression fail to effectively identify and estimate the relevant predictors, leading to biased propensity scores and outcome models.
+        \begin{itemize}
+          \item \textit{Example:} For \( n = 1,000 \), \( d = 500 \), \( s_\beta = s_\theta = d \), the plug-in estimator records an average error of **13.6075** and a standard error of **1.5162**, which are significantly higher compared to penalized approaches.
+        \end{itemize}
+      \item \textbf{Lower Sparsity Levels (\( s_\beta = s_\theta = d/10 \)):} While reduced sparsity mitigates some of the negative impacts, the performance still lags behind penalized methods, particularly in very high-dimensional settings.
+        \begin{itemize}
+          \item \textit{Example:} For \( n = 5,000 \), \( d = 5000 \), \( s_\beta = s_\theta = d/10 \), the plug-in estimator shows an average error of **1.7632** and a standard error of **1.2499**, which, although improved relative to higher sparsity levels, remains suboptimal compared to penalized estimators.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Comparative Performance Between Estimators:}
+    \begin{itemize}
+      \item \textbf{Plug-in Estimator (\( \hat{\tau}_{\text{PI}} \)):} Without penalization, the plug-in estimator consistently exhibits higher average errors and greater variability across different dimensional and sparsity configurations. This trend underscores the estimator's reliance on accurately specified models, which is compromised in the absence of regularization.
+      \item \textbf{Doubly Robust Estimator (\( \hat{\tau}_{\text{DR}} \)):} While the DR estimator is designed to be more resilient through its double robustness property, its performance still deteriorates without penalization, especially in high-dimensional and highly sparse settings. The average error and standard error increase, reflecting the compounded estimation errors from both the outcome and propensity score models.
+        \begin{itemize}
+          \item \textit{Example:} For \( n = 1,000 \), \( d = 5000 \), \( s_\beta = s_\theta = d \), the DR estimator records an average error of **82.5516** and a standard error of **4.2194**, which are markedly worse than their penalized counterparts.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Lack of Regularization Leads to Overfitting:}
+    \begin{itemize}
+      \item \textbf{Overfitting Concerns:} Plain OLS and logistic regression models, especially in high-dimensional contexts, tend to fit the noise in the data rather than the underlying signal. This overfitting results in poor generalization to new data, manifesting as increased bias and variance in the ATT estimators.
+      \item \textbf{Model Instability:} The absence of penalization contributes to instability in parameter estimates, making the estimators highly sensitive to the specific sample drawn, thereby reducing their reliability and interpretability.
+    \end{itemize}
+
+  \item \textbf{Implications for Practical Application:}
+    \begin{itemize}
+      \item \textbf{Reduced Reliability:} In applied settings with high-dimensional data, relying solely on unpenalized OLS and logistic regression can lead to unreliable ATT estimates, characterized by significant bias and high variability.
+      \item \textbf{Necessity of Regularization:} The simulation outcomes emphasize the critical role of penalization in mitigating overfitting and enhancing model estimation accuracy. Regularization techniques such as LASSO and ridge regression are essential for achieving stable and accurate estimates of \( \hat{\mu}_0(\mathbf{x}) \) and \( \hat{p}(\mathbf{x}) \), thereby improving the performance of both the plug-in and doubly robust estimators.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Conclusion:}
+The decision to omit penalization in the first stage significantly undermines the performance of both \( \hat{\tau}_{\text{PI}} \) and \( \hat{\tau}_{\text{DR}} \), particularly in high-dimensional and highly sparse scenarios. The resulting increase in bias and variability compromises the estimators' reliability, highlighting the indispensable role of regularization in high-dimensional causal inference settings. Consequently, practitioners are advised to employ penalized estimation methods to ensure robust and accurate ATT estimation.
+
+\textbf{(vi) Discuss what your results mean for applied practice. When would you recommend the different estimators and why?}
+
+The simulation results provide valuable insights into the performance of the plug-in estimator \( \hat{\tau}_{\text{PI}} \) and the doubly robust estimator \( \hat{\tau}_{\text{DR}} \) across various settings of sample size \( n \), dimensionality \( d \), and sparsity levels \( s_\beta \) and \( s_0 \). These findings inform practical decisions regarding the choice of estimator in applied causal inference scenarios.
+
+\begin{enumerate}
+  \item \textbf{Estimator Performance Relative to Dimensionality and Sparsity:}
+    \begin{itemize}
+      \item \textbf{Low to Moderate Dimensionality (\( d = 10, 50 \)) and Low Sparsity (\( s_\beta, s_0 = d/10 \)):} Both estimators perform well, with the plug-in estimator exhibiting slightly lower average error and standard error compared to the doubly robust estimator. In such settings, where models are relatively simple and sparsity is high, the plug-in estimator is a suitable choice due to its simplicity and marginally better performance.
+      \item \textbf{High Dimensionality (\( d = 500, 5000 \)) or High Sparsity (\( s_\beta, s_0 = d \)):} The doubly robust estimator outperforms the plug-in estimator significantly, demonstrating lower average errors and more stable estimates. In high-dimensional and highly sparse environments, the doubly robust estimator is preferable as it remains consistent even when one of the models is misspecified, providing greater reliability.
+    \end{itemize}
+
+  \item \textbf{Impact of Sample Size \( n \):}
+    \begin{itemize}
+      \item \textbf{Smaller Sample Sizes (\( n = 1000 \)):} In scenarios with limited data, especially when \( d \) and \( s_\beta, s_0 \) are large, the doubly robust estimator maintains better performance due to its robustness to model misspecification. The plug-in estimator suffers more from high bias and variability under these conditions.
+      \item \textbf{Larger Sample Sizes (\( n = 5000 \)):} With increased data, both estimators improve in accuracy and stability. However, the doubly robust estimator still offers advantages in high-dimensional settings by mitigating the effects of model complexity and potential misspecification.
+    \end{itemize}
+
+  \item \textbf{Role of Penalization:}
+    \begin{itemize}
+      \item \textbf{Penalized Estimation (LASSO/Ridge):} Utilizing penalized regression methods enhances the performance of both estimators by reducing overfitting and improving model estimation in high-dimensional settings. The doubly robust estimator particularly benefits from penalization, maintaining low bias and variability even as dimensionality and sparsity increase.
+      \item \textbf{Unpenalized Estimation (Plain OLS and Logistic Regression):} Without penalization, both estimators experience increased bias and variability, especially in high-dimensional and highly sparse scenarios. The doubly robust estimator's performance deteriorates more sharply, underscoring the necessity of regularization for reliable ATT estimation.
+    \end{itemize}
+
+  \item \textbf{Doubly Robust Property:}
+    \begin{itemize}
+      \item The doubly robust estimator consistently demonstrates robustness by providing accurate estimates when at least one of the models (outcome or propensity score) is correctly specified. This property is particularly advantageous in practical applications where model misspecification is a concern, offering a safety net that the plug-in estimator lacks.
+    \end{itemize}
+
+  \item \textbf{Practical Recommendations:}
+    \begin{itemize}
+      \item \textbf{Use the Plug-in Estimator When:}
+        \begin{itemize}
+          \item The dimensionality \( d \) is low to moderate.
+          \item Models are expected to be well-specified with high sparsity (\( s_\beta, s_0 \) are low).
+          \item Simplicity and computational efficiency are priorities, and model misspecification is unlikely.
+        \end{itemize}
+      \item \textbf{Use the Doubly Robust Estimator When:}
+        \begin{itemize}
+          \item Dealing with high-dimensional data (\( d \) is large).
+          \item Sparsity levels are moderate to low, making model estimation challenging.
+          \item There is uncertainty about the correct specification of the outcome or propensity score models.
+          \item Robustness to model misspecification is crucial for reliable ATT estimation.
+          \item Regularization techniques (e.g., LASSO, ridge) are employed to handle high-dimensionality effectively.
+        \end{itemize}
+    \end{itemize}
+
+  \item \textbf{Balancing Bias and Variability:}
+    \begin{itemize}
+      \item The choice between the estimators involves a trade-off between bias and variability. The plug-in estimator may offer lower bias in well-specified, low-dimensional settings but is more susceptible to variability and bias in complex scenarios. Conversely, the doubly robust estimator provides a more balanced performance across diverse settings, making it a safer choice in many practical applications.
+    \end{itemize}
+\end{enumerate}
+
+\textbf{Conclusion:}
+In applied practice, the selection between the plug-in and doubly robust estimators should be guided by the data's dimensionality, sparsity, sample size, and the reliability of model specifications. The doubly robust estimator is recommended in high-dimensional and less sparse settings due to its resilience against model misspecification and its ability to maintain consistent ATT estimates under broader conditions. The plug-in estimator is suitable for simpler, well-specified models with lower dimensionality and higher sparsity, where its computational simplicity and marginal performance advantages are beneficial. Employing regularization techniques further enhances the performance of both estimators, particularly in challenging high-dimensional environments.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q2b}
+  \subsection{Nonparametrics and Low-Dimensional Case}
+
+  (b) Now we turn to nonparametrics and lower-dimensional functions. Suppose that \( \mu_0(\mathbf{x}) \) and \( p(\mathbf{x}) \) are completely unknown functions. In your data-generating process, make them nonlinear functions of \( \mathbf{x} \). Try \( n = \{1000, 5000, 15000\} \) and \( d = \dim(\mathbf{x}) = \{1, 3, 5, 10\} \), including designs with sparsity. Use deep nets and random forests (and anything else you care to try).
+
+  For logit, by "nonlinear" we mean that $p(\mathbf{x})$ has the logic form but the linear index $\boldsymbol{\theta}_{0}'\mathbb{x}$ is replaced with something nonlinear.
+
+  Sparsity here is not based on slope coefficients, but rather it means that of the $D$ covariates, only a subset enter the nonlinear function.
+
+  \begin{itemize}
+    \item[(i)] What happens as \( n \) grows but \( d \) is fixed?
+    \item[(ii)] Verify the doubly robus property of $\hat{\tau}_{\text{DR}}$.
+    \item[(iii)] Dicuss what your results mena for applied practice. When would you recommend the different estimators and why?
+  \end{itemize}
+\end{colorparagraph}  
+\end{figure}
+
+\ifthenelse{\boolean{showplots}}{
+\begin{figure}[H]
+  \tiny
+  \input{q2b_simulations_summary_part1.tex}
+\end{figure}
+
+\begin{figure}[H]
+  \tiny
+  \input{q2b_simulations_summary_part2.tex}
+\end{figure}
+}{}
+
+\ifthenelse{\boolean{showplots}}{
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_estimator_and_d.png}
+  \caption{Average Error by Estimator and Dimensionality}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_estimator_and_n.png}
+  \caption{Average Error by Estimator and Sample Size (N).}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/std_error_by_estimator_and_n.png}
+  \caption{Standard Error by Estimator and Sample Size (N).}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_estimator_and_d.png}
+  \caption{Average Error by Estimator and Dimensionality (D).}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/std_error_by_estimator_and_d.png}
+  \caption{Standard Error by Estimator and Dimensionality (D).}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_method_and_n_dr_estimator.png}
+  \caption{Average Error by Method and Sample Size (N) in DR Estimator.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png}
+  \caption{Average Error by Method and Sample Size (N) in Plug-In Estimator.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_method_and_d_dr_estimator.png}
+  \caption{Average Error by Method and Dimensionality (D) in DR Estimator.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png}
+  \caption{Average Error by Method and Dimensionality (D) in Plug-In Estimator.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_by_scenario_and_method.png}
+  \caption{Average Error by Scenario (S) and Method.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/std_dev_by_scenario_and_method.png}
+  \caption{Standard Deviation by Scenario (S) and Method.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/avg_error_vs_n_div_d.png}
+  \caption{Average Error vs. Ratio of Sample Size to Dimensionality (n / d).}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{../q2b-plots/std_dev_vs_n_div_d.png}
+  \caption{Standard Deviation vs. Ratio of Sample Size to Dimensionality (n / d).}
+\end{figure}
+}{}
+
+\begin{enumerate}
+  \item As the sample size \( n \) increases while keeping the dimensionality \( d \) fixed, both the doubly robust (DR) and plug-in estimators exhibit a decrease in their average errors and standard deviations. Specifically, for fixed \( d \), increasing \( n \) from 1,000 to 15,000 leads to a reduction in the average DR error for both deep neural networks and random forests. For instance, with \( d = 1 \), the DR error for the deepnet estimator decreases from approximately 0.119 to 0.104, and for the random forest estimator, it decreases from 0.068 to 0.019. This trend indicates that larger sample sizes enhance the estimators' accuracy and reliability when the number of covariates remains constant.
+
+  \item The simulation results support the doubly robust property of \( \hat{\tau}_{\text{DR}} \). The DR estimator consistently shows competitive or superior performance compared to the plug-in estimator across various settings of \( n \) and \( d \). For example, when \( d = 1 \) and \( n = 1,000 \), the DR estimator using random forests has a lower average error (0.068) compared to the plug-in estimator (0.112). Similarly, even as \( d \) increases, the DR estimator maintains relatively stable performance, whereas the plug-in estimator's error may increase. This robustness is evident in scenarios with higher dimensions and sparsity, where the DR estimator continues to provide reliable estimates, confirming its ability to remain consistent provided that either the propensity score model or the outcome model is correctly specified.
+
+  \item The simulation outcomes have important implications for applied practice. When dealing with datasets where the number of covariates \( d \) is relatively low and the sample size \( n \) is moderate to large, random forests emerge as a strong choice for estimating the ATT due to their lower average DR error and stability across different settings. In high-dimensional settings or when there is sparsity in the covariates, the DR estimator using random forests still performs reliably, whereas deep neural networks may suffer from increased errors. Therefore, practitioners should consider using random forests for propensity score and outcome modeling in ATT estimation, especially in scenarios with limited dimensionality or when interpretability and robustness are paramount. Additionally, ensuring sufficiently large sample sizes can further enhance the estimators' performance, making the DR approach a versatile and dependable tool in causal inference applications.
+\end{enumerate}
+
+\textbf{Alignment of Simulation Results with Theoretical Expectations}
+
+The simulation results presented exhibit a strong alignment with the theoretical expectations underpinning propensity score weighting and the doubly robust (DR) estimator for the Average Treatment Effect on the Treated (ATT). The key theoretical properties and their correspondence with the simulation outcomes are discussed as follows:
+
+\begin{enumerate}
+    \item \textbf{Consistency and Convergence as \( n \) Increases with Fixed \( d \):} 
+    Theoretically, as the sample size \( n \) grows while keeping the dimensionality \( d \) fixed, both the DR and plug-in estimators are expected to achieve consistency, with their estimation errors diminishing at appropriate rates. The simulation results corroborate this expectation. For instance, when \( d = 1 \), increasing \( n \) from 1,000 to 15,000 leads to a noticeable reduction in both the average DR error and the average plug-in error across both deep neural networks and random forests. Specifically, the DR error for the random forest estimator decreases from 0.068 at \( n = 1,000 \) to 0.019 at \( n = 15,000 \), while the plug-in error reduces from 0.111 to 0.105 over the same range. This trend is consistent across other values of \( d \), affirming that larger sample sizes enhance estimator accuracy and stability, as predicted by theory.
+
+    \item \textbf{Doubly Robust Property of \( \hat{\tau}_{\text{DR}} \):}
+    The DR estimator is theoretically robust to misspecifications in either the propensity score model or the outcome model, provided that at least one is correctly specified. The simulation results reflect this property through the consistent performance of the DR estimator across various configurations of \( n \) and \( d \). Notably, the DR estimator often exhibits lower or comparable average errors relative to the plug-in estimator, even as dimensionality increases. For example, with \( d = 5 \) and \( n = 1,000 \), the DR error using random forests remains low (0.066) compared to the plug-in error (0.110). This robustness is maintained across higher dimensions and different levels of sparsity, indicating that the DR estimator reliably leverages the correct specification of either model to mitigate bias, aligning well with theoretical assurances.
+
+    \item \textbf{Performance in High-Dimensional and Sparse Settings:}
+    Theoretically, high-dimensional settings pose challenges for estimation due to the curse of dimensionality, potentially increasing estimation errors unless adequately addressed. The simulation outcomes demonstrate that while both estimators experience increased errors as \( d \) grows, the DR estimator, particularly when implemented with random forests, maintains relatively stable and lower error rates compared to the plug-in approach. For instance, at \( d = 10 \) and \( n = 1,000 \), the DR error using random forests is 0.062, significantly lower than the plug-in error of 0.106. This resilience in high-dimensional scenarios is in line with the theoretical expectation that the DR estimator can effectively balance model complexities, especially when using flexible machine learning methods like random forests that can capture intricate nonlinear relationships without extensive parameter tuning.
+
+    \item \textbf{Estimator Choice and Practical Implications:}
+    Theoretical guidance suggests selecting estimators that capitalize on their robustness and consistency properties under varying data conditions. The simulation results endorse this by illustrating that the DR estimator, particularly with random forests, consistently outperforms or matches the plug-in estimator across different sample sizes and dimensionalities. This empirical evidence supports the theoretical recommendation to prefer doubly robust methods in practice, especially in settings with moderate to large sample sizes and varying levels of covariate dimensionality. Additionally, the superior performance of random forests in maintaining low estimation errors underlines their practical utility in implementing DR estimators for ATT estimation.
+
+\end{enumerate}
+
+\textbf{Conclusion:} The simulation results not only align with but also reinforce the theoretical expectations regarding the performance and robustness of the doubly robust estimator in ATT estimation. The observed consistency, robustness to model misspecification, and effective handling of high-dimensional data substantiate the theoretical underpinnings, providing empirical validation for the adoption of DR estimators in applied causal inference analyses.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+
+    Now real data. Return to the Census data from class to find the ATT of sex on the log wage rate.
+
+  \label{q2c}
+  \subsection{Discuss Results}
+  (c) Show results:
+  \begin{itemize}
+      \item[(i)] Both estimators $\hat{\tau}_{\text{PI}}$ and $\hat{\tau}_{\text{DR}}$,
+      \item[(ii)] With and without cross-fitting,
+      \item[(iii)] Using different first-step estimators for the propensity score \( \hat{p}(x_i) \) and regression function \( \hat{\mu}_0(x_i) \), including forests, neural networks, LASSO, and parametric models.
+  \end{itemize}
+
+  Discuss the results.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+
+\textbf{Results without Random Forest Adjustment}
+
+\begin{table}[H]
+  \centering
+  \caption{Estimator Performance under Various Models}
+  \label{tab:estimator_performance}
+  \begin{tabular}{llcrr}
+  \toprule
+  \textbf{Propensity Model} & \textbf{Outcome Model} & \textbf{CrossFitting} & \textbf{Tau\_PI} & \textbf{Tau\_DR} \\
+  \midrule
+  LogisticRegression        & LinearRegression        & False  & 0.874867 & -1.995883 \\
+  LogisticRegression        & LinearRegression        & True   & 0.871097 & -2.004188 \\
+  LogisticRegression        & RandomForestRegressor   & False  & 0.874867 & -1.951904 \\
+  LogisticRegression        & RandomForestRegressor   & True   & 0.871097 & -1.958615 \\
+  LogisticRegression        & NeuralNetworkRegressor  & False  & 0.874867 & -2.220714 \\
+  LogisticRegression        & NeuralNetworkRegressor  & True   & 0.871097 & -2.090103 \\
+  LogisticRegression        & LassoRegression         & False  & 0.874867 & -2.036195 \\
+  LogisticRegression        & LassoRegression         & True   & 0.871097 & -2.042983 \\
+  RandomForestClassifier    & LinearRegression        & False  & 0.958338 & -1.843984 \\
+  RandomForestClassifier    & LinearRegression        & True   & --       & --        \\
+  RandomForestClassifier    & RandomForestRegressor   & False  & 0.958338 & -1.800005 \\
+  RandomForestClassifier    & RandomForestRegressor   & True   & --       & --        \\
+  RandomForestClassifier    & NeuralNetworkRegressor  & False  & 0.958338 & -2.068815 \\
+  RandomForestClassifier    & NeuralNetworkRegressor  & True   & --       & --        \\
+  RandomForestClassifier    & LassoRegression         & False  & 0.958338 & -1.884296 \\
+  RandomForestClassifier    & LassoRegression         & True   & --       & --        \\
+  NeuralNetworkClassifier   & LinearRegression        & False  & 1.067900 & -1.644606 \\
+  NeuralNetworkClassifier   & LinearRegression        & True   & 0.920863 & -1.913626 \\
+  NeuralNetworkClassifier   & RandomForestRegressor   & False  & 1.067900 & -1.600627 \\
+  NeuralNetworkClassifier   & RandomForestRegressor   & True   & 0.920863 & -1.868053 \\
+  NeuralNetworkClassifier   & NeuralNetworkRegressor  & False  & 1.067900 & -1.869437 \\
+  NeuralNetworkClassifier   & NeuralNetworkRegressor  & True   & 0.920863 & -1.999540 \\
+  NeuralNetworkClassifier   & LassoRegression         & False  & 1.067900 & -1.684918 \\
+  NeuralNetworkClassifier   & LassoRegression         & True   & 0.920863 & -1.952421 \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Results with Random Forest Adjustment}
+
+\begin{table}[ht]
+  \centering
+  \caption{ATT Estimates under Various Modeling Scenarios}
+  \label{tab:att_estimates}
+  \begin{tabular}{llcrr}
+  \toprule
+  \textbf{Propensity Model} & \textbf{Outcome Model}      & \textbf{CrossFitting} & \textbf{Tau\_PI} & \textbf{Tau\_DR} \\
+  \midrule
+  LogisticRegression        & LinearRegression          & False                 & 0.896997         & -1.103917        \\
+  LogisticRegression        & LinearRegression          & True                  & 0.895288         & -1.106173        \\
+  LogisticRegression        & RandomForestRegressor     & False                 & 0.896997         & -1.058235        \\
+  LogisticRegression        & RandomForestRegressor     & True                  & 0.895288         & -1.059637        \\
+  LogisticRegression        & NeuralNetworkRegressor    & False                 & 0.896997         & -1.326090        \\
+  LogisticRegression        & NeuralNetworkRegressor    & True                  & 0.895288         & -1.180861        \\
+  LogisticRegression        & LassoRegression           & False                 & 0.896997         & -1.125998        \\
+  LogisticRegression        & LassoRegression           & True                  & 0.895288         & -1.128644        \\
+  RandomForestClassifier    & LinearRegression          & False                 & 0.912058         & -1.016369        \\
+  RandomForestClassifier    & LinearRegression          & True                  & -3.515407        & -9.518771        \\
+  RandomForestClassifier    & RandomForestRegressor     & False                 & 0.912058         & -0.987425        \\
+  RandomForestClassifier    & RandomForestRegressor     & True                  & -3.515407        & -9.780664        \\
+  RandomForestClassifier    & NeuralNetworkRegressor    & False                 & 0.912058         & -1.229146        \\
+  RandomForestClassifier    & NeuralNetworkRegressor    & True                  & -3.515407        & -9.763415        \\
+  RandomForestClassifier    & LassoRegression           & False                 & 0.912058         & -1.037920        \\
+  RandomForestClassifier    & LassoRegression           & True                  & -3.515407        & -9.635466        \\
+  NeuralNetworkClassifier   & LinearRegression          & False                 & 1.273571         & -0.917413        \\
+  NeuralNetworkClassifier   & LinearRegression          & True                  & 1.103739         & -1.002065        \\
+  NeuralNetworkClassifier   & RandomForestRegressor     & False                 & 1.273571         & -0.869977        \\
+  NeuralNetworkClassifier   & RandomForestRegressor     & True                  & 1.103739         & -0.957053        \\
+  NeuralNetworkClassifier   & NeuralNetworkRegressor    & False                 & 1.273571         & -1.164582        \\
+  NeuralNetworkClassifier   & NeuralNetworkRegressor    & True                  & 1.103739         & -1.081366        \\
+  NeuralNetworkClassifier   & LassoRegression           & False                 & 1.273571         & -0.940831        \\
+  NeuralNetworkClassifier   & LassoRegression           & True                  & 1.103739         & -1.952421        \\
+  \bottomrule
+\end{tabular}
+\end{table}
+
+The results presented in Table \ref{tab:att_estimates} reveal several noteworthy patterns regarding the performance of the plug-in estimator ($\hat{\tau}_{\text{PI}}$) and the doubly robust estimator ($\hat{\tau}_{\text{DR}}$) under various modeling scenarios.
+
+Firstly, it is evident that the choice of propensity score model and outcome model significantly impacts the estimated ATT values. When using \texttt{LogisticRegression} for the propensity model combined with \texttt{LinearRegression} for the outcome model, both estimators yield $\hat{\tau}_{\text{PI}} \approx 0.896$ and $\hat{\tau}_{\text{DR}} \approx -1.10$. This relatively consistent result suggests that the models are appropriately specified under this combination.
+
+However, deviations become prominent with different model combinations. Notably, when the \texttt{RandomForestClassifier} is employed for the propensity model and paired with \texttt{LinearRegression} for the outcome model, especially with cross-fitting enabled, the estimates diverge drastically, with $\hat{\tau}_{\text{PI}} = -3.515$ and $\hat{\tau}_{\text{DR}} = -9.518$. Such extreme values indicate potential issues with model specification or instability introduced by cross-fitting in this context.
+
+The impact of cross-fitting is further illustrated across different models. While cross-fitting generally aims to reduce overfitting and improve estimator stability, its effects are inconsistent. For instance, with the \texttt{LogisticRegression} propensity model and \texttt{RandomForestRegressor} outcome model, cross-fitting has a minimal effect on $\hat{\tau}_{\text{PI}}$ but slightly alters $\hat{\tau}_{\text{DR}}$. Conversely, with the \texttt{NeuralNetworkClassifier} for propensity and \texttt{LassoRegression} for the outcome, cross-fitting changes $\hat{\tau}_{\text{DR}}$ from $-0.940$ to $-1.952$, demonstrating a more substantial impact.
+
+Another point of interest is the comparison between the two estimators. The plug-in estimator ($\hat{\tau}_{\text{PI}}$) consistently provides positive estimates across most scenarios, whereas the doubly robust estimator ($\hat{\tau}_{\text{DR}}$) often yields negative values. This discrepancy suggests that $\hat{\tau}_{\text{DR}}$ may be more sensitive to model misspecification or that it captures different aspects of the treatment effect under varying model assumptions.
+
+The variability in estimates across different first-step estimators for the propensity score and the outcome model underscores the importance of model selection and the potential for bias when models are misspecified. The doubly robust estimator's reliance on both the propensity score and outcome models means that misspecification in either can lead to biased estimates, which is reflected in the diverse $\hat{\tau}_{\text{DR}}$ values observed.
+
+In summary, the divergent estimates between $\hat{\tau}_{\text{PI}}$ and $\hat{\tau}_{\text{DR}}$ highlight the sensitivity of ATT estimation to model choice and the presence or absence of cross-fitting. These findings emphasize the necessity for careful model specification and validation in causal inference analyses to ensure reliable and interpretable results.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3}
+  \section{An Application}
+
+  The file \texttt{data\_for\_HW4.csv} contains data from two independent sources, as indicated by the variable \( e \). Both have data on the same outcome \( y \), same treatment \( t \), and the same set of pre-treatment variables \( \mathbf{x}.1, \mathbf{x}.2, \mathbf{x}.3, \mathbf{x}.4, \mathbf{x}.5 \). The treatment in the first data source may have been targeted based on some or all of the \( \mathbf{x} \) variables. The second data source is a fully randomized experiment. Both obey our other assumptions (SUTVA, consistency, CIA, overlap).
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3a}
+  \subsection{Ignoring \( \mathbf{x} \) Variables}
+
+  Ignore the \( \mathbf{x} \) variables to compute the ATE and a confidence interval for it in each of the data sources. Comment on your findings and possible explanations for them.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
+Results for data source e=1 (observational data):
+ATE estimate: -1.060766 
+95% CI: -1.136993 to -0.9845383 
+
+Results for data source e=2 (fully randomized):
+ATE estimate: 1.938148 
+95% CI: 1.869419 to 2.006877 
+  \end{lstlisting}
+\end{figure}
+
+The results show a discrepancy between the two data sources. In the first data source, where treatment assignment was potentially targeted based on observed pre-treatment characteristics, the estimated average treatment effect ignoring covariates is approximately 
+\[
+\widehat{\tau}_{\text{e=1}} \approx -1.06.
+\]
+The 95\% confidence interval shows:
+\[
+-1.14 \leq \tau_{\text{e=1}} \leq -0.98
+\]
+
+In the second data source, which is fully randomized, the estimated average treatment effect ignoring covariates is 
+\[
+\widehat{\tau}_{\text{e=2}} \approx 1.94.
+\]
+The corresponding confidence interval is approximately 
+\[
+1.87 \leq \tau_{\text{e=2}} \leq 2.01,
+\]
+suggesting a positive and statistically significant effect of the treatment in the randomized setting.
+
+These findings can be explained by the difference in treatment assignment mechanisms. For the first data source, if the treatment was assigned based on variables correlated with the outcome, the simple difference-in-means estimator is not unbiased. Due to non-random assignment, treated and control units differ systematically in ways that influence their outcomes, leading to a biased estimate of the treatment effect. Mathematically, ignoring the covariates, the conditional independence assumption does not hold, and we have
+\[
+E[Y(0)\mid T=1] \neq E[Y(0)\mid T=0],
+\]
+causing the observed difference in means 
+\[
+\widehat{\tau}_{\text{obs}} = E[Y\mid T=1] - E[Y\mid T=0]
+\]
+to deviate from the true average treatment effect.
+
+In contrast, for the fully randomized second data source, the assignment is independent of potential outcomes:
+\[
+T \perp (Y(0), Y(1)),
+\]
+ensuring that
+\[
+E[Y(0)\mid T=1] = E[Y(0)\mid T=0].
+\]
+Thus, the simple difference-in-means here recovers an unbiased estimate of the treatment effect, producing a positive and significant result. This once more illustrates the importance of randomization for obtaining unbiased treatment effect estimates or adjusting for observed confounders.
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3b}
+  \subsection{Linear Model with Interactions}
+
+  Use a linear model with interactions to obtain the CATEs in each data source, plot the distribution of the CATEs, obtain the ATE and its confidence interval. Compare your findings on the ATEs to the previous part.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
+Results for data source e=1:
+ATE: 1.362815 
+95% CI: 1.252676 to 1.472955 
+
+Results for data source e=2:
+ATE: 1.994436 
+95% CI: 1.958671 to 2.030201
+  \end{lstlisting}
+\end{figure}
+
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.6\textwidth]{q3b_histogram.png}
+  \caption{Distribution of Conditional Average Treatment Effects (CATEs) in Each Data Source}
+\end{figure}
+
+\begin{figure}
+  \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|c|c|c|}
+      \hline
+      \textbf{Estimate} & $e_1$ & $e_2$ \\ \hline
+      Mean     & 1.36    &  1.99    \\ \hline
+      Std      & 0.897   &  1.83    \\ \hline
+      Skewness & 0.00223 &  0.00222 \\ \hline
+      Kurtosis & 2.99    &  2.99    \\ \hline
+      Q10      & 0.217   & -0.346   \\ \hline
+      Q25      & 0.758   &  0.759   \\ \hline
+      Median   & 1.36    &  1.99    \\ \hline
+      Q75      & 1.97    &  3.23    \\ \hline
+      Q90      & 2.51    &  4.36    \\ \hline
+    \end{tabular}
+  \end{center}
+  \caption{Descriptive Statistics of Conditional Average Treatment Effects (CATEs)}
+\end{figure}
+
+The findings indicate that after incorporating covariates and allowing for treatment-covariate interactions, both data sources produce a positive average treatment effect estimate. For the first data source, the previously obtained raw difference-in-means estimate suggested a negative treatment effect. In contrast, the adjusted model now yields 
+\[
+\widehat{\tau}_{\text{e=1}} \approx 1.36,
+\]
+with a 95\% confidence interval 
+\[
+[1.25,\, 1.47].
+\]
+For the second data source, where the assignment was fully randomized, the estimate remains consistently positive and similar to the earlier unadjusted results:
+\[
+\widehat{\tau}_{\text{e=2}} \approx 1.99,
+\]
+with a 95\% confidence interval 
+\[
+[1.96,\, 2.03].
+\]
+
+The distribution of the conditional average treatment effects (CATEs) in each data source shows that, when controlling for pre-treatment variables, the CATEs are roughly symmetric with near-zero skewness and close-to-normal kurtosis. For the first data source, the mean CATE is around 1.36, while for the second it is around 1.99. This suggests that, within each data source, adjusting for covariates and including interactions reveals a more consistent and positive treatment effect across individuals.
+
+Comparing these results to the previous part, we see a clear difference for the first data source. Without adjusting for covariates, the estimate was negative, indicating that units selected for treatment may have been systematically different, likely with lower expected outcomes, violating the conditional independence assumption. Once we incorporate the covariates and their interactions, we effectively control for the selection mechanism:
+\[
+E[Y(0) \mid T=1,X] = E[Y(0) \mid T=0,X],
+\]
+which brings the adjusted estimate closer to what might be the true effect. Mathematically, we had previously
+\[
+\widehat{\tau}_{\text{e=1,unadjusted}} = E[Y \mid T=1] - E[Y \mid T=0] < 0,
+\]
+but after conditioning on \( X \) and modeling the interactions, the conditional expectation of the untreated potential outcome given treatment and \( X \) aligns with that of the controls, yielding
+\[
+\widehat{\tau}_{\text{e=1,adjusted}} = E_Y[T=1,X]-E_Y[T=0,X] > 0.
+\]
+
+For the second data source, where treatment is randomized and thus independent of \( X \),
+\[
+T \perp (Y(0), Y(1), X),
+\]
+the unadjusted difference-in-means already provided an unbiased estimate of the average treatment effect. The inclusion of covariates and interactions only slightly refines this estimate, reaffirming that the simple difference-in-means was appropriate and stable. Here, the adjusted ATE remains close to the previously estimated value, thus confirming
+\[
+\widehat{\tau}_{\text{e=2,adjusted}} \approx \widehat{\tau}_{\text{e=2,unadjusted}}.
+\]
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3c}
+  \subsection{Doubly Robust Estimation}
+
+  Combine the estimators of \( \mu_t(x) = \mathbb{E}[Y(t) \mid X = x] \) with a parametric logistic regression estimate of the propensity score \( p(x) = \mathbb{P}[T = 1 \mid X = x] \) to estimate the ATE and confidence interval in each data source using the doubly robust estimator. Compare your findings on the ATEs to the previous two parts.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+Here, we run the regression only adjusting by the probability and than running a proper double ML function with orthogonal score function.
+
+First, in both cases, we see a decrease in the standard error of the ATE when compared to (3.b). The decrease in uncertainty is specially visible when using Double Machine Learning method.
+
+The estimate for $e_1$ differs considerably between the first and second method (1.28 and 0.44). On the other hand, the estimate for $e_2$ is very similar between the two methods (1.99 and 1.99). Method 2 (DML) provides smaller standard errors for both data sources, which is expected given the bigger robustness of the method.
+
+\textbf{Estimator Using Logistic Regression}
+
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=Doubly Robust ATE Estimation]
+Results for data source e=1 (doubly robust, corrected):
+ATE: 1.281753 
+95% CI: 1.202279 to 1.361226 
+
+Results for data source e=2 (doubly robust, corrected):
+ATE: 1.994437 
+95% CI: 1.95078 to 2.038093 
+  \end{lstlisting}
+\end{figure}
+
+\textbf{Estimator Using Double Machine Learning}
+
+\begin{figure}[H]
+\begin{lstlisting}[style=RstyleComment, caption=Doubly Robust ATE Estimation]
+Results for data source e=1 (doubly robust, corrected):
+coef   std err         t         P>|t|     2.5 %    97.5 %
+d  0.445511  0.030286  14.71035  5.532050e-49  0.386152  0.504869
+
+Results for data source e=2 (doubly robust, corrected):
+coef   std err          t  P>|t|     2.5 %    97.5 %
+d  1.993791  0.022734  87.701211    0.0  1.949233  2.038348
+\end{lstlisting}
+\end{figure}
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3d}
+  \subsection{Flexible/Nonparametric Versions}
+
+  Replace your estimates of \( \mu_t(x) \) and \( p(x) \) with flexible/nonparametric/ML versions, and repeat the doubly robust estimation and inference. Try a few different nonparametric estimators for practice.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+In this question, we use \texttt{DoubleML} estimator to implement the doubly robust estimation with flexible/nonparametric/ML versions of the treatment effect and propensity score models. The following propensity score function is used:
+
+$$
+\psi(Y_i, T_i, X_i; \eta) = \left( \frac{T_i - g(X_i)}{\pi(X_i)(1 - \pi(X_i))} \right) (Y_i - m(X_i)) + \left( m_1(X_i) - m_0(X_i) \right) - \tau
+$$
+
+In which $m(X_i) = \mathbb{E}[Y_i \mid X_i]$, $\pi(X_i) = \mathbb{P}[T_i = 1 \mid X_i]$, and $g(X_i) = \mathbb{E}[T_i \mid X_i]$. Because the treatment is binary, $\pi(X_i) = g(X_i)$.
+
+We use the same flexible model for both the treatment effect and propensity score models in each of our tentatives. We test with grid search Random Forest, Gradient Boosting, DeepNN, LASSO.
+
+To avoid overfitting of the most complicated models, we use cross-fitting with 5 folds. The results are presented in the following tables:
+
+\textbf{Doubly Robust ATE Estimation for $e_1$ without Grid Search}
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} \\
+    \hline
+    RandomForest & 0.484574 & 0.031210 & 15.526405 & 2.299137e-54 & 0.423405 & 0.545744 \\ \hline
+    GradientBoosting & 0.521255 & 0.032215 & 16.180598 & 6.911977e-59 & 0.458116 & 0.584395 \\ \hline
+    DeepNN & 0.496879 & 0.032290 & 15.388224 & 1.963492e-53 & 0.433593 & 0.560166 \\ \hline
+    LASSO & 0.443827 & 0.027538 & 16.116643 & 1.949143e-58 & 0.389852 & 0.497801 \\ \hline
+  \end{tabular}
+  \caption{Doubly Robust ATE Estimation for $e_1$}
+\end{table}
+
+\textbf{Doubly Robust ATE Estimation for $e_2$ without Grid Search}
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} \\
+    \hline
+    RandomForest & 1.997878 & 0.022700 & 88.013960 & 0.000000e+00 & 1.953388 & 2.042369 \\ \hline
+    GradientBoosting & 1.996379 & 0.021839 & 91.415537 & 0.000000e+00 & 1.953576 & 2.039182 \\ \hline
+    DeepNN & 1.927452 & 0.022653 & 85.085649 & 0.000000e+00 & 1.883053 & 1.971852 \\ \hline
+    LASSO & 1.993349 & 0.022390 & 89.029704 & 0.000000e+00 & 1.949466 & 2.037232 \\ \hline
+  \end{tabular}
+  \caption{Doubly Robust ATE Estimation for $e_2$}
+\end{table}
+
+\textbf{Doubly Robust ATE Estimation for $e_1$ with Grid Search}
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{Data Source} \\
+    \hline
+    RandomForest & 0.502296 & 0.032106 & 15.644891 & 3.599873e-55 & 0.439369 & 0.565223 & e1 \\ \hline
+    GradientBoosting & 0.518262 & 0.032348 & 16.021308 & 9.072225e-58 & 0.454860 & 0.581663 & e1 \\ \hline
+    DeepNN & 0.500243 & 0.032388 & 15.445140 & 8.135033e-54 & 0.436763 & 0.563723 & e1 \\ \hline
+    LASSO & 0.443051 & 0.027604 & 16.050380 & 5.681481e-58 & 0.388948 & 0.497153 & e1 \\ \hline
+  \end{tabular}
+  \caption{Doubly Robust ATE Estimation for $e_1$}
+\end{table}
+
+\textbf{Doubly Robust ATE Estimation for $e_2$ with Grid Search}
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|l|c|c|c|c|c|c|c|}
+    \hline
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{Data Source} \\
+    \hline
+    RandomForest & 2.000420 & 0.021877 & 91.438273 & 0.000000e+00 & 1.957541 & 2.043299 & e2 \\ \hline
+    GradientBoosting & 1.990438 & 0.021741 & 91.550747 & 0.000000e+00 & 1.947826 & 2.033051 & e2 \\ \hline
+    DeepNN & 1.907454 & 0.021751 & 87.694617 & 0.000000e+00 & 1.864823 & 1.950085 & e2 \\ \hline
+    LASSO & 1.993790 & 0.022269 & 89.530360 & 0.000000e+00 & 1.950142 & 2.037437 & e2 \\ \hline
+  \end{tabular}
+  \caption{Doubly Robust ATE Estimation for $e_2$}
+\end{table}
+
+We see that the results differ from (3.b) for the observational data. The RCT maintains the ATE extremely similar, allowing us to validate our code.
+
+Among the RCT models, Gradient Boosting has the smallest standard error. The ATE estimates are all significant at 1\%.
+
+For the observational data, LASSO has the smallest standard error, with the most different coeffient, when compared to the others estimates with the observational data. The coefficient estimates are all significant at 1\%.
+
+
+\begin{figure}[H]
+  \begin{colorparagraph}{questioncolor}
+  \rule{\textwidth}{0.5pt}
+  \label{q3e}
+  \subsection{Combined Model for Both Datasets}
+
+  Propose and estimate a model (parametric or not) that combines and uses the two datasets as one. In other words, your model should have a single loss function, shared or common parameters, and appropriate assumptions as you deem fit. You must use data from both sources. Discuss your choice of specification and the properties of your proposed estimator.
+
+  \rule{\textwidth}{0.5pt}
+  \end{colorparagraph}
+\end{figure}
+
+Using Double Machine Learning (DML) to separately estimate the propensity score (for the observational data) and the outcome variable (for both datasets) can be a good approach.
+
+We propose this first approach and a second approach using $e$ as covariate and again DML.
+
+\textbf{First Approach}
+
+Given that we have two datasets, indexed by \( e \in \{1, 2\} \):
+\begin{itemize}
+    \item \( e = 1 \): Observational data with non-random treatment assignment.
+    \item \( e = 2 \): RCT data with randomized treatment assignment.
+\end{itemize}
+
+We should be able to retrieve the true ATE if the following assumptions hold:
+
+\begin{itemize}
+    \item \text{No Unmeasured Confounding (for \( e=1 \)):} \((Y(0), Y(1)) \perp T \mid X\).
+    \item \text{Randomization in \( e=2 \):} \( T \perp X \).
+    \item \text{Overlap:} There exists \( \epsilon > 0 \) such that \( \epsilon \leq P(T=1|X) \leq 1-\epsilon \).
+\end{itemize}
+
+
+Double Machine Learning for Observational Data (\( e=1 \)) involves:
+
+\begin{itemize}
+    \item Estimating the propensity score, \( \hat{p}(X) = P(T=1|X, e=1) \), using machine learning models.
+    \item Estimating the conditional outcome regression, \( \hat{\mu}(T, X) = E[Y | T, X] \), for both \( T=0 \) and \( T=1 \).
+    \item Constructing orthogonal score functions to estimate the treatment effect, ensuring robustness to regularization bias in the nuisance parameter estimation.
+\end{itemize}
+
+For both datasets, we define the conditional outcome model:
+\[
+\mu(T, X; \theta) = E[Y | T, X].
+\]
+Additionally, for the observational dataset (\( e=1 \)), we define a propensity model:
+\[
+p(X; \gamma) = P(T=1 | X, e=1).
+\]
+
+For the RCT dataset (\( e=2 \)), the treatment assignment is known:
+\[
+P(T=1 | X, e=2) = p_0,
+\]
+where \( p_0 \) is constant. We check that by looking at the empirical probability of treatment in the RCT dataset. To verify, we group the covariates by percentiles and check the percentage of observations with treatment in each group. For the RCT dataset, we see a constant percentage of treatment across all groups.
+
+\begin{table}[H]
+  \centering
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{|c|c|c|c|c|c|}
+    \hline
+    \textbf{e} & \textbf{P0-P24} & \textbf{P25-P49} & \textbf{P50-P74} & \textbf{P75-P100} & \textbf{x} \\
+    \hline
+    1 & 0.0326 & 0.101 & 0.109 & 0.219 & x1 \\ \hline
+    1 & 0.0146 & 0.0322 & 0.0758 & 0.339 & x2 \\ \hline
+    1 & 0.118 & 0.119 & 0.112 & 0.113 & x3 \\ \hline
+    1 & 0.119 & 0.112 & 0.117 & 0.113 & x4 \\ \hline
+    1 & 0.114 & 0.113 & 0.122 & 0.112 & x5 \\ \hline
+    2 & 0.508 & 0.507 & 0.508 & 0.500 & x1 \\ \hline
+    2 & 0.495 & 0.509 & 0.506 & 0.514 & x2 \\ \hline
+    2 & 0.512 & 0.504 & 0.504 & 0.504 & x3 \\ \hline
+    2 & 0.509 & 0.512 & 0.496 & 0.507 & x4 \\ \hline
+    2 & 0.506 & 0.500 & 0.511 & 0.507 & x5 \\ \hline
+  \end{tabular}
+  \caption{Data Table}
+\end{table}
+
+On observational data, the probability of treatment varies considerably in $x_1$ and $x_2$. For $x_3$, $x_4$, and $x_5$, the probability of treatment is relatively constant across percentiles. In the RCT data, the probability of treatment is constant across all covariates.
+
+The loss function incorporates contributions from both datasets:
+\[
+\mathcal{L}(\theta, \gamma) = \mathcal{L}_{\text{RCT}}(\theta) + \mathcal{L}_{\text{OBS}}(\theta, \gamma),
+\]
+where:
+\begin{itemize}
+    \item \( \mathcal{L}_{RCT}(\theta) = \sum_{i: e_i=2} (Y_i - \mu(T_i, X_i; \theta))^2 \), capturing the fit of the outcome model for the RCT.
+    \item \( \mathcal{L}_{Obs}(\theta, \gamma) \) is based on doubly-robust moment conditions for the observational data:
+    \[
+      \mathcal{L}_{\text{OBS}}(\theta, \gamma) = \sum_{i: e_i=1} \psi_i(\theta, \gamma),
+    \]
+    where:
+    \[
+    \psi_i(\theta, \gamma) = \frac{T_i - p(X_i; \gamma)}{p(X_i; \gamma)(1 - p(X_i; \gamma))} \cdot (Y_i - \mu(T_i, X_i; \theta)) + \mu(1, X_i; \theta) - \mu(0, X_i; \theta).
+    \]
+\end{itemize}
+
+The parameters \(\theta\) and \(\gamma\) can be estimated jointly by minimizing \(\mathcal{L}(\theta, \gamma)\), potentially using iterative or optimization-based algorithms. Machine learning methods (e.g., random forests, gradient boosting, or neural networks) can flexibly estimate \(\mu(T, X)\) and \(p(X)\), with sample splitting to ensure orthogonality and reduce overfitting bias.
+
+The estimator remains consistent for the treatment effect under the stated assumptions. The RCT data ensures unbiased identification of the treatment effect, while the observational data provides additional precision.
+
+For the observational component (\( e=1 \)), the estimator remains consistent if either the propensity model \( p(X; \gamma) \) or the outcome model \( \mu(T, X; \theta) \) is correctly specified.
+
+\textbf{Second Approach}
+
+Again, we propose the use of DML. In this scenario, we join the datasets and use $e$ as a covariate. Furthermore, we also use interaction between $e$ and $x$, to allow for different effects of the covariates on the probability and on the target variable for each dataset.
+
+In this situation, we propose a bigger level of regularization for the parameters of $x$ (the parameters for the features which multiply $e$ by $x$) that aim to estimate the propensity score for the RCT dataset, since we expect that the treatment assignment is roughly 50\%.
+
+In this scenario, we can use a single loss function and estimate the propensity score and the target variable simultaneously for both datasets. Here, $e$ becomes an important covariate, separating the two estimates.
+
+\textbf{Deep Neural Networks Estimation}
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
+coef   std err          t  P>|t|     2.5 %    97.5 %
+t  1.5903  0.018785  84.658239    0.0  1.553482  1.627117
+  \end{lstlisting}
+\end{figure}
+
+\textbf{Random Forest Estimation Estimation}
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
+coef   std err          t  P>|t|     2.5 %    97.5 %
+t  1.314469  0.020126  65.310582    0.0  1.275022  1.353917
+\end{lstlisting}
+\end{figure}
+
+
+
+\end{document}

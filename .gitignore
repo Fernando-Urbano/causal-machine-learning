@@ -18,3 +18,5 @@ hw3/q3j-plots/*
 hw3/q3j-results/*
 hw3/q1g-data/*
 hw3/q1g-plots/*
+*.png
+*.csv

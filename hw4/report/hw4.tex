@@ -69,7 +69,7 @@
 \newboolean{imagesbool:q3j}
 \newboolean{showplots}
 
-\setboolean{showplots}{false}
+\setboolean{showplots}{true}
 \setboolean{imagesbool:q2d}{true}
 \setboolean{imagesbool:q2m}{true}
 \setboolean{imagesbool:q3f}{true}
@@ -1569,9 +1569,9 @@ We use the same flexible model for both the treatment effect and propensity scor
 
 To avoid overfitting of the most complicated models, we use cross-fitting with 5 folds. The results are presented in the following tables:
 
-\textbf{Doubly Robust ATE Estimation for $e_1$ without Grid Search}
 
 \begin{table}[H]
+  \textbf{Doubly Robust ATE Estimation for $e_1$ without Grid Search}
   \centering
   \renewcommand{\arraystretch}{1.5}
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1586,9 +1586,9 @@ To avoid overfitting of the most complicated models, we use cross-fitting with 5
   \caption{Doubly Robust ATE Estimation for $e_1$}
 \end{table}
 
-\textbf{Doubly Robust ATE Estimation for $e_2$ without Grid Search}
 
 \begin{table}[H]
+  \textbf{Doubly Robust ATE Estimation for $e_2$ without Grid Search}
   \centering
   \renewcommand{\arraystretch}{1.5}
   \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -1603,36 +1603,36 @@ To avoid overfitting of the most complicated models, we use cross-fitting with 5
   \caption{Doubly Robust ATE Estimation for $e_2$}
 \end{table}
 
-\textbf{Doubly Robust ATE Estimation for $e_1$ with Grid Search}
 
 \begin{table}[H]
+  \textbf{Doubly Robust ATE Estimation for $e_1$ with Grid Search}
   \centering
   \renewcommand{\arraystretch}{1.5}
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
     \hline
-    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{Data Source} \\
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} \\
     \hline
-    RandomForest & 0.502296 & 0.032106 & 15.644891 & 3.599873e-55 & 0.439369 & 0.565223 & e1 \\ \hline
-    GradientBoosting & 0.518262 & 0.032348 & 16.021308 & 9.072225e-58 & 0.454860 & 0.581663 & e1 \\ \hline
-    DeepNN & 0.500243 & 0.032388 & 15.445140 & 8.135033e-54 & 0.436763 & 0.563723 & e1 \\ \hline
-    LASSO & 0.443051 & 0.027604 & 16.050380 & 5.681481e-58 & 0.388948 & 0.497153 & e1 \\ \hline
+    RandomForest & 0.502296 & 0.032106 & 15.644891 & 3.599873e-55 & 0.439369 & 0.565223 \\ \hline
+    GradientBoosting & 0.518262 & 0.032348 & 16.021308 & 9.072225e-58 & 0.454860 & 0.581663 \\ \hline
+    DeepNN & 0.500243 & 0.032388 & 15.445140 & 8.135033e-54 & 0.436763 & 0.563723 \\ \hline
+    LASSO & 0.443051 & 0.027604 & 16.050380 & 5.681481e-58 & 0.388948 & 0.497153 \\ \hline
   \end{tabular}
   \caption{Doubly Robust ATE Estimation for $e_1$}
 \end{table}
 
-\textbf{Doubly Robust ATE Estimation for $e_2$ with Grid Search}
 
 \begin{table}[H]
+  \textbf{Doubly Robust ATE Estimation for $e_2$ with Grid Search}
   \centering
   \renewcommand{\arraystretch}{1.5}
   \begin{tabular}{|l|c|c|c|c|c|c|c|}
     \hline
-    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} & \textbf{Data Source} \\
+    \textbf{Method} & \textbf{Coef} & \textbf{Std Err} & \textbf{t} & \textbf{p-value} & \textbf{2.5\%} & \textbf{97.5\%} \\
     \hline
-    RandomForest & 2.000420 & 0.021877 & 91.438273 & 0.000000e+00 & 1.957541 & 2.043299 & e2 \\ \hline
-    GradientBoosting & 1.990438 & 0.021741 & 91.550747 & 0.000000e+00 & 1.947826 & 2.033051 & e2 \\ \hline
-    DeepNN & 1.907454 & 0.021751 & 87.694617 & 0.000000e+00 & 1.864823 & 1.950085 & e2 \\ \hline
-    LASSO & 1.993790 & 0.022269 & 89.530360 & 0.000000e+00 & 1.950142 & 2.037437 & e2 \\ \hline
+    RandomForest & 2.000420 & 0.021877 & 91.438273 & 0.000000e+00 & 1.957541 & 2.043299 \\ \hline
+    GradientBoosting & 1.990438 & 0.021741 & 91.550747 & 0.000000e+00 & 1.947826 & 2.033051 \\ \hline
+    DeepNN & 1.907454 & 0.021751 & 87.694617 & 0.000000e+00 & 1.864823 & 1.950085 \\ \hline
+    LASSO & 1.993790 & 0.022269 & 89.530360 & 0.000000e+00 & 1.950142 & 2.037437 \\ \hline
   \end{tabular}
   \caption{Doubly Robust ATE Estimation for $e_2$}
 \end{table}
@@ -1754,16 +1754,16 @@ In this situation, we propose a bigger level of regularization for the parameter
 
 In this scenario, we can use a single loss function and estimate the propensity score and the target variable simultaneously for both datasets. Here, $e$ becomes an important covariate, separating the two estimates.
 
-\textbf{Deep Neural Networks Estimation}
 \begin{figure}[H]
+  \textbf{Deep Neural Networks Estimation}
   \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
 coef   std err          t  P>|t|     2.5 %    97.5 %
 t  1.5903  0.018785  84.658239    0.0  1.553482  1.627117
   \end{lstlisting}
 \end{figure}
 
-\textbf{Random Forest Estimation Estimation}
 \begin{figure}[H]
+  \textbf{Random Forest Estimation Estimation}
   \begin{lstlisting}[style=RstyleComment, caption=ATE and Confidence Interval Estimates Ignoring Covariates]
 coef   std err          t  P>|t|     2.5 %    97.5 %
 t  1.314469  0.020126  65.310582    0.0  1.275022  1.353917

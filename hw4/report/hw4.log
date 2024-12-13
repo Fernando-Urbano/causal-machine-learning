@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  13 DEC 2024 10:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.20)  13 DEC 2024 11:17
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -419,6 +419,12 @@ File: l3backend-pdftex.def 2024-02-20 L3 backend support: PDF output (pdfTeX)
 \l__pdf_internal_box=\box65
 ) (./hw4.aux
 
+LaTeX Warning: Label `tab:tab:simulation_results_part1' multiply defined.
+
+
+LaTeX Warning: Label `tab:tab:simulation_results_part2' multiply defined.
+
+
 LaTeX Warning: Label `tab:estimator_performance' multiply defined.
 
 )
@@ -574,7 +580,73 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `subscript' on input line 456.
 
-[6] [7] [8] [9] [10] [11] [12] [13] [14]
+[6] [7] [8] [9] [10] [11] (./q2a_simulations_summary_part1.tex) [12] (./q2a_simulations_summary_part2.tex) [13] (./q2a_simulations_summary_part3.tex) [14] (./q2a_simulations_summary_part4.tex) [15]
+<../q2a-plots/avg_error_across_n_div_d_by_penalty.png, id=186, 722.7pt x 433.62pt>
+File: ../q2a-plots/avg_error_across_n_div_d_by_penalty.png Graphic file (type png)
+<use ../q2a-plots/avg_error_across_n_div_d_by_penalty.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_across_n_div_d_by_penalty.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+ [16]
+<../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png, id=194, 722.7pt x 433.62pt>
+File: ../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png Graphic file (type png)
+<use ../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+<../q2a-plots/avg_error_by_sBeta_sTheta.png, id=195, 722.7pt x 433.62pt>
+File: ../q2a-plots/avg_error_by_sBeta_sTheta.png Graphic file (type png)
+<use ../q2a-plots/avg_error_by_sBeta_sTheta.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_by_sBeta_sTheta.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+<../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png, id=196, 722.7pt x 433.62pt>
+File: ../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png Graphic file (type png)
+<use ../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+ [17 <../q2a-plots/avg_error_across_n_div_d_by_penalty.png> <../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png> <../q2a-plots/avg_error_by_sBeta_sTheta.png>]
+<../q2a-plots/avg_error_of_estimators_by_penalty.png, id=207, 578.16pt x 361.35pt>
+File: ../q2a-plots/avg_error_of_estimators_by_penalty.png Graphic file (type png)
+<use ../q2a-plots/avg_error_of_estimators_by_penalty.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_of_estimators_by_penalty.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png, id=208, 578.16pt x 361.35pt>
+File: ../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png Graphic file (type png)
+<use ../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [18 <../q2a-plots/avg_error_by_sBeta_sTheta_filter2.png> <../q2a-plots/avg_error_of_estimators_by_penalty.png>]
+<../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png, id=217, 578.16pt x 361.35pt>
+File: ../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png Graphic file (type png)
+<use ../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png, id=218, 578.16pt x 361.35pt>
+File: ../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png Graphic file (type png)
+<use ../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png>
+Package pdftex.def Info: ../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [19 <../q2a-plots/avg_error_of_estimators_by_penalty_filter2.png> <../q2a-plots/avg_error_of_the_estimator_per_n_div_d.png>]
+<../q2a-plots/heatmap_avg_error_estimator_n_div_d.png, id=228, 722.7pt x 433.62pt>
+File: ../q2a-plots/heatmap_avg_error_estimator_n_div_d.png Graphic file (type png)
+<use ../q2a-plots/heatmap_avg_error_estimator_n_div_d.png>
+Package pdftex.def Info: ../q2a-plots/heatmap_avg_error_estimator_n_div_d.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+<../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png, id=229, 722.7pt x 433.62pt>
+File: ../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png Graphic file (type png)
+<use ../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png>
+Package pdftex.def Info: ../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 156.10307pt.
+ [20 <../q2a-plots/avg_error_of_the_estimator_per_n_div_d_filtering_2.png> <../q2a-plots/heatmap_avg_error_estimator_n_div_d.png>]
+<../q2a-plots/std_error_of_estimators_by_penalty.png, id=238, 578.16pt x 361.35pt>
+File: ../q2a-plots/std_error_of_estimators_by_penalty.png Graphic file (type png)
+<use ../q2a-plots/std_error_of_estimators_by_penalty.png>
+Package pdftex.def Info: ../q2a-plots/std_error_of_estimators_by_penalty.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2a-plots/std_error_of_estimators_by_penalty_filter2.png, id=239, 578.16pt x 361.35pt>
+File: ../q2a-plots/std_error_of_estimators_by_penalty_filter2.png Graphic file (type png)
+<use ../q2a-plots/std_error_of_estimators_by_penalty_filter2.png>
+Package pdftex.def Info: ../q2a-plots/std_error_of_estimators_by_penalty_filter2.png  used on input line 876.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [21 <../q2a-plots/heatmap_avg_error_estimator_n_div_d_filter2.png> <../q2a-plots/std_error_of_estimators_by_penalty.png>] [22 <../q2a-plots/std_error_of_estimators_by_penalty_filter2.png>] [23] [24]
 Overfull \hbox (25.00003pt too wide) in paragraph at lines 1018--1019
 [][] 
  []
@@ -584,12 +656,93 @@ Overfull \hbox (25.00003pt too wide) in paragraph at lines 1023--1024
 [][] 
  []
 
-[15]
+
 Overfull \hbox (21.6641pt too wide) in paragraph at lines 1039--1040
 []\OT1/cmr/m/n/10 Regularization tech-niques (e.g., LASSO, ridge) are em-ployed to han-dle high-dimensionality
  []
 
-[16] [17] [18] [19] [20]
+[25] (./q2b_simulations_summary_part1.tex
+Overfull \hbox (32.04015pt too wide) in alignment at lines 2--38
+ [] [] [] [] [] [] [] [] [] 
+ []
+
+) (./q2b_simulations_summary_part2.tex
+Overfull \hbox (24.64404pt too wide) in alignment at lines 2--38
+ [] [] [] [] [] [] [] [] [] 
+ []
+
+) [26]
+<../q2b-plots/avg_error_by_estimator_and_d.png, id=282, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_estimator_and_d.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_estimator_and_d.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_estimator_and_d.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2b-plots/avg_error_by_estimator_and_n.png, id=283, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_estimator_and_n.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_estimator_and_n.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_estimator_and_n.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [27 <../q2b-plots/avg_error_by_estimator_and_d.png>]
+<../q2b-plots/std_error_by_estimator_and_n.png, id=292, 578.16pt x 361.35pt>
+File: ../q2b-plots/std_error_by_estimator_and_n.png Graphic file (type png)
+<use ../q2b-plots/std_error_by_estimator_and_n.png>
+Package pdftex.def Info: ../q2b-plots/std_error_by_estimator_and_n.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+File: ../q2b-plots/avg_error_by_estimator_and_d.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_estimator_and_d.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_estimator_and_d.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [28 <../q2b-plots/avg_error_by_estimator_and_n.png> <../q2b-plots/std_error_by_estimator_and_n.png>]
+<../q2b-plots/std_error_by_estimator_and_d.png, id=301, 578.16pt x 361.35pt>
+File: ../q2b-plots/std_error_by_estimator_and_d.png Graphic file (type png)
+<use ../q2b-plots/std_error_by_estimator_and_d.png>
+Package pdftex.def Info: ../q2b-plots/std_error_by_estimator_and_d.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2b-plots/avg_error_by_method_and_n_dr_estimator.png, id=302, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_method_and_n_dr_estimator.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_method_and_n_dr_estimator.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_method_and_n_dr_estimator.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [29 <../q2b-plots/std_error_by_estimator_and_d.png>]
+<../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png, id=310, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2b-plots/avg_error_by_method_and_d_dr_estimator.png, id=311, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_method_and_d_dr_estimator.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_method_and_d_dr_estimator.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_method_and_d_dr_estimator.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [30 <../q2b-plots/avg_error_by_method_and_n_dr_estimator.png> <../q2b-plots/avg_error_by_method_and_n_plug_in_estimator.png>]
+<../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png, id=320, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2b-plots/avg_error_by_scenario_and_method.png, id=321, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_by_scenario_and_method.png Graphic file (type png)
+<use ../q2b-plots/avg_error_by_scenario_and_method.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_by_scenario_and_method.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [31 <../q2b-plots/avg_error_by_method_and_d_dr_estimator.png> <../q2b-plots/avg_error_by_method_and_d_plug_in_estimator.png>]
+<../q2b-plots/std_dev_by_scenario_and_method.png, id=331, 578.16pt x 361.35pt>
+File: ../q2b-plots/std_dev_by_scenario_and_method.png Graphic file (type png)
+<use ../q2b-plots/std_dev_by_scenario_and_method.png>
+Package pdftex.def Info: ../q2b-plots/std_dev_by_scenario_and_method.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+<../q2b-plots/avg_error_vs_n_div_d.png, id=332, 578.16pt x 361.35pt>
+File: ../q2b-plots/avg_error_vs_n_div_d.png Graphic file (type png)
+<use ../q2b-plots/avg_error_vs_n_div_d.png>
+Package pdftex.def Info: ../q2b-plots/avg_error_vs_n_div_d.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [32 <../q2b-plots/avg_error_by_scenario_and_method.png> <../q2b-plots/std_dev_by_scenario_and_method.png>]
+<../q2b-plots/std_dev_vs_n_div_d.png, id=342, 578.16pt x 361.35pt>
+File: ../q2b-plots/std_dev_vs_n_div_d.png Graphic file (type png)
+<use ../q2b-plots/std_dev_vs_n_div_d.png>
+Package pdftex.def Info: ../q2b-plots/std_dev_vs_n_div_d.png  used on input line 1154.
+(pdftex.def)             Requested size: 260.17464pt x 162.60599pt.
+ [33 <../q2b-plots/avg_error_vs_n_div_d.png> <../q2b-plots/std_dev_vs_n_div_d.png>] [34] [35] [36] [37]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 1351.
@@ -602,23 +755,13 @@ File: lstlang2.sty 2024/02/21 1.10 listings language file
 File: lstlang3.sty 2024/02/21 1.10 listings language file
 )
 Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 1360.
- [21]
-<q3b_histogram.png, id=230, 825.0825pt x 517.935pt>
+ [38]
+<q3b_histogram.png, id=389, 825.0825pt x 517.935pt>
 File: q3b_histogram.png Graphic file (type png)
 <use q3b_histogram.png>
 Package pdftex.def Info: q3b_histogram.png  used on input line 1437.
 (pdftex.def)             Requested size: 260.17464pt x 163.32425pt.
- [22] [23 <./q3b_histogram.png>] [24] [25]
-Overfull \hbox (54.9455pt too wide) in paragraph at lines 1611--1620
- [][] 
- []
-
-
-Overfull \hbox (59.38997pt too wide) in paragraph at lines 1628--1637
- [][] 
- []
-
-[26] [27] [28] [29] [30] (./hw4.aux)
+ [39] [40 <./q3b_histogram.png>] [41] [42] [43] [44] [45] [46] [47] (./hw4.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -631,18 +774,18 @@ Package rerunfilecheck Info: File `hw4.out' has not changed.
 (rerunfilecheck)             Checksum: 12864A5A592AAD3E7840789AAD60290A;4091.
  ) 
 Here is how much of TeX's memory you used:
- 15885 strings out of 474116
- 243059 string characters out of 5743682
- 2050187 words of memory out of 5000000
- 37895 multiletter control sequences out of 15000+600000
+ 16156 strings out of 474116
+ 255125 string characters out of 5743682
+ 2051187 words of memory out of 5000000
+ 38094 multiletter control sequences out of 15000+600000
  570019 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,12n,79p,908b,2018s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on hw4.pdf (30 pages, 380944 bytes).
+</usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on hw4.pdf (47 pages, 3153428 bytes).
 PDF statistics:
- 451 PDF objects out of 1000 (max. 8388607)
- 365 compressed objects within 4 object streams
- 135 named destinations out of 1000 (max. 500000)
- 158 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 626 PDF objects out of 1000 (max. 8388607)
+ 472 compressed objects within 5 object streams
+ 189 named destinations out of 1000 (max. 500000)
+ 278 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1734105140.60858 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" "hw4.pdf" "hw4" 1734105141.41862 0
-  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" 1734105139.43545 87119 1726081d9698357fdad21f26aecb59f5 ""
+["pdflatex"] 1734105858.07765 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" "hw4.pdf" "hw4" 1734105858.87297 0
+  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" 1734105856.9851 85739 8bc395ee88ca0a39eda8145d48fb0d7d ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -144,9 +144,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726838998.69877 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726838976 8221424 454b2c53fe337be275f410895c638726 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "hw4.aux" 1734105141.3363 7475 a08101cdf57de236556e34558eca2f55 "pdflatex"
-  "hw4.out" 1734105141.33714 4091 12864a5a592aad3e7840789aad60290a "pdflatex"
-  "hw4.tex" 1734105139.43545 87119 1726081d9698357fdad21f26aecb59f5 ""
+  "hw4.aux" 1734105858.78905 7475 e1b25d6248af716fc6f62aa1b6c79033 "pdflatex"
+  "hw4.out" 1734105858.7901 4091 12864a5a592aad3e7840789aad60290a "pdflatex"
+  "hw4.tex" 1734105856.9851 85739 8bc395ee88ca0a39eda8145d48fb0d7d ""
   "q3b_histogram.png" 1733947048.55748 30190 425c5d4c104f9a5f0d1aa99b3e04853f ""
   (generated)
   "hw4.aux"

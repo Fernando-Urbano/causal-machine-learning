@@ -1320,21 +1320,17 @@ Now, we provide the results without the filtering.
 \end{tabular}
 \end{table}
 
-The results presented in 
+Firstly, it is evident that the choice of propensity score model and outcome model significantly impacts the estimated ATT values. 
 
-The results presented in Table \ref{tab:att_estimates} reveal several noteworthy patterns regarding the performance of the plug-in estimator ($\hat{\tau}_{\text{PI}}$) and the doubly robust estimator ($\hat{\tau}_{\text{DR}}$) under various modeling scenarios.
+The impact of cross-fitting is further illustrated across different models. While cross-fitting generally aims to reduce overfitting and improve estimator stability, its effects are inconsistent. For instance, with the \texttt{LogisticRegression} propensity model and \texttt{RandomForestRegressor} outcome model, cross-fitting has a minimal effect on $\hat{\tau}_{\text{PI}}$ but slightly alters $\hat{\tau}_{\text{DR}}$. With the \texttt{NeuralNetworkClassifier} for propensity and \texttt{LassoRegression} for the outcome, cross-fitting changes $\hat{\tau}_{\text{DR}}$ from $-0.940$ to $-1.952$, demonstrating a more substantial impact. This is probably because the neural network and LASSO without proper tuning are more prone to overfitting and cross-fitting helps to mitigate this issue.
 
-Firstly, it is evident that the choice of propensity score model and outcome model significantly impacts the estimated ATT values. When using \texttt{LogisticRegression} for the propensity model combined with \texttt{LinearRegression} for the outcome model, both estimators yield $\hat{\tau}_{\text{PI}} \approx 0.896$ and $\hat{\tau}_{\text{DR}} \approx -1.10$. This relatively consistent result suggests that the models are appropriately specified under this combination.
+Another point of interest is the comparison between the two estimators. The plug-in estimator ($\hat{\tau}_{\text{PI}}$) consistently provides positive estimates across most scenarios, whereas the doubly robust estimator ($\hat{\tau}_{\text{DR}}$) often yields negative values.
 
-However, deviations become prominent with different model combinations. Notably, when the \texttt{RandomForestClassifier} is employed for the propensity model and paired with \texttt{LinearRegression} for the outcome model, especially with cross-fitting enabled, the estimates diverge drastically, with $\hat{\tau}_{\text{PI}} = -3.515$ and $\hat{\tau}_{\text{DR}} = -9.518$. Such extreme values indicate potential issues with model specification or instability introduced by cross-fitting in this context.
+This discrepancy suggests that $\hat{\tau}_{\text{DR}}$ may be more sensitive to model misspecification or that it captures different aspects of the treatment effect under varying model assumptions.
 
-The impact of cross-fitting is further illustrated across different models. While cross-fitting generally aims to reduce overfitting and improve estimator stability, its effects are inconsistent. For instance, with the \texttt{LogisticRegression} propensity model and \texttt{RandomForestRegressor} outcome model, cross-fitting has a minimal effect on $\hat{\tau}_{\text{PI}}$ but slightly alters $\hat{\tau}_{\text{DR}}$. Conversely, with the \texttt{NeuralNetworkClassifier} for propensity and \texttt{LassoRegression} for the outcome, cross-fitting changes $\hat{\tau}_{\text{DR}}$ from $-0.940$ to $-1.952$, demonstrating a more substantial impact.
+Ideally, we should aim to capture more covariates which my influence the result.
 
-Another point of interest is the comparison between the two estimators. The plug-in estimator ($\hat{\tau}_{\text{PI}}$) consistently provides positive estimates across most scenarios, whereas the doubly robust estimator ($\hat{\tau}_{\text{DR}}$) often yields negative values. This discrepancy suggests that $\hat{\tau}_{\text{DR}}$ may be more sensitive to model misspecification or that it captures different aspects of the treatment effect under varying model assumptions.
-
-The variability in estimates across different first-step estimators for the propensity score and the outcome model underscores the importance of model selection and the potential for bias when models are misspecified. The doubly robust estimator's reliance on both the propensity score and outcome models means that misspecification in either can lead to biased estimates, which is reflected in the diverse $\hat{\tau}_{\text{DR}}$ values observed.
-
-In summary, the divergent estimates between $\hat{\tau}_{\text{PI}}$ and $\hat{\tau}_{\text{DR}}$ highlight the sensitivity of ATT estimation to model choice and the presence or absence of cross-fitting. These findings emphasize the necessity for careful model specification and validation in causal inference analyses to ensure reliable and interpretable results.
+Furthermore, this problem is difficult in its nature: a lot of covariates are postreatment, meaning that $T$ might influence the covariates and the outcome. This is different from a situation in which the covariates define to the probability of treatment: in this case, the treatment helps define the covariates (the causal relationship is inverse)
 
 \begin{figure}[H]
   \begin{colorparagraph}{questioncolor}

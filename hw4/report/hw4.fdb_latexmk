@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1734110276.7047 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" "hw4.pdf" "hw4" 1734110284.5063 0
+["pdflatex"] 1734158051.03968 "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" "hw4.pdf" "hw4" 1734158058.55446 0
   "../q2a-plots/avg_error_across_n_div_d_by_penalty.png" 1734024124.56991 125756 9c1c4a2868c2b64bf4765bfbde6d5f84 ""
   "../q2a-plots/avg_error_across_n_div_d_by_penalty_filter2.png" 1734024125.48529 149449 f045d88b58276c66b588cdf3fccf691a ""
   "../q2a-plots/avg_error_by_sBeta_sTheta.png" 1734024122.88196 57980 d19128461bba6e5c31a1e69628f8db9e ""
@@ -24,7 +24,7 @@
   "../q2b-plots/std_dev_vs_n_div_d.png" 1734033028.31647 163682 6a9f3ecff2c114689b030c949b8ba119 ""
   "../q2b-plots/std_error_by_estimator_and_d.png" 1734033023.67969 111018 f01b071446c2d8ffc157de8904a33c7e ""
   "../q2b-plots/std_error_by_estimator_and_n.png" 1734033022.33251 88802 4011114f073d6469ead867eca110b52b ""
-  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" 1734110268.11573 85664 8d5fa9c712e92780176847cf1e9917a8 ""
+  "/Users/fernandorochacorreaurbano/Desktop/causal-machine-learning/hw4/report/hw4.tex" 1734158046.8783 87026 0e5e01800161004784db5f8e339925f7 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2024/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -169,9 +169,9 @@
   "/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1726838998.69877 5467645 128b85b7cde5f5edc5cb7f1dd7ff8736 ""
   "/usr/local/texlive/2024/texmf-var/web2c/pdftex/pdflatex.fmt" 1726838976 8221424 454b2c53fe337be275f410895c638726 ""
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
-  "hw4.aux" 1734110284.40783 14657 94655721d0ab713e9bff54d6c8bd333f "pdflatex"
-  "hw4.out" 1734110284.40907 4091 12864a5a592aad3e7840789aad60290a "pdflatex"
-  "hw4.tex" 1734110268.11573 85664 8d5fa9c712e92780176847cf1e9917a8 ""
+  "hw4.aux" 1734158058.44957 14657 872984c39e4f1ba27332336df93bb5cd "pdflatex"
+  "hw4.out" 1734158058.45061 4091 12864a5a592aad3e7840789aad60290a "pdflatex"
+  "hw4.tex" 1734158046.8783 87026 0e5e01800161004784db5f8e339925f7 ""
   "q2a_simulations_summary_part1.tex" 1734027291.96721 2740 d427c07c021a1e32588fbce934c855d6 ""
   "q2a_simulations_summary_part2.tex" 1734027291.97629 2829 2a642e049ff964a95a503dc065177154 ""
   "q2a_simulations_summary_part3.tex" 1734027291.98483 2760 c734acd12ec2ba55152513579f545d58 ""

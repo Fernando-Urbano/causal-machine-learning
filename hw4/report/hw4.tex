@@ -406,10 +406,11 @@ Thus, higher dimensionality or smoother approximations (larger \( p \)) both lea
   \sqrt{n / J^d} (\hat{\mu}_t(\mathbf{x}) - \mu_t(\mathbf{x})) \overset{d}{\to} \mathcal{N}(0, V).
   \]
   
-  \rule{\textwidth}{0.5pt}
-
+  
   (Don't worry about quantifying $V$). How does this range depend on the dimension and the polynomial order? Are there values of $p$ and $d$ such that this interval is empty?
-  \end{colorparagraph}
+  
+  \rule{\textwidth}{0.5pt}
+\end{colorparagraph}
 \end{figure}
 
 Substituting \( J = n^\gamma \), we have \( J^d = n^{\gamma d} \) and thus
@@ -875,7 +876,7 @@ In particular, for given \(p\) and \(d\), it may now be possible to select a \(\
 
 }{}
 
-We run 75 simulations for each combination of the instructed parameters (10800 in total). The process required 8 paralle processing running for 12 hours.
+We run 75 simulations for each combination of the instructed parameters (10800 in total). The process required 8 parallel processes running for 12 hours.
 
 \begin{colorparagraph}{questioncolor}
   \rule{\textwidth}{0.5pt}
@@ -1013,6 +1014,7 @@ When opting to not doing penalization in the first stage and instead utilize pla
         \end{itemize}
       \item Lower Sparsity Levels (\( s_\beta = s_\theta = d/10 \)): While reduced sparsity mitigates some of the negative impacts, the performance still lags behind penalized methods, particularly in very high-dimensional settings.
     \end{itemize}
+  \end{enumerate}
 
 \begin{colorparagraph}{questioncolor}
   \rule{\textwidth}{0.5pt}
@@ -1038,7 +1040,6 @@ When opting to not doing penalization in the first stage and instead utilize pla
           \item Robustness to model misspecification is crucial for reliable ATT estimation.
           \item Regularization techniques (e.g., LASSO, ridge) are employed to handle high-dimensionality effectively.
         \end{itemize}
-      \end{enumerate}
 \end{enumerate}
 
 \begin{figure}[H]
@@ -1172,7 +1173,7 @@ suffer from increased errors.
 
 The simulation results reinforce the theoretical expectations regarding the performance and robustness of the doubly robust estimator in ATT estimation.
 
-The results can still because, since we can still improve  hyperparameter tuning. We are more certain about the outstanding performance of the DR estimator. Regarding the use of RF and DNN, further gridsearch can improve performance, specially for DNN, specially with further regularization.
+The results can still be improved, since we can provide better hyperparameter tuning. We are more certain about the outstanding performance of the DR estimator. Regarding the use of RF and DNN, further gridsearch can improve performance, specially for DNN with more regularization.
 
 \begin{figure}[H]
   \begin{colorparagraph}{questioncolor}
@@ -1208,9 +1209,9 @@ We also highlight the fact that the Random Forest estimates are often unstable a
 
 Ideally, we should aim to capture more covariates which might influence the result.
 
-Furthermore, this problem is difficult in its nature: the covariates are postreatment, meaning that $T$ might influence the covariates and the outcome. This is different from a situation in which the covariates define to the probability of treatment: in this case, the treatment helps define the covariates (the causal relationship is inverse) and the covariates act as mediators: ideally, we should use a different orthogonal influence function to make estimation, since the covariates are post-treatment. The covariates acting as mediators lead to frontdoor path which should be closed through the use of frontdoor adjustment.
+Furthermore, this problem is difficult in its nature: the covariates are postreatment, meaning that $T$ might influence the covariates and the outcome. This is different from a situation in which the covariates define to the probability of treatment: in this case, the treatment probably helps define some of the covariates (the causal relationship is inverse) and the covariates act as mediators: ideally, we should use a different orthogonal score function to make estimation, since the covariates are post-treatment. The covariates acting as mediators lead to frontdoor path which should be closed through the use of frontdoor adjustment.
 
-To give a simple explanation: frontdoor adjustment is a method used to estimate the causal effect of treatment $T$ on outcome $Y$ when there is unmeasured confounding that cannot be addressed using backdoor adjustment. It leverages a mediator $M$ that lies on the causal path from $T$ to $Y$.
+To give a simple explanation, frontdoor adjustment is a method used to estimate the causal effect of treatment $T$ on outcome $Y$ when there is unmeasured confounding that cannot be addressed using backdoor adjustment. It leverages a mediator $M$ that lies on the causal path from $T$ to $Y$.
 
 The causal effect of $T$ on $Y$ can be expressed using the frontdoor adjustment formula:
 
@@ -1344,6 +1345,17 @@ Now, we provide the results without the filtering.
   \bottomrule
 \end{tabular}
 \end{table}
+
+\textbf{Extra: DML Estimation of ATE}
+
+As an extra, we also estimate the ATE using Double Machine Learning. We provide the result of the model with the smallest standard error, which in this case is a Random Forest.
+
+\begin{figure}[H]
+  \begin{lstlisting}[style=RstyleComment, caption=Double ML estimation of the ATE (not ATT)]
+  DoubleML-based Doubly Robust ATE estimate: 0.12342314601251633
+  Standard Error: 0.17182105633995212
+  \end{lstlisting}
+\end{figure}
 
 \begin{figure}[H]
   \begin{colorparagraph}{questioncolor}
@@ -1524,7 +1536,7 @@ the unadjusted difference-in-means already provided an unbiased estimate of the 
   \end{colorparagraph}
 \end{figure}
 
-Here, we run the regression only adjusting by the probability and than running a proper double ML function with orthogonal score function.
+Here, we run the regression only adjusting by the probability and than running a proper double ML model with orthogonal score function.
 
 First, in both cases, we see a decrease in the standard error of the ATE when compared to (3.b). The decrease in uncertainty is specially visible when using Double Machine Learning method.
 
